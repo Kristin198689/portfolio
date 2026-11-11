@@ -4,9 +4,29 @@
     "description": "Портфоліо Christina Volodina: Next.js, React, TypeScript, анімації та багатомовні сайти."
   },
   "sections": {
-    "hero": { "title": "Веброзробниця", "note": "Заглушка. Фінальний hero буде далі." },
-    "skills": { "title": "Навички", "note": "Секція-заглушка." },
-    "projects": { "title": "Проєкти", "note": "Секція-заглушка." },
-    "contact": { "title": "Контакти", "note": "Секція-заглушка." }
+    "skills": {
+      "title": "Навички",
+      "note": "Секція-заглушка."
+    },
+    "projects": {
+      "title": "Проєкти",
+      "note": "Секція-заглушка."
+    },
+    "contact": {
+      "title": "Контакти",
+      "note": "Секція-заглушка."
+    }
+  },
+  "header": {
+    "brand": "C. Volodina"
+  },
+  "hero": {
+    "kicker": "Портфоліо 2026",
+    "first": "Christina",
+    "last": "Volodina",
+    "role": "Веб",
+    "roleAccent": "розробниця",
+    "stack": "Next.js · React · TypeScript · Motion",
+    "scroll": "Гортайте"
   }
 }

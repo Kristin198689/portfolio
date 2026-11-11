@@ -7,18 +7,14 @@ export function Skeleton() {
   const t = useTranslations("sections");
   return (
     <>
-      {sections.map((id, i) => (
+      {sections.map((id, i) => id === "hero" ? null : (
         <section
           key={id}
           id={id}
-          className={`${styles.block} ${i === 0 ? styles.dark : ""}`}
+          className={`${styles.block} `}
         >
           <p className={styles.index}>{String(i + 1).padStart(2, "0")}</p>
-          {i === 0 ? (
-            <h1 className={styles.title}>{t(`${id}.title`)}</h1>
-          ) : (
-            <h2 className={styles.title}>{t(`${id}.title`)}</h2>
-          )}
+          <h2 className={styles.title}>{t(`${id}.title`)}</h2>
           <p className={styles.note}>{t(`${id}.note`)}</p>
         </section>
       ))}

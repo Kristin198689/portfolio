@@ -1,0 +1,106 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--header-h) + var(--space-8)) var(--gutter) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+  overflow: clip;
+  background: var(--color-field);
+  color: var(--color-on-field);
+}
+
+.glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 46vmax;
+  height: 46vmax;
+  margin: -23vmax 0 0 -23vmax;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--color-accent-pop), transparent);
+  opacity: 0.16;
+  pointer-events: none;
+  /* Starts on the right so touch devices see a static soft light */
+  transform: translate(70vw, 30svh);
+  will-change: transform;
+}
+
+.kicker {
+  position: relative;
+  font-size: var(--fs-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.titleWrap {
+  position: relative;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(3rem, 15.5vw, 22rem);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+}
+
+.line {
+  display: block;
+}
+
+/* Split-text structure: word is the mask, char moves inside it */
+.title :global(.w) {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.title :global(.c) {
+  display: inline-block;
+  will-change: transform;
+}
+
+.title :global(.srOnly) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.foot {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  align-items: end;
+}
+
+.role {
+  font-size: var(--fs-lead);
+  max-width: 28ch;
+}
+
+.role em {
+  color: var(--color-accent-pop);
+}
+
+.stack,
+.scroll {
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .foot {
+    grid-template-columns: 1fr auto auto;
+    gap: var(--space-8);
+  }
+}

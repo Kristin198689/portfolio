@@ -4,9 +4,29 @@
     "description": "Portfolio of Christina Volodina: Next.js, React, TypeScript, motion and multilingual websites."
   },
   "sections": {
-    "hero": { "title": "Web developer", "note": "Placeholder. Final hero comes next." },
-    "skills": { "title": "Skills", "note": "Placeholder section." },
-    "projects": { "title": "Projects", "note": "Placeholder section." },
-    "contact": { "title": "Contact", "note": "Placeholder section." }
+    "skills": {
+      "title": "Skills",
+      "note": "Placeholder section."
+    },
+    "projects": {
+      "title": "Projects",
+      "note": "Placeholder section."
+    },
+    "contact": {
+      "title": "Contact",
+      "note": "Placeholder section."
+    }
+  },
+  "header": {
+    "brand": "C. Volodina"
+  },
+  "hero": {
+    "kicker": "Portfolio 2026",
+    "first": "Christina",
+    "last": "Volodina",
+    "role": "Web",
+    "roleAccent": "developer",
+    "stack": "Next.js · React · TypeScript · Motion",
+    "scroll": "Scroll"
   }
 }

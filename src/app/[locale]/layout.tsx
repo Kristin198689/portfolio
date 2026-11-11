@@ -4,6 +4,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { fontAccent, fontMain } from "@/config/fonts";
 import { routing } from "@/i18n/routing";
+import { Header } from "@/components/Header";
+import { Motion } from "@/components/Motion";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -34,7 +36,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${fontMain.variable} ${fontAccent.variable}`}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Motion />
+          <Header />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,0 +1,26 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  /* Stays readable over both black and white sections */
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.header > * {
+  pointer-events: auto;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
