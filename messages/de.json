@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "title": "Christina Volodina — Webentwicklerin",
+    "description": "Portfolio von Christina Volodina: Next.js, React, TypeScript, Motion und mehrsprachige Websites."
+  },
+  "sections": {
+    "hero": { "title": "Webentwicklerin", "note": "Platzhalter. Der finale Hero folgt." },
+    "skills": { "title": "Skills", "note": "Platzhalter-Sektion." },
+    "projects": { "title": "Projekte", "note": "Platzhalter-Sektion." },
+    "contact": { "title": "Kontakt", "note": "Platzhalter-Sektion." }
+  }
+}

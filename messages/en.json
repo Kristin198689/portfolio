@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "title": "Christina Volodina — Web Developer",
+    "description": "Portfolio of Christina Volodina: Next.js, React, TypeScript, motion and multilingual websites."
+  },
+  "sections": {
+    "hero": { "title": "Web developer", "note": "Placeholder. Final hero comes next." },
+    "skills": { "title": "Skills", "note": "Placeholder section." },
+    "projects": { "title": "Projects", "note": "Placeholder section." },
+    "contact": { "title": "Contact", "note": "Placeholder section." }
+  }
+}

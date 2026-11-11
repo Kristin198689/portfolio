@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "title": "Christina Volodina — веброзробниця",
+    "description": "Портфоліо Christina Volodina: Next.js, React, TypeScript, анімації та багатомовні сайти."
+  },
+  "sections": {
+    "hero": { "title": "Веброзробниця", "note": "Заглушка. Фінальний hero буде далі." },
+    "skills": { "title": "Навички", "note": "Секція-заглушка." },
+    "projects": { "title": "Проєкти", "note": "Секція-заглушка." },
+    "contact": { "title": "Контакти", "note": "Секція-заглушка." }
+  }
+}
