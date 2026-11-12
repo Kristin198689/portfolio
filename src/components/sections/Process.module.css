@@ -78,10 +78,21 @@
   opacity: 0.08;
 }
 
+/* generated content: purely decorative, so it is not text for contrast checks */
+.big::before {
+  content: attr(data-n);
+}
+
 @media (min-width: 40rem) {
   .card {
     position: sticky;
-    top: calc(var(--header-h) + var(--space-4) + var(--i) * var(--space-6));
-    min-height: 30rem;
+    top: calc(var(--header-h) + var(--space-4) + var(--i) * var(--space-4));
+    min-height: 26rem;
+    /* room to read: the next card only arrives after this one has had its moment on screen */
+    margin-bottom: 55svh;
+  }
+
+  .card:last-child {
+    margin-bottom: 0;
   }
 }

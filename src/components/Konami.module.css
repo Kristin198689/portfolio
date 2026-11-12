@@ -1,0 +1,41 @@
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.toast {
+  position: fixed;
+  inset-inline: var(--gutter);
+  bottom: var(--space-8);
+  z-index: 131;
+  display: grid;
+  gap: 0.25rem;
+  max-width: 26rem;
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-6);
+  background: #fafaf7;
+  color: #0a0a0a;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 0.4);
+  animation: rise 400ms var(--ease-out);
+}
+
+.toast strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.toast span {
+  font-size: var(--fs-small);
+  line-height: 1.4;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}

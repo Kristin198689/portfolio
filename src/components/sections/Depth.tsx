@@ -8,7 +8,7 @@ import styles from "./Depth.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LAYERS = ["responsive", "performance", "motion", "a11y", "seo", "i18n", "security"] as const;
+const LAYERS = ["measure", "small", "ship", "seo", "own", "clarity", "care", "curiosity"] as const;
 // where each word flies past the camera (% of the stage)
 const SPOTS: Array<[number, number]> = [
   [50, 46],

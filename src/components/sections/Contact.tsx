@@ -57,6 +57,12 @@ export function Contact() {
             </a>
           </li>
           <li>
+            <span>{t("phone")}</span>
+            <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} data-scramble>
+              {siteConfig.phone}
+            </a>
+          </li>
+          <li>
             <span>{t("location")}</span>
             <span>{siteConfig.location}</span>
           </li>

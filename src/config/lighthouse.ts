@@ -2,9 +2,9 @@
 // Re-run after bigger changes: next build && next start, then
 // npx lighthouse http://localhost:3300/en --preset=desktop --output=json
 export const lighthouse = {
-  date: "2026-11-11",
+  date: "2026-11-12",
   device: "desktop",
-  scores: { performance: 97, accessibility: 97, bestPractices: 100, seo: 100 },
-  lcp: "0.9 s",
-  cls: "0.041",
+  scores: { performance: 94, accessibility: 100, bestPractices: 100, seo: 100 },
+  lcp: "1.1 s",
+  cls: "0.042",
 } as const;

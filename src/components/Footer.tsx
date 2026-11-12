@@ -45,6 +45,9 @@ export function Footer() {
             <li>
               <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             </li>
+            <li>
+              <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
+            </li>
             <li>{siteConfig.location}</li>
             <li>
               <a href={`/cv/profile-${locale}.pdf`} download data-scramble>

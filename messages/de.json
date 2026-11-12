@@ -16,7 +16,7 @@
     "sections": {
       "title": "Bereiche",
       "home": "Start",
-      "depth": "Ansatz",
+      "depth": "Wie ich arbeite",
       "skills": "Skills",
       "projects": "Projekte",
       "statement": "Statement",
@@ -47,7 +47,7 @@
       "kicker": "Rolle",
       "line1": "Web",
       "line2": "Entwicklerin",
-      "lead": "Design, Entwicklung, Deployment und SEO-Tracking: Ich begleite eine Website von der ersten Skizze bis zu messbaren Ergebnissen."
+      "lead": "Frontend mit Full-Stack-Rückgrat: Next.js, TypeScript, sichere APIs und Motion, die die Geschichte unterstützt."
     },
     "s3": {
       "kicker": "Mehrsprachig",
@@ -61,36 +61,40 @@
     "recruiters": "Für Recruiter →"
   },
   "depth": {
-    "kicker": "Ansatz",
+    "kicker": "Wie ich arbeite",
     "hint": "Weiter scrollen, durchfliegen",
     "layers": {
-      "performance": {
-        "w": "Performance",
-        "n": "Server Components zuerst. Kein unnötiges Client-JavaScript."
+      "measure": {
+        "w": "Messen",
+        "n": "Ich prüfe mit Zahlen, nicht mit Bauchgefühl: Lighthouse, Web Vitals, Tests."
       },
-      "motion": {
-        "w": "Motion",
-        "n": "GSAP, WebGL und CSS, abgestimmt auf das Frame-Budget."
+      "small": {
+        "w": "Kleine Schritte",
+        "n": "Jeder Schritt ist klein, geprüft und leicht rückgängig zu machen."
       },
-      "a11y": {
-        "w": "Barrierefreiheit",
-        "n": "Semantisches Markup, sichtbarer Fokus, reduzierte Bewegung wird respektiert."
+      "ship": {
+        "w": "Ausliefern",
+        "n": "Früh deployen, offen verbessern, main grün halten."
       },
       "seo": {
         "w": "SEO",
-        "n": "Metadaten, Schema.org, hreflang und antwortfähige Inhalte."
+        "n": "Von Anfang an eingebaut: Titel, Struktur, strukturierte Daten, hreflang."
       },
-      "i18n": {
-        "w": "Mehrsprachig",
-        "n": "Eine Codebasis, Deutsch, Englisch, Ukrainisch und Arabisch, RTL-fähig."
+      "own": {
+        "w": "Verantwortung",
+        "n": "Von der ersten Skizze bis zur Live-Seite antwortet eine Person für das Ergebnis."
       },
-      "security": {
-        "w": "Sicherheit",
-        "n": "Validierte Eingaben, sichere Header, keine Secrets im Client."
+      "clarity": {
+        "w": "Klarheit",
+        "n": "Klare Struktur, klare Worte, klare Commit-Nachrichten."
       },
-      "responsive": {
-        "w": "Fluides Layout",
-        "n": "Von 320px-Handys bis Ultrabreit, ohne kämpfende Breakpoints."
+      "care": {
+        "w": "Sorgfalt",
+        "n": "Die Details, die andere überspringen: Fokuszustände, Leerzustände, Fehlermeldungen."
+      },
+      "curiosity": {
+        "w": "Neugier",
+        "n": "Neue Werkzeuge bekommen erst ein kleines Experiment, dann einen Platz im Projekt."
       }
     }
   },
@@ -167,28 +171,7 @@
     "team": {
       "title": "Teamarbeit auf GitHub",
       "intro": "Ich arbeite so, wie Teams arbeiten: Branches, Pull Requests und Reviews statt nur Pushes auf main. Issues und Project Boards zur Planung.",
-      "steps": [
-        {
-          "t": "Branch",
-          "d": "Jede Änderung lebt auf einem eigenen, klar benannten Feature-Branch."
-        },
-        {
-          "t": "Commit",
-          "d": "Kleine, fokussierte Commits mit lesbaren Nachrichten."
-        },
-        {
-          "t": "Pull Request",
-          "d": "Ein PR mit Kontext: was sich ändert, warum, wie man testet, Screenshots."
-        },
-        {
-          "t": "Review",
-          "d": "Ich lese und kommentiere Pull Requests von Kolleginnen und Kollegen und reagiere auf Reviews zu meinen."
-        },
-        {
-          "t": "Merge",
-          "d": "Ich löse Merge-Konflikte, halte main stabil und räume Branches auf."
-        }
-      ]
+      "contrib": "{n} GitHub-Beiträge im letzten Jahr, private Arbeit eingeschlossen. Stand {date}."
     },
     "backend": {
       "title": "Backend in der Praxis: ServiceOS",
@@ -220,6 +203,22 @@
         "Session hinter einer Funktion",
         "Geprüft: kein Provider-SDK im Kern"
       ]
+    },
+    "pr": {
+      "title": "Fix: Name vom vertikalen Label freihalten",
+      "body": "Der Hero-Name überlappte auf schmalen Bildschirmen das vertikale Label. Prüfen Sie es: Klick auf eine Zeile zum Kommentieren.",
+      "diffLabel": "Geänderte Zeilen",
+      "comment": "Kommentieren",
+      "placeholder": "Review-Kommentar schreiben",
+      "changes": "Änderungen anfordern",
+      "approve": "Freigeben und mergen",
+      "reset": "Zurücksetzen",
+      "note": "Kommentare bleiben in Ihrem Browser. Es wird nichts gesendet.",
+      "state": {
+        "open": "Wartet auf Review",
+        "changes": "Änderungen angefordert",
+        "merged": "Freigegeben und gemergt"
+      }
     }
   },
   "projects": {
@@ -389,7 +388,8 @@
     "languages": "Kommunikation",
     "languagesValue": "Deutsch B1 · Українська · Русский",
     "topic": "Thema",
-    "cv": "Profil als PDF"
+    "cv": "Profil als PDF",
+    "phone": "Telefon"
   },
   "footer": {
     "invite1": "Lass uns etwas",
@@ -508,8 +508,8 @@
       "l4": "edit → build ✓ → lint ✓ → Browser-Check ✓",
       "l5": "commit? warte auf Freigabe…"
     },
-    "langTitle": "Sprachen und KI",
-    "langText": "Ich spreche Deutsch (B1), Ukrainisch und Russisch. Für englische und arabische Texte, Übersetzungen und Dokumentation nutze ich Claude und GPT und prüfe das Ergebnis selbst. Das funktioniert gut, die Seiten hier sind der Beweis.",
+    "langTitle": "KI für Sprache",
+    "langText": "Für englische und arabische Texte, Übersetzungen und Dokumentation nutze ich Claude und GPT und prüfe das Ergebnis selbst. Das funktioniert gut, die Seiten hier sind der Beweis.",
     "toolsTitle": "Werkzeuge",
     "commits": {
       "title": "Öffentlich gebaut",
@@ -519,6 +519,15 @@
       "note": "Live aus dem öffentlichen GitHub-Repository dieser Seite.",
       "load": "Letzte Commits laden",
       "privacy": "Lädt Daten von github.com erst nach deinem Klick."
+    },
+    "quality": {
+      "title": "Qualitäts-Check",
+      "lint": "keine Warnungen",
+      "types": "keine Fehler",
+      "build": "Production-Build läuft durch",
+      "e2e": "{passed} von {total} Tests bestanden",
+      "ci": "läuft bei jedem Pull Request",
+      "note": "Echte Zahlen vom letzten lokalen Lauf am {date}, {seconds} s. Die Tests prüfen Sprachen, SEO-Head, Layout-Überlauf, Palette, Theme, Formulare und 404."
     }
   },
   "palette": {
@@ -838,5 +847,9 @@
     "theme": "Design",
     "motion": "Bewegung",
     "close": "Schließen (Alt+Shift+D)"
+  },
+  "konami": {
+    "title": "Gefunden",
+    "text": "Der Konami-Code. Solche Details mag ich."
   }
 }

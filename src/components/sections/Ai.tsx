@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { BrandIcon } from "../ui/BrandIcon";
 import { Commits } from "./Commits";
+import { QualityGate } from "./QualityGate";
 import styles from "./Ai.module.css";
 
 const STEPS = ["s1", "s2", "s3", "s4"] as const;
@@ -53,6 +54,8 @@ export function Ai() {
             </li>
           ))}
         </ol>
+
+        <QualityGate />
       </div>
 
       <div className={styles.right}>

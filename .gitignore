@@ -43,3 +43,8 @@ next-env.d.ts
 # local tooling
 /.claude/
 /.taste-skill/
+
+# playwright
+/e2e/.last-run.json
+/test-results/
+/playwright-report/

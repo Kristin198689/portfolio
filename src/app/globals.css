@@ -245,3 +245,20 @@ html[lang="ar"] .w {
   padding: 0.2em 0.05em 0.28em;
   margin: -0.2em -0.05em -0.28em;
 }
+
+/* Konami easter egg: the page spins through the colour wheel for a moment */
+html.party body {
+  animation: party 2.6s linear;
+}
+
+@keyframes party {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.party body {
+    animation: none;
+  }
+}

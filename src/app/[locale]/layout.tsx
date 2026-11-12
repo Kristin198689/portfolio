@@ -6,6 +6,7 @@ import { fontAccent, fontArabic, fontMain } from "@/config/fonts";
 import { routing } from "@/i18n/routing";
 import Script from "next/script";
 import { Footer } from "@/components/Footer";
+import { Konami } from "@/components/Konami";
 import { DevView } from "@/components/DevView";
 import { CommandPalette } from "@/components/CommandPalette";
 import { Header } from "@/components/Header";
@@ -68,6 +69,7 @@ export default async function LocaleLayout({
           <Header />
           <CommandPalette />
           <DevView />
+          <Konami />
           <ScrollProgress />
           <SideNav />
           {children}

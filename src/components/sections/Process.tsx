@@ -23,13 +23,13 @@ export function Process() {
       const cards = gsap.utils.toArray<HTMLElement>("[data-card]", ol);
       cards.slice(0, -1).forEach((card, i) => {
         gsap.to(card, {
-          scale: 0.92,
-          filter: "brightness(0.55)",
+          scale: 0.96,
+          filter: "brightness(0.8)",
           ease: "none",
           scrollTrigger: {
             trigger: cards[i + 1],
-            start: "top 85%",
-            end: "top 20%",
+            start: "top 55%",
+            end: "top 10%",
             scrub: true,
           },
         });
@@ -57,9 +57,7 @@ export function Process() {
             <span className={styles.label}>{t(`steps.${s}.label`)}</span>
             <h3 className={styles.stepTitle}>{t(`steps.${s}.title`)}</h3>
             <p className={styles.text}>{t(`steps.${s}.text`)}</p>
-            <span className={styles.big} aria-hidden="true">
-              {String(i + 1).padStart(2, "0")}
-            </span>
+            <span className={styles.big} data-n={String(i + 1).padStart(2, "0")} aria-hidden="true" />
           </li>
         ))}
       </ol>

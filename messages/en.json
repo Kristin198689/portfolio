@@ -16,7 +16,7 @@
     "sections": {
       "title": "Sections",
       "home": "Home",
-      "depth": "Approach",
+      "depth": "How I work",
       "skills": "Skills",
       "projects": "Projects",
       "statement": "Statement",
@@ -47,7 +47,7 @@
       "kicker": "Role",
       "line1": "Web",
       "line2": "developer",
-      "lead": "Design, development, deployment and SEO tracking: I carry a website from the first sketch to measurable results."
+      "lead": "Frontend with a full-stack backbone: Next.js, TypeScript, secure APIs and motion that serves the story."
     },
     "s3": {
       "kicker": "Multilingual",
@@ -61,36 +61,40 @@
     "recruiters": "For recruiters →"
   },
   "depth": {
-    "kicker": "Approach",
+    "kicker": "How I work",
     "hint": "Keep scrolling, fly through",
     "layers": {
-      "performance": {
-        "w": "Performance",
-        "n": "Server Components first. No needless client JavaScript."
+      "measure": {
+        "w": "Measure",
+        "n": "I check with numbers, not with feelings: Lighthouse, Web Vitals, tests."
       },
-      "motion": {
-        "w": "Motion",
-        "n": "GSAP, WebGL and CSS, tuned to the frame budget."
+      "small": {
+        "w": "Small steps",
+        "n": "Every step is small, verified and easy to undo."
       },
-      "a11y": {
-        "w": "Accessibility",
-        "n": "Semantic markup, visible focus, reduced motion respected."
+      "ship": {
+        "w": "Ship",
+        "n": "Deploy early, improve in the open, keep main green."
       },
       "seo": {
         "w": "SEO",
-        "n": "Metadata, Schema.org, hreflang and answer-ready content."
+        "n": "Built in from the first commit: titles, structure, structured data, hreflang."
       },
-      "i18n": {
-        "w": "Multilingual",
-        "n": "One codebase, German, English, Ukrainian and Arabic, RTL-ready."
+      "own": {
+        "w": "Own it",
+        "n": "From the first sketch to the live site, one person answers for the result."
       },
-      "security": {
-        "w": "Security",
-        "n": "Validated input, safe headers, no secrets in the client."
+      "clarity": {
+        "w": "Clarity",
+        "n": "Clear structure, clear words, clear commit messages."
       },
-      "responsive": {
-        "w": "Fluid layout",
-        "n": "From 320px phones to ultra-wide screens, no breakpoints fighting each other."
+      "care": {
+        "w": "Care",
+        "n": "The details others skip: focus states, empty states, error messages."
+      },
+      "curiosity": {
+        "w": "Curiosity",
+        "n": "New tools get a small experiment first, then a place in a project."
       }
     }
   },
@@ -167,28 +171,7 @@
     "team": {
       "title": "Team workflow on GitHub",
       "intro": "I work the way teams do: branches, pull requests and reviews, not just pushes to main. Issues and project boards for planning.",
-      "steps": [
-        {
-          "t": "Branch",
-          "d": "Every change lives on its own, clearly named feature branch."
-        },
-        {
-          "t": "Commit",
-          "d": "Small, focused commits with readable messages."
-        },
-        {
-          "t": "Pull request",
-          "d": "A PR with context: what changed, why, how to test it, screenshots."
-        },
-        {
-          "t": "Review",
-          "d": "I read and comment on teammates' pull requests, and respond to review on mine."
-        },
-        {
-          "t": "Merge",
-          "d": "I resolve merge conflicts, keep main stable and clean up branches."
-        }
-      ]
+      "contrib": "{n} GitHub contributions in the last year, private work included. Status {date}."
     },
     "backend": {
       "title": "Backend in practice: ServiceOS",
@@ -220,6 +203,22 @@
         "Session behind one function",
         "Audited: no provider SDK in the core"
       ]
+    },
+    "pr": {
+      "title": "Fix: keep the name clear of the vertical label",
+      "body": "The hero name overlapped the vertical label on narrow screens. Review it: click a line to comment.",
+      "diffLabel": "Changed lines",
+      "comment": "Comment",
+      "placeholder": "Leave a review comment",
+      "changes": "Request changes",
+      "approve": "Approve and merge",
+      "reset": "Reset",
+      "note": "Comments stay in your browser. Nothing is sent.",
+      "state": {
+        "open": "Waiting for review",
+        "changes": "Changes requested",
+        "merged": "Approved and merged"
+      }
     }
   },
   "projects": {
@@ -389,7 +388,8 @@
     "languages": "Communication",
     "languagesValue": "Deutsch B1 · Українська · Русский",
     "topic": "Topic",
-    "cv": "Profile as PDF"
+    "cv": "Profile as PDF",
+    "phone": "Phone"
   },
   "footer": {
     "invite1": "Let's build",
@@ -508,8 +508,8 @@
       "l4": "edit → build ✓ → lint ✓ → browser check ✓",
       "l5": "commit? waiting for approval…"
     },
-    "langTitle": "Languages and AI",
-    "langText": "I speak German (B1), Ukrainian and Russian. For English and Arabic copy, translations and documentation I use Claude and GPT, then check the result myself. It works well, and the sites you see here are proof.",
+    "langTitle": "AI for language",
+    "langText": "For English and Arabic copy, translations and documentation I use Claude and GPT, then check the result myself. It works well, and the sites you see here are proof.",
     "toolsTitle": "Tools",
     "commits": {
       "title": "Built in public",
@@ -519,6 +519,15 @@
       "note": "Live from the public GitHub repository of this site.",
       "load": "Load latest commits",
       "privacy": "Loads data from github.com only when you click."
+    },
+    "quality": {
+      "title": "Quality gate",
+      "lint": "no warnings",
+      "types": "no errors",
+      "build": "production build passes",
+      "e2e": "{passed} of {total} tests pass",
+      "ci": "runs on every pull request",
+      "note": "Real numbers from the last local run on {date}, {seconds} s. Tests cover languages, SEO head, layout overflow, palette, theme, forms and 404."
     }
   },
   "palette": {
@@ -838,5 +847,9 @@
     "theme": "Theme",
     "motion": "Motion",
     "close": "Close (Alt+Shift+D)"
+  },
+  "konami": {
+    "title": "You found it",
+    "text": "The Konami code. I like details like this one."
   }
 }

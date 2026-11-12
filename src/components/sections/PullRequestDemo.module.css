@@ -1,0 +1,162 @@
+.pr {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 30%, transparent);
+  direction: ltr;
+}
+
+.head {
+  display: grid;
+  gap: var(--space-2);
+  direction: var(--text-dir);
+}
+
+.head h4 {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.5rem);
+  line-height: 1.1;
+}
+
+.head p {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  opacity: 0.8;
+}
+
+.badge {
+  justify-self: start;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pr[data-state="merged"] .badge {
+  background: var(--color-on-field);
+  color: var(--color-field);
+}
+
+.diff {
+  display: grid;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  overflow-x: auto;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.9rem 2rem 1fr;
+  align-items: center;
+}
+
+.row[data-kind="add"] {
+  background: color-mix(in srgb, var(--color-on-field) 14%, transparent);
+}
+
+.row[data-kind="del"] {
+  background: color-mix(in srgb, var(--color-on-field) 6%, transparent);
+  opacity: 0.7;
+}
+
+.plus {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.row:hover .plus,
+.plus:focus-visible {
+  opacity: 1;
+  border-color: currentColor;
+}
+
+.num {
+  opacity: 0.8;
+  text-align: right;
+  padding-right: var(--space-2);
+}
+
+.code {
+  white-space: pre;
+}
+
+.bubble,
+.form {
+  grid-column: 3;
+  margin: 0.2rem 0 0.3rem;
+}
+
+.bubble {
+  padding: 0.35rem 0.6rem;
+  border-left: 3px solid currentColor;
+  background: color-mix(in srgb, var(--color-on-field) 12%, transparent);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  direction: var(--text-dir);
+}
+
+.form {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+}
+
+.form button,
+.actions button {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  direction: var(--text-dir);
+}
+
+.approve {
+  background: var(--color-on-field) !important;
+  color: var(--color-field) !important;
+}
+
+.actions button:disabled,
+.plus:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.reset {
+  margin-inline-start: auto;
+  border-color: transparent !important;
+  text-decoration: underline;
+}
+
+.note {
+  font-size: 0.72rem;
+  opacity: 0.6;
+  direction: var(--text-dir);
+}

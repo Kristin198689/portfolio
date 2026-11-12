@@ -1,6 +1,6 @@
 .outer {
   position: relative;
-  height: 840svh;
+  height: 920svh;
   background: var(--color-field);
   color: var(--color-on-field);
 }

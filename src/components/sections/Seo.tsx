@@ -118,15 +118,6 @@ export function Seo() {
           </li>
         ))}
       </ul>
-      <p className={styles.tools}>
-        <span>{t("toolsTitle")}</span>
-        <span className={styles.tool}>
-          <BrandIcon name="googlesearchconsole" /> Search Console
-        </span>
-        <span className={styles.tool}>
-          <BrandIcon name="lighthouse" /> Lighthouse
-        </span>
-      </p>
 
       <h3 className={styles.h}>
         <BrandIcon name="lighthouse" size={16} /> {t("lhTitle")}
