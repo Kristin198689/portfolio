@@ -1,32 +1,842 @@
 {
   "meta": {
     "title": "Christina Volodina — Web Developer",
-    "description": "Portfolio of Christina Volodina: Next.js, React, TypeScript, motion and multilingual websites."
+    "description": "Portfolio of Christina Volodina: Next.js, React, TypeScript, motion and multilingual websites.",
+    "jobTitle": "Web developer"
   },
-  "sections": {
-    "skills": {
-      "title": "Skills",
-      "note": "Placeholder section."
+  "nav": {
+    "skills": "Skills",
+    "projects": "Projects",
+    "process": "Process",
+    "contact": "Contact",
+    "contactCta": "Get in touch",
+    "contactLabel": "Write",
+    "menu": "Menu",
+    "close": "Close",
+    "sections": {
+      "title": "Sections",
+      "home": "Home",
+      "depth": "Approach",
+      "skills": "Skills",
+      "projects": "Projects",
+      "statement": "Statement",
+      "water": "Water",
+      "process": "Process",
+      "contact": "Contact",
+      "seo": "SEO",
+      "ai": "AI workflow"
     },
-    "projects": {
-      "title": "Projects",
-      "note": "Placeholder section."
-    },
-    "contact": {
-      "title": "Contact",
-      "note": "Placeholder section."
-    }
-  },
-  "header": {
-    "brand": "C. Volodina"
+    "seo": "SEO",
+    "ai": "AI",
+    "main": "Main navigation",
+    "mobile": "Mobile navigation",
+    "drag": "Drag",
+    "theme": "Theme",
+    "palette": "Search",
+    "themeToLight": "Switch to light",
+    "themeToDark": "Switch to dark"
   },
   "hero": {
-    "kicker": "Portfolio 2026",
-    "first": "Christina",
-    "last": "Volodina",
-    "role": "Web",
-    "roleAccent": "developer",
-    "stack": "Next.js · React · TypeScript · Motion",
-    "scroll": "Scroll"
+    "a": "Next.js",
+    "b": "React",
+    "c": "TypeScript",
+    "line1": "Christina",
+    "line2": "Volodina",
+    "lead": "Web developer. Fast, search-friendly, multilingual websites with motion that feels alive.",
+    "s2": {
+      "kicker": "Role",
+      "line1": "Web",
+      "line2": "developer",
+      "lead": "Design, development, deployment and SEO tracking: I carry a website from the first sketch to measurable results."
+    },
+    "s3": {
+      "kicker": "Multilingual",
+      "line1": "DE EN",
+      "line2": "UK AR",
+      "lead": "Sites in German, English, Ukrainian and Arabic, and in any other language: the setup (locale routing, hreflang, RTL support) scales to as many languages as a project needs. I speak German (B1), Ukrainian and Russian. English and Arabic copy is written with AI tools such as Claude and GPT."
+    },
+    "progress": "Scene",
+    "hint": "Scroll",
+    "status": "Open to jobs and freelance",
+    "recruiters": "For recruiters →"
+  },
+  "depth": {
+    "kicker": "Approach",
+    "hint": "Keep scrolling, fly through",
+    "layers": {
+      "performance": {
+        "w": "Performance",
+        "n": "Server Components first. No needless client JavaScript."
+      },
+      "motion": {
+        "w": "Motion",
+        "n": "GSAP, WebGL and CSS, tuned to the frame budget."
+      },
+      "a11y": {
+        "w": "Accessibility",
+        "n": "Semantic markup, visible focus, reduced motion respected."
+      },
+      "seo": {
+        "w": "SEO",
+        "n": "Metadata, Schema.org, hreflang and answer-ready content."
+      },
+      "i18n": {
+        "w": "Multilingual",
+        "n": "One codebase, German, English, Ukrainian and Arabic, RTL-ready."
+      },
+      "security": {
+        "w": "Security",
+        "n": "Validated input, safe headers, no secrets in the client."
+      },
+      "responsive": {
+        "w": "Fluid layout",
+        "n": "From 320px phones to ultra-wide screens, no breakpoints fighting each other."
+      }
+    }
+  },
+  "skills": {
+    "kicker": "Skills",
+    "title": "What I do",
+    "intro": "Eight skills employers ask for. Hover a tile to see it work.",
+    "tapHint": "Tap a tile to see it work",
+    "tiles": {
+      "responsive": {
+        "t": "Fluid layout",
+        "d": "Mobile-first, fluid type and spacing with clamp(), CSS Grid and Flexbox, container-aware components."
+      },
+      "frontend": {
+        "t": "Frontend",
+        "d": "Next.js App Router, React, TypeScript strict, CSS Modules. Server Components first."
+      },
+      "motion": {
+        "t": "Motion & WebGL",
+        "d": "GSAP, ScrollTrigger, Lenis, WebGL shaders, CSS 3D. Animation that serves the page."
+      },
+      "seo": {
+        "t": "SEO & GEO",
+        "d": "Technical and on-page SEO, Schema.org, hreflang, sitemaps, Core Web Vitals, AI-search readiness."
+      },
+      "i18n": {
+        "t": "Multilingual sites",
+        "d": "Any language: DE, EN, UK and AR today, more on request. next-intl, locale routing, hreflang and full RTL layouts."
+      },
+      "a11y": {
+        "t": "Accessibility",
+        "d": "Semantic HTML, keyboard and focus states, reduced motion, readable contrast."
+      },
+      "security": {
+        "t": "Backend & security",
+        "d": "Service layers and repositories, zod validation, session and secrets handling, security headers, GDPR-minded data. Example: the ServiceOS SaaS."
+      },
+      "ai": {
+        "t": "AI-assisted dev",
+        "d": "Claude Code and GPT as a pair-programmer: rules, skills, MCP, small verified steps."
+      }
+    },
+    "demo": {
+      "backendOk": "200 OK",
+      "rate": "rate limit: on",
+      "serpUrl": "example.com › page",
+      "serpTitle": "Your page title, clear and unique",
+      "serpDesc": "A short description that earns the click.",
+      "sec1": "X-Frame-Options",
+      "sec2": "Content-Security-Policy",
+      "sec3": "Referrer-Policy",
+      "fluid": "fluid",
+      "tab": "Tab",
+      "focus": "focus-visible",
+      "reduced": "prefers-reduced-motion"
+    },
+    "toolsTitle": "Tools I work with",
+    "logoNote": "Logos are trademarks of their owners, shown only to name the tools I use.",
+    "lab": {
+      "title": "Fluid layout, live",
+      "hint": "Drag the handle or use the slider. Navigation, type and cards reflow by the width of their container.",
+      "phone": "phone",
+      "tablet": "tablet",
+      "desktop": "desktop",
+      "navA": "Work",
+      "navB": "About",
+      "navC": "Contact",
+      "heading": "Fluid by default",
+      "text": "Type scales with clamp() and container units, the grid reorganises on its own.",
+      "card": "Card",
+      "handle": "Resize the preview",
+      "slider": "Preview width"
+    },
+    "team": {
+      "title": "Team workflow on GitHub",
+      "intro": "I work the way teams do: branches, pull requests and reviews, not just pushes to main. Issues and project boards for planning.",
+      "steps": [
+        {
+          "t": "Branch",
+          "d": "Every change lives on its own, clearly named feature branch."
+        },
+        {
+          "t": "Commit",
+          "d": "Small, focused commits with readable messages."
+        },
+        {
+          "t": "Pull request",
+          "d": "A PR with context: what changed, why, how to test it, screenshots."
+        },
+        {
+          "t": "Review",
+          "d": "I read and comment on teammates' pull requests, and respond to review on mine."
+        },
+        {
+          "t": "Merge",
+          "d": "I resolve merge conflicts, keep main stable and clean up branches."
+        }
+      ]
+    },
+    "backend": {
+      "title": "Backend in practice: ServiceOS",
+      "intro": "ServiceOS is a multi-tenant SaaS with an AI receptionist for online booking, built by our team and still in early development. This is the architecture it follows, and how I think about backends in general.",
+      "tag": "ServiceOS · multi-tenant SaaS · in development",
+      "layers": [
+        {
+          "t": "UI",
+          "d": "React components never call a provider SDK directly."
+        },
+        {
+          "t": "Service layer",
+          "d": "Business logic lives in server-only services. Input is validated with zod."
+        },
+        {
+          "t": "Interfaces we own",
+          "d": "Repository, auth and AI contracts that belong to us, not to a vendor."
+        },
+        {
+          "t": "Provider adapters",
+          "d": "Today a local and an in-memory adapter, a Supabase adapter planned. Swapping a provider costs one adapter, not a rewrite."
+        }
+      ],
+      "notes": [
+        "Provider-agnostic core",
+        "Repository pattern",
+        "zod validation",
+        "Secrets only in environment variables",
+        "Session behind one function",
+        "Audited: no provider SDK in the core"
+      ]
+    }
+  },
+  "projects": {
+    "kicker": "Selected work",
+    "title": "Projects",
+    "intro": "Concept sites and my own studio, built end to end: design, motion, content structure, SEO, i18n.",
+    "visit": "Visit site",
+    "drag": "Drag",
+    "hint": "Scroll sideways",
+    "items": {
+      "beauty": {
+        "title": "Beauty Studio",
+        "category": "Beauty · Demo",
+        "description": "Lashes, nails and hair. GSAP and Lenis motion, WhatsApp booking flow, DE / EN / UK.",
+        "tags": [
+          "Next.js 16",
+          "GSAP",
+          "next-intl",
+          "WebGL"
+        ]
+      },
+      "noform": {
+        "title": "NØFORM",
+        "category": "Fashion · Concept",
+        "description": "A cinematic brand site: scroll-driven scenes, canvas and WebGL, a sound toggle and a strict mono typographic system.",
+        "tags": [
+          "GSAP",
+          "ScrollTrigger",
+          "Observer",
+          "Canvas"
+        ]
+      },
+      "pizza": {
+        "title": "Pizza & Döner",
+        "category": "Food delivery · Concept",
+        "description": "A scroll storyboard where toppings lift and fall, a yufka rolls in and the box opens.",
+        "tags": [
+          "GSAP",
+          "Scroll storytelling",
+          "DE / EN / UK"
+        ]
+      },
+      "apartament": {
+        "title": "Apartament Demo",
+        "category": "Furnished stays · Demo",
+        "description": "Blueprint and pencil modes, localized routes, FAQ and blog structure, consent-first analytics.",
+        "tags": [
+          "Next.js 16",
+          "next-intl",
+          "SEO",
+          "Blog"
+        ]
+      },
+      "billiard": {
+        "title": "Billyard",
+        "category": "Games lounge · Concept",
+        "description": "Pool, darts, shisha, cards and table football. A bold red and black identity with a sound toggle and DE / RU / EN.",
+        "tags": [
+          "Next.js 16",
+          "GSAP",
+          "Three.js",
+          "DE / RU / EN"
+        ]
+      },
+      "detailing": {
+        "title": "Detailing",
+        "category": "Car care · Concept",
+        "description": "Paint correction and ceramic coating. A giant outlined headline behind the car, a process timeline, sound and a light and dark switch.",
+        "tags": [
+          "Next.js 16",
+          "GSAP",
+          "Lenis",
+          "Light / dark"
+        ]
+      },
+      "consulting": {
+        "title": "Premium Consulting",
+        "category": "Finance · Template",
+        "description": "An editorial template for independent financial advice: oversized type, calm motion, German-market ready.",
+        "tags": [
+          "Next.js",
+          "Editorial",
+          "DSGVO-aware"
+        ]
+      },
+      "studio": {
+        "title": "Volodina Web Studio",
+        "category": "My studio",
+        "description": "My own agency site: five languages, AI assistant widget, pricing calculator, blog and structured data.",
+        "tags": [
+          "Next.js",
+          "i18n",
+          "SEO",
+          "AI assistant"
+        ]
+      }
+    },
+    "demo": "Demo",
+    "concept": "Concept",
+    "own": "Own studio",
+    "template": "Template",
+    "case": "Case study",
+    "scrollHint": "Scroll to explore",
+    "count": "projects",
+    "allLink": "See all projects"
+  },
+  "statement": {
+    "kicker": "Statement",
+    "text": "I build websites that are fast, multilingual and alive. Every detail is designed, and every animation has to earn its place."
+  },
+  "water": {
+    "kicker": "Move your cursor",
+    "caption": "Every surface can respond.",
+    "alt": "A project preview on a water surface"
+  },
+  "process": {
+    "kicker": "End to end",
+    "title": "Design to results, by one person",
+    "steps": {
+      "s1": {
+        "label": "Step 01",
+        "title": "Design",
+        "text": "I design the layout, type, palette and motion myself, and I test them on real devices before any code is final."
+      },
+      "s2": {
+        "label": "Step 02",
+        "title": "Build",
+        "text": "Next.js, TypeScript and CSS Modules, with i18n, accessibility and SEO built in from the first commit."
+      },
+      "s3": {
+        "label": "Step 03",
+        "title": "Deploy",
+        "text": "Vercel deployments, environment setup, security headers and domains, so the site goes live safely."
+      },
+      "s4": {
+        "label": "Step 04",
+        "title": "Track and improve",
+        "text": "I watch Search Console, Lighthouse and Web Vitals, then adjust titles, content and structure based on the data."
+      }
+    }
+  },
+  "contact": {
+    "kicker": "Contact",
+    "title": "Contact",
+    "lead": "Hiring, a freelance project or a collaboration? Write me. The form opens WhatsApp with your message ready to send.",
+    "name": "Your name",
+    "namePh": "Name",
+    "kind": "What is this about?",
+    "kinds": {
+      "job": "A job or a role",
+      "freelance": "A freelance project",
+      "collab": "A collaboration",
+      "hello": "Just saying hi"
+    },
+    "message": "Message",
+    "messagePh": "A few words about the role or the project",
+    "send": "Send via WhatsApp",
+    "hint": "Nothing is stored. Your message opens in WhatsApp.",
+    "email": "Email",
+    "location": "Location",
+    "greeting": "Hello Christina",
+    "iAm": "I am",
+    "need": "I need",
+    "errName": "Please enter your name.",
+    "errMsg": "Please write a short message.",
+    "fallbackNote": "Opens your email app with the message.",
+    "languages": "Communication",
+    "languagesValue": "Deutsch B1 · Українська · Русский",
+    "topic": "Topic",
+    "cv": "Profile as PDF"
+  },
+  "footer": {
+    "invite1": "Let's build",
+    "invite2": "something <em>remarkable</em>",
+    "cta": "Get in touch",
+    "navTitle": "Navigate",
+    "linksTitle": "Links",
+    "stackTitle": "Built with",
+    "top": "Back to top",
+    "rights": "All rights reserved",
+    "imprint": "Imprint",
+    "privacy": "Privacy policy",
+    "back": "Back to portfolio",
+    "legalTitle": "Legal",
+    "cv": "Profile as PDF",
+    "hire": "For recruiters",
+    "work": "All projects"
+  },
+  "seo": {
+    "kicker": "SEO",
+    "title": "SEO you can inspect",
+    "intro": "I do SEO as part of the build, not as an afterthought. This page is the proof: everything on the right is read live from this site.",
+    "skillsTitle": "What I do",
+    "skills": {
+      "technical": {
+        "t": "Technical SEO",
+        "d": "Crawlability, indexation, canonical URLs, robots, XML sitemaps, clean URL structure."
+      },
+      "onpage": {
+        "t": "On-page SEO",
+        "d": "Unique titles and descriptions, heading hierarchy, internal links, alt texts, search intent."
+      },
+      "schema": {
+        "t": "Structured data",
+        "d": "Schema.org JSON-LD: Person, WebSite, Organization, LocalBusiness, FAQ, Breadcrumb."
+      },
+      "intl": {
+        "t": "International SEO",
+        "d": "Locale routing, hreflang with x-default, localized metadata, no duplicate-content traps."
+      },
+      "vitals": {
+        "t": "Core Web Vitals",
+        "d": "LCP, CLS and INP: server-first rendering, optimized images, lean JavaScript."
+      },
+      "geo": {
+        "t": "GEO & AI search",
+        "d": "Answer-ready content, clear entities, llms.txt, crawlable text for AI assistants."
+      }
+    },
+    "toolsTitle": "Tools",
+    "liveTitle": "Live from this page",
+    "vitalsTitle": "Web Vitals (measured in your browser)",
+    "lcp": "Largest Contentful Paint",
+    "cls": "Layout shift",
+    "fcp": "First Contentful Paint",
+    "ttfb": "Time to first byte",
+    "measuring": "measuring…",
+    "tabs": {
+      "meta": "Meta",
+      "hreflang": "Languages",
+      "schema": "Schema",
+      "files": "Files"
+    },
+    "metaTitle": "Title",
+    "metaDesc": "Description",
+    "metaCanonical": "Canonical",
+    "metaRobots": "Robots",
+    "filesText": "Also served by this site:",
+    "checkTitle": "Checklist, all implemented here",
+    "checks": {
+      "a": "Unique title and description per language",
+      "b": "Canonical URL per language",
+      "c": "hreflang de, en, uk, ar and x-default",
+      "d": "Schema.org JSON-LD (Person, WebSite)",
+      "e": "sitemap.xml and robots.txt",
+      "f": "Open Graph and Twitter cards",
+      "g": "llms.txt for AI assistants",
+      "h": "One H1, logical H2 and H3 hierarchy"
+    },
+    "lhTitle": "Lighthouse",
+    "lhNote": "Local run on the production build, desktop, {date}. Not a lab claim for your device, just a real measurement I can repeat.",
+    "perf": "Performance",
+    "a11y": "Accessibility",
+    "bp": "Best practices",
+    "seo": "SEO",
+    "lcpLabel": "LCP",
+    "clsLabel": "CLS"
+  },
+  "ai": {
+    "kicker": "AI workflow",
+    "title": "I build with Claude, on purpose",
+    "intro": "AI is part of my daily workflow: I set the architecture, the rules and the taste, and Claude Code does the heavy typing. Small steps, every step checked.",
+    "steps": {
+      "s1": {
+        "t": "Rules first",
+        "d": "A CLAUDE.md per project: stack, security checklist, no push without approval, no invented data."
+      },
+      "s2": {
+        "t": "Map before editing",
+        "d": "Graphify builds a knowledge graph of the codebase, so large changes start from the architecture."
+      },
+      "s3": {
+        "t": "Skills and MCP",
+        "d": "UI/UX, motion and design-taste skills, plus MCP tools, applied where they fit."
+      },
+      "s4": {
+        "t": "Verify every step",
+        "d": "Build, lint and a real browser check before anything is committed. Commits only with my OK."
+      }
+    },
+    "termTitle": "claude-code",
+    "lines": {
+      "l1": "read CLAUDE.md  → stack, rules, security checklist",
+      "l2": "graphify query \"where is the header defined?\"",
+      "l3": "plan: 4 files to touch, 0 new dependencies",
+      "l4": "edit → build ✓ → lint ✓ → browser check ✓",
+      "l5": "commit? waiting for approval…"
+    },
+    "langTitle": "Languages and AI",
+    "langText": "I speak German (B1), Ukrainian and Russian. For English and Arabic copy, translations and documentation I use Claude and GPT, then check the result myself. It works well, and the sites you see here are proof.",
+    "toolsTitle": "Tools",
+    "commits": {
+      "title": "Built in public",
+      "loading": "loading…",
+      "error": "Could not load commits right now.",
+      "open": "All commits on GitHub",
+      "note": "Live from the public GitHub repository of this site.",
+      "load": "Load latest commits",
+      "privacy": "Loads data from github.com only when you click."
+    }
+  },
+  "palette": {
+    "placeholder": "Type a command or search…",
+    "empty": "Nothing found",
+    "hint": "to open",
+    "close": "Esc to close",
+    "groups": {
+      "go": "Go to",
+      "language": "Language",
+      "theme": "Appearance",
+      "links": "Links",
+      "legal": "Legal"
+    },
+    "items": {
+      "toggleTheme": "Switch light / dark theme",
+      "cv": "Download profile (PDF)",
+      "github": "Open GitHub",
+      "email": "Write an email",
+      "imprint": "Impressum",
+      "privacy": "Datenschutz (privacy)",
+      "top": "Back to top",
+      "hire": "For recruiters",
+      "work": "All projects",
+      "dev": "Developer view (grid and live stats)"
+    },
+    "langNames": {
+      "de": "Deutsch",
+      "en": "English",
+      "uk": "Українська",
+      "ar": "العربية"
+    }
+  },
+  "cases": {
+    "ui": {
+      "back": "All projects",
+      "role": "Role",
+      "stack": "Stack",
+      "highlights": "What I built",
+      "next": "Next case",
+      "type": "Case study",
+      "kicker": "Case study",
+      "live": "Live site"
+    },
+    "beauty": {
+      "role": "Design · Frontend · Motion · i18n",
+      "summary": "A booking-focused website for a lash, nail and hair studio, built as a template: every colour, size, text, photo and contact detail lives in one config, so the next client is a day of work instead of a rebuild.",
+      "points": [
+        "Design tokens as the single source of truth: palette, type scale, spacing and motion timings in one file. Changing the primitives restyles the whole site.",
+        "Motion with intent: GSAP and Lenis, split-text reveals, a liquid chrome WebGL shape, depth sections such as tunnel, doors and card decks, a magnifier lens and a text scramble on hover.",
+        "Booking without a backend: a step-by-step wizard (service, first and backup day, time of day, name) that prepares a WhatsApp message. Nothing is stored or sent to a server.",
+        "Three languages and real SEO: DE, UK and EN with next-intl, sitemap, manifest, structured data, security headers and a strict content security policy."
+      ],
+      "stack": [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "CSS Modules",
+        "GSAP",
+        "Lenis",
+        "next-intl",
+        "WebGL"
+      ]
+    },
+    "noform": {
+      "role": "Art direction · Frontend · Motion · Sound",
+      "summary": "A cinematic brand site for a fictional fashion label: one long scroll made of full-screen scenes, with sound, a strict mono type system and a restrained palette.",
+      "points": [
+        "Scroll-driven scenes: GSAP ScrollTrigger and Observer run a sequence of full-screen scenes instead of a page of sections.",
+        "Motion studies: a lettering ring, a helix archive and a depth flight, each built as a separate experiment before it became part of the site.",
+        "A motion director that coordinates scene timing, the preloader and the sound toggle, with reduced-motion fallbacks.",
+        "Three languages (DE, EN, UK) with a typographic system that holds up in every one."
+      ],
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "GSAP",
+        "ScrollTrigger",
+        "Observer",
+        "Canvas"
+      ]
+    },
+    "pizza": {
+      "role": "Motion design · Frontend · i18n",
+      "summary": "A scroll storyboard for a pizza and döner delivery site: toppings lift and fall, the camera pivots, a yufka rolls in and the box opens, all on one scrubbed timeline.",
+      "points": [
+        "Storyboard first: a written shot list with scroll percentages for every beat before any code.",
+        "2.5D sprite choreography: separate topping sprites on their own paths, with rotation, easing and landing spots.",
+        "Honest motion: where true 3D was not available, the sequence uses a cinematic cut instead of faking physics.",
+        "Mobile and reduced-motion variants: fewer sprites, shorter sequences and a static fallback."
+      ],
+      "stack": [
+        "Next.js",
+        "GSAP",
+        "ScrollTrigger",
+        "Three.js",
+        "DE / EN / UK"
+      ]
+    }
+  },
+  "hire": {
+    "kicker": "For recruiters",
+    "title": "Hiring? The 60-second version",
+    "intro": "Everything an HR team or a tech lead needs, on one page. All claims below link to something you can check.",
+    "glanceTitle": "At a glance",
+    "doTitle": "What I can do for your team",
+    "proofTitle": "Proof, not claims",
+    "tourTitle": "30-second tour",
+    "talkTitle": "Let's talk",
+    "talk": "Questions about the role, availability or a trial task? Write to me, I answer quickly.",
+    "mail": "Email me",
+    "wa": "WhatsApp",
+    "cv": "Download profile (PDF)",
+    "gh": "GitHub",
+    "back": "Back to portfolio",
+    "rows": [
+      {
+        "k": "Looking for",
+        "v": "A position inside a company, or freelance projects. Either works for me"
+      },
+      {
+        "k": "Based in",
+        "v": "Pforzheim, Germany"
+      },
+      {
+        "k": "Languages",
+        "v": "Deutsch B1, Українська, Русский. English and Arabic copy with AI tools"
+      },
+      {
+        "k": "Strength",
+        "v": "Design, build, deploy and SEO tracking, by one person"
+      },
+      {
+        "k": "Works with",
+        "v": "Next.js, React, TypeScript, GSAP, WebGL, next-intl, Vercel, Claude Code"
+      }
+    ],
+    "items": [
+      "Fluid, mobile-first layouts from 320px phones to ultra-wide screens",
+      "Next.js App Router, React and strict TypeScript, Server Components first",
+      "Design tokens and component systems with CSS Modules",
+      "Animation with GSAP, ScrollTrigger and WebGL, with reduced-motion fallbacks",
+      "Accessible, semantic markup with visible focus and keyboard support",
+      "Technical and on-page SEO, structured data, hreflang, sitemaps",
+      "Core Web Vitals and performance work",
+      "Multilingual sites in any language with next-intl, including full RTL (this site has Arabic)",
+      "Team workflow on GitHub: feature branches, pull requests, code review, merge conflicts",
+      "Git and GitHub workflow, Vercel deployments, security headers",
+      "Backend architecture: service layers, repositories, validation, provider-agnostic design (ServiceOS)",
+      "Daily work with Claude Code and GPT: rules, specs, prompting and a check on every result"
+    ],
+    "proof": [
+      {
+        "t": "Lighthouse on this site",
+        "d": "Performance {perf}, Accessibility {a11y}, Best practices {bp}, SEO {seo}",
+        "to": "#seo"
+      },
+      {
+        "t": "Eight projects, three case studies",
+        "d": "Concept, demo and studio sites, built end to end",
+        "to": "#projects"
+      },
+      {
+        "t": "Public GitHub history",
+        "d": "Every commit of this site is visible",
+        "to": "gh"
+      },
+      {
+        "t": "This site itself",
+        "d": "Arabic RTL, dark mode, command palette, WebGL, keyboard-friendly",
+        "to": "#top"
+      }
+    ],
+    "tour": [
+      {
+        "t": "Projects",
+        "to": "#projects"
+      },
+      {
+        "t": "All projects",
+        "to": "work"
+      },
+      {
+        "t": "SEO, live",
+        "to": "#seo"
+      },
+      {
+        "t": "AI workflow",
+        "to": "#ai"
+      },
+      {
+        "t": "Process",
+        "to": "#process"
+      }
+    ],
+    "pitchTitle": "In one paragraph",
+    "pitch": "I am a web developer who covers the whole path of a website: design, build, deployment and SEO tracking. I do not hand work over, I carry it to a measurable result. I build fast, search-friendly, multilingual sites with motion, and I work every day with AI tools such as Claude Code and GPT, with clear rules and a check on every step. A team gets more done in less time, without losing quality. I am open to a position inside a company or to freelance work, whichever fits.",
+    "whyTitle": "Why hire me",
+    "why": [
+      {
+        "t": "Design to results, one person",
+        "d": "Layout, code, deployment and SEO tracking in one head. Fewer handoffs, faster decisions, one owner."
+      },
+      {
+        "t": "Fluent with modern AI",
+        "d": "I use Claude Code and GPT every day. I write the rules and the spec, the AI does the heavy typing, and I verify every result. Fast without being sloppy."
+      },
+      {
+        "t": "Visible proof",
+        "d": "Eight projects, three case studies, a public GitHub history and a measured Lighthouse on this very site."
+      },
+      {
+        "t": "Built for real users",
+        "d": "Fluid layouts, accessibility, performance and multilingual support, including right-to-left, are the default, not an extra."
+      },
+      {
+        "t": "Easy to work with",
+        "d": "Small, checked steps, clear commits and an honest status. German B1, Ukrainian and Russian in conversation, English and documentation with AI tools."
+      }
+    ],
+    "teamTitle": "Team workflow on GitHub",
+    "teamIntro": "I work the way teams do: branches, pull requests and reviews, not just pushes to main. Issues and project boards for planning.",
+    "team": [
+      {
+        "t": "Branch",
+        "d": "Every change lives on its own, clearly named feature branch."
+      },
+      {
+        "t": "Commit",
+        "d": "Small, focused commits with readable messages."
+      },
+      {
+        "t": "Pull request",
+        "d": "A PR with context: what changed, why, how to test it, screenshots."
+      },
+      {
+        "t": "Review",
+        "d": "I read and comment on teammates' pull requests, and respond to review on mine."
+      },
+      {
+        "t": "Merge",
+        "d": "I resolve merge conflicts, keep main stable and clean up branches."
+      }
+    ]
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Lost in space",
+    "text": "This page does not exist, or it has moved. The portfolio is still here.",
+    "home": "Back to the portfolio",
+    "search": "Search the site",
+    "hint": "Move your mouse: the numbers have depth."
+  },
+  "work": {
+    "kicker": "Everything I have built",
+    "title": "All projects",
+    "intro": "Not only the highlights: every site and app I can show. Live links open the public deployments.",
+    "privateNote": "Most repositories are private, because they are client work, templates or unfinished products. The live sites are public, and I can walk you through the code in a call.",
+    "search": "Search by name or technology",
+    "all": "All",
+    "counts": "{n} of {total} shown",
+    "none": "No project matches.",
+    "filters": {
+      "all": "All",
+      "live": "Live",
+      "building": "In progress",
+      "private": "Code on request"
+    },
+    "kinds": {
+      "client": "Client site",
+      "concept": "Concept",
+      "template": "Template",
+      "app": "App",
+      "studio": "Own site",
+      "game": "Game"
+    },
+    "status": {
+      "live": "Live",
+      "building": "In progress",
+      "private": "Private code"
+    },
+    "open": "Open live site",
+    "repo": "Public code",
+    "earlierTitle": "Earlier repositories",
+    "earlierNote": "Smaller and older work, listed by name.",
+    "back": "Back to portfolio",
+    "all_link": "See all projects",
+    "privateRepo": "private",
+    "items": {
+      "beauty": "Lash, nail and hair studio template with a WhatsApp booking wizard, DE / UK / EN.",
+      "noform": "Fictional streetwear concept: scroll-driven scenes, sound and a strict mono type system.",
+      "pizza": "Delivery website template with a scroll storyboard: toppings fly, a yufka rolls in, the box opens.",
+      "apartament": "Furnished apartments demo with blueprint and pencil modes, FAQ and blog.",
+      "billiard": "Scroll-storytelling site for a billiards club with physics and 3D.",
+      "detailing": "Car detailing site: paint correction, ceramic coating, light and dark mode.",
+      "consulting": "Multilingual website template for independent financial advice.",
+      "studio": "My own agency site: five languages, AI assistant, pricing calculator, blog.",
+      "hausarzt": "Fictional family doctor practice, German-language concept.",
+      "serviceos": "Multi-tenant SaaS with an AI receptionist for online booking at service businesses. Early development.",
+      "splitcent": "Mobile app to split shared receipts fairly, down to the cent.",
+      "casino": "Personal slot machine game on virtual coins, German and Arabic. No real money.",
+      "massage": "Calm landing page for a massage service.",
+      "salon": "An earlier beauty salon landing page.",
+      "abbruch": "Landing page for a demolition and wall-opening service.",
+      "immotonn": "Multi-page real estate website, SEO and responsive layout.",
+      "labrity": "Editorial web presence for a digital technologies company, multilingual.",
+      "tlsg": "Multi-page React website for a music and sound design studio.",
+      "portfolio": "This site. Public code, every commit visible."
+    }
+  },
+  "dev": {
+    "title": "Developer view",
+    "viewport": "Viewport",
+    "breakpoint": "Breakpoint",
+    "ratio": "Pixel ratio",
+    "lang": "Language",
+    "theme": "Theme",
+    "motion": "Motion",
+    "close": "Close (Alt+Shift+D)"
   }
 }

@@ -1,26 +1,26 @@
 .list {
   display: flex;
-  gap: var(--space-4);
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
+  font-size: var(--fs-small);
+  font-weight: 500;
 }
 
 .link {
-  font-size: var(--fs-small);
-  font-weight: 500;
-  letter-spacing: 0.08em;
   text-decoration: none;
   opacity: 0.55;
   transition: opacity var(--dur-fast) var(--ease-out);
 }
 
-.link:hover,
-.link[aria-current="true"] {
+.link[aria-current="true"],
+.link:hover {
   opacity: 1;
 }
 
-.link[aria-current="true"] {
-  text-decoration: underline;
-  text-underline-offset: 0.35em;
+@media (min-width: 40rem) {
+  .list {
+    gap: var(--space-3);
+  }
 }

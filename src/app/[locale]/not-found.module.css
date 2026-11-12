@@ -1,0 +1,71 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 100svh;
+  padding: calc(var(--header-h) + var(--space-6)) var(--gutter) var(--space-12);
+  overflow: hidden;
+  background: var(--color-field);
+  color: var(--color-on-field);
+  text-align: center;
+  --btn-bg: var(--color-on-field);
+  --btn-ink: var(--color-field);
+}
+
+.orb {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+}
+
+.title {
+  font-size: clamp(2rem, 1rem + 4vw, 5.5rem);
+  line-height: var(--lh-head);
+}
+
+.text {
+  max-width: 44ch;
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 var(--space-6);
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--color-on-field);
+  color: var(--color-field);
+}
+
+.hint {
+  font-size: var(--fs-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}

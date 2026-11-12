@@ -1,0 +1,44 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: var(--space-8);
+  align-content: center;
+  min-height: 100svh;
+  padding: var(--section-y) var(--gutter);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.kicker {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.text {
+  max-width: 22ch;
+  font-size: clamp(2.25rem, 1rem + 5.6vw, 7.5rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+@media (min-width: 64rem) {
+  .text {
+    max-width: 24ch;
+  }
+}
+
+/* the 3D scene fills the section and sits behind the words; the shader positions the sphere */
+.orb {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.95;
+}

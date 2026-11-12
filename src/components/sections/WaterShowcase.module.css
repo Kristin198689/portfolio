@@ -1,0 +1,45 @@
+.section {
+  position: relative;
+  height: 100svh;
+  background: var(--color-field);
+  color: var(--color-on-field);
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+}
+
+.section::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 55%;
+  background: linear-gradient(transparent, rgb(0 0 0 / 0.78));
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1;
+  inset: auto var(--gutter) var(--space-8);
+  display: grid;
+  gap: var(--space-3);
+  pointer-events: none;
+  text-shadow: 0 1px 24px rgb(0 0 0 / 0.5);
+}
+
+.kicker {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.caption {
+  font-size: clamp(2rem, 1rem + 4.5vw, 6rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+}

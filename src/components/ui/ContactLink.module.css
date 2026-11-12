@@ -1,0 +1,41 @@
+.button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 var(--space-6);
+  background: var(--btn-bg, var(--color-accent));
+  color: var(--btn-ink, var(--color-on-accent));
+  font-size: var(--fs-body);
+  font-weight: 500;
+  letter-spacing: var(--tracking-body);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Press fills the button like a held key, release snaps back */
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--btn-ink, var(--color-on-accent)) 26%, transparent);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 200ms var(--ease-out);
+}
+
+.button:active::before {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 700ms linear;
+}

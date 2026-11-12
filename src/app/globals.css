@@ -8,6 +8,8 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* decorative layers (3D rings, tilted titles) must never create sideways scrolling */
+  overflow-x: clip;
 }
 
 /* Lenis */
@@ -18,8 +20,12 @@ html.lenis body {
 .lenis:not(.lenis-autoToggle).lenis-stopped {
   overflow: clip;
 }
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
 
 body {
+  overflow-x: clip;
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
@@ -40,6 +46,7 @@ h3 {
   line-height: var(--lh-head);
   letter-spacing: var(--tracking-head);
   text-transform: var(--display-transform);
+  word-spacing: 0.12em;
   text-wrap: balance;
 }
 
@@ -47,6 +54,7 @@ p {
   margin: 0;
 }
 
+/* Luxury italic accent word: <em> inside headlines and statements */
 em {
   font-family: var(--font-accent);
   font-style: italic;
@@ -64,4 +72,176 @@ a {
 :focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
+}
+
+::selection {
+  background: #77776f;
+  color: #fff;
+}
+
+/* Entrance on scroll: pure CSS, content stays visible where unsupported */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    animation: none;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px; /* taste-skill-ignore */
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  padding-inline: var(--gutter);
+}
+
+/* Hero name fills the width; same Latin name in every language */
+:root {
+  --fs-display: clamp(2rem, 18vw, 20rem);
+}
+
+/* Split text: words are masks, characters rise out of them */
+.w {
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.08em 0.05em 0.12em;
+  margin: -0.08em -0.05em -0.12em;
+  vertical-align: top;
+}
+
+.c {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Hidden until the motion layer is ready. Safe fallbacks below keep content visible. */
+.js [data-split]:not([data-split="ready"]),
+.js [data-mask] {
+  visibility: hidden;
+}
+
+.js [data-split="ready"] {
+  visibility: visible;
+}
+
+.js [data-mask][data-mask="ready"] {
+  visibility: visible;
+}
+
+.motion-failsafe [data-split],
+.motion-failsafe [data-mask],
+.reduce-motion [data-split],
+.reduce-motion [data-mask] {
+  visibility: visible !important;
+  clip-path: none !important;
+}
+
+/* Film grain: a light noise tile that jitters in steps, like printed campaign stock */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.07;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  animation: grain 1s steps(6) infinite;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  17% { transform: translate(-3%, 2%); }
+  33% { transform: translate(2%, -4%); }
+  50% { transform: translate(-4%, -1%); }
+  67% { transform: translate(3%, 3%); }
+  83% { transform: translate(-1%, 4%); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+}
+
+/* Words that light up on scroll */
+.lw {
+  display: inline;
+}
+
+/* ---------- direction helpers ---------- */
+html {
+  --text-dir: ltr;
+  --dir-sign: 1;
+}
+
+html[dir="rtl"] {
+  --text-dir: rtl;
+  --dir-sign: -1;
+}
+
+/* ---------- Arabic ---------- */
+/* Arabic letters join: no letter-spacing, no case changes, a taller line box, its own face. */
+html[lang="ar"] {
+  --font-display: var(--font-arabic-family), "Geeza Pro", system-ui, sans-serif;
+  --font-body: var(--font-arabic-family), "Geeza Pro", system-ui, sans-serif;
+  --font-accent: var(--font-arabic-family), "Geeza Pro", system-ui, sans-serif;
+  --display-weight: 800;
+  --fs-display: clamp(2.5rem, 15vw, 18rem);
+  --lh-display: 1.02;
+  --lh-head: 1.08;
+  --tracking-display: 0em;
+  --tracking-head: 0em;
+  --tracking-body: 0em;
+  --accent-scale: 1;
+}
+
+html[lang="ar"] *,
+html[lang="ar"] *::before,
+html[lang="ar"] *::after {
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  word-spacing: 0 !important;
+}
+
+html[lang="ar"] em {
+  font-style: normal;
+  font-weight: 800;
+  line-height: inherit;
+}
+
+html[lang="ar"] .w {
+  padding: 0.2em 0.05em 0.28em;
+  margin: -0.2em -0.05em -0.28em;
 }

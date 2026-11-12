@@ -1,0 +1,103 @@
+.pre {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-content: space-between;
+  padding: var(--gutter);
+  background: var(--color-field);
+  color: var(--color-on-field);
+}
+
+:global(html.js) .pre {
+  display: grid;
+}
+
+.preName {
+  font-size: var(--fs-lead);
+  font-weight: 800;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+}
+
+.preCount {
+  justify-self: end;
+  font-size: clamp(5rem, 24vw, 22rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: var(--tracking-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  background: var(--color-plum);
+  color: var(--color-on-plum);
+  font-size: clamp(3rem, 14vw, 12rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  display: none;
+  place-items: center;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: -0.45rem 0 0 -0.45rem;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    width 300ms var(--ease-out),
+    height 300ms var(--ease-out),
+    margin 300ms var(--ease-out),
+    background 300ms var(--ease-out),
+    opacity 200ms linear;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global(html.js) .ring {
+    display: grid;
+  }
+}
+
+.ring[data-on="1"] {
+  opacity: 1;
+}
+
+.ring[data-state="link"] {
+  width: 3rem;
+  height: 3rem;
+  margin: -1.5rem 0 0 -1.5rem;
+}
+
+.ring[data-state="label"] {
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: -3.25rem 0 0 -3.25rem;
+}
+
+.label {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    display: none !important;
+  }
+}

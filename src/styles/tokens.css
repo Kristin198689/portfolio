@@ -23,8 +23,6 @@
   --p-ink-soft: #66635c;
   --p-plum-900: #0a0a0a;
   --p-plum-500: #fafaf7;
-  /* Contrast accent. Candidates: acid lime #d4ff3a, vermilion #ff3d1f, cobalt #2f4bff */
-  --p-accent: #d4ff3a;
 
   /* primitives: type */
   --display-transform: uppercase;
@@ -83,7 +81,6 @@
   /* Text on the accent. Pale accents need ink, saturated accents need paper. */
   --color-on-plum: var(--p-paper);
   --color-on-plum-bright: var(--p-ink);
-  --color-accent-pop: var(--p-accent);
   --color-danger: #c0182f;
 }
 
@@ -93,4 +90,12 @@
     --dur-base: 0ms;
     --dur-slow: 0ms;
   }
+}
+
+/* Dark theme: swap paper and ink, so light sections turn dark and dark sections turn light */
+:root[data-theme="dark"] {
+  --p-paper: #0a0a0a;
+  --p-surface: #171717;
+  --p-ink: #fafaf7;
+  --p-ink-soft: #a3a099;
 }

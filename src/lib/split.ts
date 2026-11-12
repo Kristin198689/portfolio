@@ -1,5 +1,11 @@
 // Splits text into words (masks) and characters. Keeps a visually hidden copy for screen readers.
+// Arabic letters join into words, so for Arabic text each word is one unit instead of one letter.
+const ARABIC = /[؀-ۿ]/;
+
 export function splitChars(el: HTMLElement): HTMLElement[] {
+  // Idempotent: React Strict Mode runs effects twice in development
+  if (el.dataset.splitDone === "1") return Array.from(el.querySelectorAll<HTMLElement>(".c"));
+  el.dataset.splitDone = "1";
   const original = el.textContent ?? "";
 
   const walk = (node: Node) => {
@@ -15,7 +21,8 @@ export function splitChars(el: HTMLElement): HTMLElement[] {
         const word = document.createElement("span");
         word.className = "w";
         word.setAttribute("aria-hidden", "true");
-        for (const ch of Array.from(part)) {
+        const pieces = ARABIC.test(part) ? [part] : Array.from(part);
+        for (const ch of pieces) {
           const c = document.createElement("span");
           c.className = "c";
           c.textContent = ch;

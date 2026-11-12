@@ -1,26 +1,239 @@
 .header {
+  --header-ink: var(--color-text);
+  --btn-bg: var(--color-accent);
+  --btn-ink: var(--color-on-accent);
   position: fixed;
-  inset: 0 0 auto;
-  z-index: 50;
-  height: var(--header-h);
-  padding-inline: var(--gutter);
+  inset: 0 0 auto 0;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #fff;
-  /* Stays readable over both black and white sections */
-  mix-blend-mode: difference;
-  pointer-events: none;
+  gap: var(--space-6);
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+  color: var(--header-ink);
+  transition:
+    transform 500ms var(--ease-out),
+    color 300ms var(--ease-out);
 }
 
-.header > * {
-  pointer-events: auto;
+.header[data-ink="field"] {
+  --header-ink: var(--color-on-field);
+  --btn-bg: var(--color-on-field);
+  --btn-ink: var(--color-field);
 }
 
-.brand {
+.header[data-ink="plum"] {
+  --header-ink: var(--color-on-plum);
+  --btn-bg: var(--color-on-plum);
+  --btn-ink: var(--color-plum);
+}
+
+/* The header slides away when scrolling down and returns when scrolling up. */
+.header[data-hidden="true"] {
+  transform: translateY(-100%);
+}
+
+.mark {
+  font-size: clamp(1rem, 0.7rem + 1.6vw, 1.5rem);
+  white-space: nowrap;
   font-weight: 800;
-  font-size: var(--fs-small);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-head);
   text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: none;
+  gap: var(--space-8);
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (min-width: 48rem) {
+  .end {
+    gap: var(--space-4);
+  }
+}
+
+.book {
+  display: none;
+  min-height: 2.5rem;
+  padding-inline: var(--space-4);
+  font-size: var(--fs-small);
+  transition:
+    background 300ms var(--ease-out),
+    color 300ms var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.burger {
+  min-height: 2.5rem;
+  padding: 0 var(--space-3);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.menu {
+  overflow-y: auto;
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: calc(var(--header-h) + var(--space-6)) var(--gutter) calc(var(--space-8) + env(safe-area-inset-bottom));
+  background: var(--color-plum);
+  color: var(--color-on-plum);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path 700ms var(--ease-in-out),
+    visibility 0s linear 700ms;
+}
+
+.menu[data-open="true"] {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition: clip-path 700ms var(--ease-in-out);
+}
+
+.menu nav {
+  display: flex;
+  align-items: center;
+}
+
+.menuCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  background: var(--color-on-plum);
+  color: var(--color-plum);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.menuList {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menuLink {
+  display: block;
+  padding: var(--space-2) 0;
+  font-size: clamp(1.9rem, 9vw, 3rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.menuFoot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  font-size: var(--fs-body);
+}
+
+.menuFoot a {
+  text-decoration: none;
+}
+
+.menuBook {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 300;
+  text-transform: none;
+}
+
+@media (min-width: 56rem) {
+  .nav {
+    display: flex;
+  }
+
+  .book {
+    display: inline-flex;
+  }
+
+  .burger,
+  .menu {
+    display: none;
+  }
+}
+
+/* every section of the page, small, in the mobile menu */
+.menuSections {
+  flex: 1;
+}
+
+.menuTitle {
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-small);
+}
+
+.menuGrid a {
+  display: block;
+  padding: var(--space-1) 0;
+  text-decoration: none;
+}
+
+/* very narrow phones: the header must always fit, so the theme switch moves into the menu/palette */
+@media (max-width: 22.5rem) {
+  .header {
+    gap: var(--space-2);
+  }
+
+  .mark {
+    font-size: 0.95rem;
+  }
+
+  .end {
+    gap: 0;
+  }
+
+  .burger {
+    padding-inline: var(--space-2);
+  }
 }

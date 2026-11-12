@@ -1,0 +1,359 @@
+/* Every animation runs only while the tile is open */
+.code,
+.stack,
+.serp,
+.sec,
+.perf,
+.langs,
+.motion,
+.git {
+  width: 100%;
+  font-size: var(--fs-small);
+}
+
+.code {
+  display: grid;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  line-height: 1.7;
+}
+
+.code span {
+  width: 0;
+  overflow: hidden;
+  white-space: pre;
+}
+
+:global([data-open="true"]) .code span {
+  animation: type 600ms steps(18, end) forwards;
+  animation-delay: calc(var(--i) * 450ms + 250ms);
+}
+
+@keyframes type {
+  to {
+    width: 100%;
+  }
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.ok {
+  padding: 0.2rem 0.6rem;
+  background: var(--color-on-field);
+  color: var(--color-field);
+  font-weight: 800;
+  transform: scale(0);
+  transform-origin: left;
+}
+
+:global([data-open="true"]) .ok {
+  animation: pop 500ms var(--ease-out) 600ms forwards;
+}
+
+@keyframes pop {
+  to {
+    transform: scale(1);
+  }
+}
+
+.dim {
+  opacity: 0.6;
+}
+
+.motion {
+  position: relative;
+  height: 6rem;
+}
+
+.dot,
+.dot2,
+.square {
+  position: absolute;
+  left: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: var(--color-on-field);
+}
+
+.dot {
+  top: 0;
+  border-radius: 50%;
+}
+
+.dot2 {
+  top: 2.2rem;
+  border-radius: 50%;
+}
+
+.square {
+  top: 4.4rem;
+}
+
+:global([data-open="true"]) .dot {
+  animation: slide 1.4s cubic-bezier(0.23, 1, 0.32, 1) infinite alternate;
+}
+
+:global([data-open="true"]) .dot2 {
+  animation: slide 1.4s linear infinite alternate;
+}
+
+:global([data-open="true"]) .square {
+  animation:
+    slide 1.4s cubic-bezier(0.77, 0, 0.175, 1) infinite alternate,
+    spin 1.4s cubic-bezier(0.77, 0, 0.175, 1) infinite alternate;
+}
+
+@keyframes slide {
+  to {
+    left: calc(100% - 1.1rem);
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: 180deg;
+  }
+}
+
+.serp {
+  display: grid;
+  gap: 0.35rem;
+  padding: var(--space-4);
+  background: var(--color-on-field);
+  color: var(--color-field);
+  line-height: 1.3;
+}
+
+.serp strong {
+  font-size: 1.05rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.serpUrl {
+  font-size: 0.75rem;
+  opacity: 0.65;
+}
+
+.langs {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 5rem;
+  font-size: clamp(2rem, 1.2rem + 2vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-head);
+}
+
+.langs span {
+  grid-area: 1 / 1;
+  opacity: 0;
+}
+
+:global([data-open="true"]) .langs span {
+  animation: cycle 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 1.2s);
+}
+
+@keyframes cycle {
+  0%,
+  4% {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  10%,
+  30% {
+    opacity: 1;
+    transform: none;
+  }
+  36%,
+  100% {
+    opacity: 0;
+    transform: translateY(-0.4em);
+  }
+}
+
+.sec {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.sec li {
+  opacity: 0.25;
+}
+
+.sec i {
+  font-style: normal;
+  font-weight: 800;
+}
+
+:global([data-open="true"]) .sec li {
+  animation: lit 500ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i) * 350ms + 250ms);
+}
+
+@keyframes lit {
+  to {
+    opacity: 1;
+  }
+}
+
+.perf {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.perfLabel {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.perfBar {
+  display: block;
+  height: 0.6rem;
+  border: 1px solid var(--color-on-field);
+}
+
+.perfBar span {
+  display: block;
+  height: 100%;
+  background: var(--color-on-field);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+:global([data-open="true"]) .perfBar span {
+  animation: fill 1s steps(10, end) infinite;
+}
+
+@keyframes fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.git {
+  fill: none;
+  stroke: var(--color-on-field);
+  stroke-width: 1.5;
+}
+
+.git circle {
+  fill: var(--color-field);
+  opacity: 0;
+}
+
+:global([data-open="true"]) .git circle {
+  animation: lit 400ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i) * 250ms + 200ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code span {
+    width: 100%;
+  }
+
+  .ok,
+  .sec li,
+  .git circle {
+    opacity: 1;
+    transform: none;
+  }
+
+  .langs span:first-child {
+    opacity: 1;
+  }
+}
+
+.fluid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.fluidBox {
+  display: grid;
+  gap: 0.15rem;
+  padding: var(--space-3);
+  background: var(--color-on-field);
+  color: var(--color-field);
+  width: 40%;
+  overflow: hidden;
+}
+
+.fluidBox strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+:global([data-open="true"]) .fluidBox {
+  animation: breathe 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes breathe {
+  to {
+    width: 100%;
+  }
+}
+
+.a11y {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.key {
+  justify-self: start;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--color-on-field);
+  border-bottom-width: 3px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.a11y ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.a11y li {
+  padding: 0.15rem 0.5rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+:global([data-open="true"]) .a11y li {
+  animation: ring 2.4s steps(1) infinite;
+  animation-delay: calc(var(--i) * 0.8s);
+}
+
+@keyframes ring {
+  0% {
+    outline-color: var(--color-on-field);
+  }
+  33%,
+  100% {
+    outline-color: transparent;
+  }
+}
+
+/* code-like demos are always left to right */
+.code,
+.stack,
+.motion,
+.git,
+.perf,
+.sec {
+  direction: ltr;
+  text-align: left;
+}

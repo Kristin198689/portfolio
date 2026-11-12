@@ -1,0 +1,16 @@
+.track {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 31;
+  height: 3px;
+  pointer-events: none;
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  background: #fff;
+  mix-blend-mode: difference;
+  transform: scaleX(0);
+  transform-origin: left;
+}

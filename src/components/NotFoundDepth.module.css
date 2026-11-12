@@ -1,0 +1,32 @@
+.scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: clamp(12rem, 38vw, 30rem);
+  perspective: 1100px;
+  direction: ltr;
+}
+
+.stack {
+  position: relative;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+
+.layer {
+  grid-area: 1 / 1;
+  font-size: clamp(7rem, 34vw, 30rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  /* deeper copies are pushed back and dimmed */
+  transform: translateZ(calc(var(--i) * -9px));
+  color: color-mix(in srgb, var(--color-on-field) calc(100% - var(--i) * 3.2%), var(--color-field));
+  user-select: none;
+}
+
+.front {
+  color: var(--color-on-field);
+  text-shadow: 0 0 60px color-mix(in srgb, var(--color-on-field) 35%, transparent);
+}

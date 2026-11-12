@@ -1,0 +1,154 @@
+.wrap {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-12) 0 var(--space-6);
+}
+
+.tag {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.title {
+  font-size: clamp(1.75rem, 1rem + 3vw, 4rem);
+  line-height: 0.95;
+}
+
+.intro {
+  max-width: 62ch;
+  font-size: var(--fs-lead);
+  line-height: 1.3;
+}
+
+.stack {
+  position: relative;
+  margin-top: var(--space-4);
+  padding-inline-start: var(--space-8);
+}
+
+/* the request: a dot that falls through the layers */
+.packet {
+  position: absolute;
+  inset-inline-start: 0.7rem;
+  top: 0;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--color-text);
+  opacity: 0;
+}
+
+.stack::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 1.1rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: color-mix(in srgb, var(--color-text) 35%, transparent);
+}
+
+.layers {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.layers li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface);
+  /* each layer sits a step further in, like a stack of plates */
+  margin-inline-start: calc(var(--i) * clamp(0.25rem, 1.2vw, 1.25rem));
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.stack[data-run="true"] .layers li {
+  animation: in 700ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i) * 450ms);
+}
+
+.stack[data-run="true"] .packet {
+  animation: fall 2.6s var(--ease-in-out) 0.2s forwards;
+}
+
+.num {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.layers strong {
+  display: block;
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+}
+
+.layers p {
+  max-width: 60ch;
+  margin-top: 0.25rem;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-small);
+}
+
+.notes li {
+  padding: 0.25rem 0.8rem;
+  border: 1px solid currentColor;
+  font-weight: 500;
+}
+
+@keyframes in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fall {
+  0% {
+    opacity: 1;
+    top: 0;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: calc(100% - 0.9rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layers li {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  .packet {
+    display: none;
+  }
+}

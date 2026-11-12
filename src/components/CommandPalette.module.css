@@ -1,0 +1,137 @@
+.trigger {
+  display: none;
+  align-items: center;
+  height: 2.5rem;
+  padding: 0 var(--space-2);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.trigger kbd,
+.foot kbd,
+.item kbd {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid currentColor;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+@media (min-width: 64rem) {
+  .trigger {
+    display: inline-flex;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  padding: 12vh var(--gutter) var(--gutter);
+  background: rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(6px);
+  animation: fade 180ms var(--ease-out);
+}
+
+.box {
+  width: min(38rem, 100%);
+  max-height: 70vh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  background: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: 0 30px 90px rgb(0 0 0 / 0.5);
+  animation: rise 260ms var(--ease-out);
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-6);
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-lead);
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.list {
+  margin: 0;
+  padding: var(--space-2) 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.group {
+  padding: var(--space-3) var(--space-6) var(--space-1);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-3) var(--space-6);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.item[aria-selected="true"] {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.empty {
+  padding: var(--space-6);
+  opacity: 0.6;
+}
+
+.foot {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin: 0;
+  padding: var(--space-3) var(--space-6);
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .box {
+    animation: none;
+  }
+}

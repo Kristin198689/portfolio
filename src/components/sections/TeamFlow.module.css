@@ -1,0 +1,162 @@
+.wrap {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-16);
+  padding: var(--space-8) var(--space-6);
+  background: var(--color-field);
+  color: var(--color-on-field);
+}
+
+.head {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.title {
+  font-size: clamp(1.75rem, 1rem + 3vw, 4rem);
+  line-height: 0.95;
+}
+
+.intro {
+  max-width: 56ch;
+  font-size: var(--fs-lead);
+  line-height: 1.3;
+  opacity: 0.85;
+}
+
+.body {
+  display: grid;
+  gap: var(--space-8);
+}
+
+@media (min-width: 64rem) {
+  .body {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+  }
+}
+
+.graph {
+  width: 100%;
+  height: auto;
+  direction: ltr;
+  overflow: visible;
+}
+
+.line {
+  fill: none;
+  stroke: var(--color-on-field);
+  stroke-width: 2;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+.dot {
+  fill: var(--color-field);
+  stroke: var(--color-on-field);
+  stroke-width: 2;
+  opacity: 0;
+}
+
+.pr rect {
+  fill: var(--color-on-field);
+}
+
+.pr text,
+.ok text {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pr text {
+  fill: var(--color-field);
+}
+
+.ok circle {
+  fill: var(--color-on-field);
+}
+
+.ok text {
+  fill: var(--color-field);
+}
+
+.pr,
+.ok {
+  opacity: 0;
+}
+
+.body[data-run="true"] .line {
+  animation: draw 1.4s var(--ease-out) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.body[data-run="true"] .dot,
+.body[data-run="true"] .pr,
+.body[data-run="true"] .ok {
+  animation: pop 500ms var(--ease-out) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pop {
+  to {
+    opacity: 1;
+  }
+}
+
+.steps {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-on-field) 25%, transparent);
+}
+
+.steps span {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.steps strong {
+  display: block;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.steps p {
+  margin-top: 0.15rem;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .dot,
+  .pr,
+  .ok {
+    opacity: 1;
+    animation: none !important;
+  }
+}

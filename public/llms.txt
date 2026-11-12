@@ -1,0 +1,21 @@
+# Christina Volodina
+
+> Web developer (Germany) who designs, builds, deploys and tracks websites end to end.
+> Focus: Next.js, React, TypeScript, responsive (fluid) layout, motion (GSAP, WebGL), SEO and GEO, multilingual sites (DE, EN, UK, AR with RTL), accessibility.
+> Works with AI tools (Claude Code, GPT) under project rules, with every step verified.
+
+## About
+- Languages spoken: German (B1), Ukrainian, Russian. English and Arabic copy is written with AI tools.
+- Location: Pforzheim, Germany.
+- Open to a position inside a company (employment) as well as freelance projects. Either works.
+
+## Pages
+- [Portfolio, German](/de): the full portfolio in German
+- [Portfolio, English](/en): the full portfolio in English
+- [Portfolio, Ukrainian](/uk): the full portfolio in Ukrainian
+- [Portfolio, Arabic](/ar): the full portfolio in Arabic (right to left)
+- [For recruiters](/en/hire): the 60-second summary for hiring teams
+
+## Contact
+- Email: kristin198689@gmail.com
+- GitHub: https://github.com/Kristin198689

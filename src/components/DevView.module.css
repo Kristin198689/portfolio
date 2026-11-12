@@ -1,0 +1,58 @@
+.grid {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+  padding-inline: var(--gutter);
+  pointer-events: none;
+}
+
+.grid span {
+  background: rgb(255 40 120 / 0.1);
+  outline: 1px solid rgb(255 40 120 / 0.35);
+}
+
+.hud {
+  position: fixed;
+  inset-inline-start: var(--space-4);
+  inset-block-end: var(--space-4);
+  z-index: 110;
+  display: grid;
+  gap: var(--space-2);
+  min-width: 13rem;
+  padding: var(--space-4);
+  background: #0a0a0a;
+  color: #fafaf7;
+  border: 1px solid #fafaf7;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.75rem;
+  direction: ltr;
+}
+
+.hud strong {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hud dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.2rem var(--space-4);
+  margin: 0;
+}
+
+.hud dd {
+  margin: 0;
+  text-align: right;
+}
+
+.hud button {
+  padding: var(--space-2);
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}

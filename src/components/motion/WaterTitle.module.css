@@ -1,0 +1,34 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  /* height is set from the measured text; this is the fallback before that */
+  min-height: 0.2em;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+}
+
+/* Once WebGL draws the title, the real heading stays for screen readers and search engines */
+.wrap[data-ready="true"] .title {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  overflow: hidden;
+  user-select: none;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.wrap[data-ready="true"] .canvas {
+  display: block;
+}

@@ -1,4 +1,4 @@
-import { Cormorant_Garamond, Inter_Tight } from "next/font/google";
+import { Cormorant_Garamond, Inter_Tight, Noto_Sans_Arabic } from "next/font/google";
 
 // Same pair as Beauty Studio: strict grotesque + luxury italic accent.
 // Both support Cyrillic (uk).
@@ -14,5 +14,13 @@ export const fontAccent = Cormorant_Garamond({
   style: ["italic"],
   subsets: ["latin", "latin-ext", "cyrillic"],
   variable: "--font-accent-family",
+  display: "swap",
+});
+
+// Arabic needs its own face: Inter Tight has no Arabic glyphs.
+export const fontArabic = Noto_Sans_Arabic({
+  weight: ["400", "500", "800"],
+  subsets: ["arabic"],
+  variable: "--font-arabic-family",
   display: "swap",
 });

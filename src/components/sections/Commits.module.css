@@ -1,0 +1,99 @@
+.box {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 30%, transparent);
+}
+
+.h {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-small);
+}
+
+.list a {
+  display: grid;
+  grid-template-columns: 5ch 1fr auto;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-on-field) 15%, transparent);
+  text-decoration: none;
+}
+
+.list code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  opacity: 0.6;
+}
+
+.list span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list time {
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.note {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.note a {
+  text-underline-offset: 0.25em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
+}
+
+.load {
+  justify-self: start;
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+
+.load:hover {
+  background: var(--color-on-field);
+  color: var(--color-field);
+}
