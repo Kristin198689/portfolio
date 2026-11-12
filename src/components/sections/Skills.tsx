@@ -9,6 +9,7 @@ import { BrandIcon } from "../ui/BrandIcon";
 import { SkillDemo } from "./SkillDemo";
 import { ResponsiveLab } from "./ResponsiveLab";
 import { TeamFlow } from "./TeamFlow";
+import { AiSupport } from "./AiSupport";
 import { BackendLayers } from "./BackendLayers";
 import styles from "./Skills.module.css";
 
@@ -161,6 +162,7 @@ export function Skills() {
           })}
         </ul>
         <p className={styles.note}>{t("logoNote")}</p>
+        <AiSupport />
       </div>
     </section>
   );

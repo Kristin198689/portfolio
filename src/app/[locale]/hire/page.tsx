@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { lighthouse } from "@/config/lighthouse";
 import { siteConfig } from "@/config/site";
+import { PersonalNote } from "@/components/PersonalNote";
 import styles from "./hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/hire">): Promise<Metadata> {
@@ -43,6 +44,7 @@ export default async function HirePage({ params }: PageProps<"/[locale]/hire">) 
       <Link href="/" className={styles.back} data-scramble>
         ← {t("back")}
       </Link>
+      <PersonalNote />
       <p className={styles.kicker}>{t("kicker")}</p>
       <h1 className={styles.title} data-split>
         {t("title")}

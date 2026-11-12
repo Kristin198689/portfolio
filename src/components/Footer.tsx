@@ -57,17 +57,18 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h3 className={styles.h}>{t("stackTitle")}</h3>
+          <h3 className={styles.h}>{t("more")}</h3>
           <ul className={styles.list}>
-            <li>Next.js · React</li>
-            <li>TypeScript · GSAP</li>
-            <li>WebGL · CSS</li>
+            <li><Link href="/work" data-scramble>{t("work")}</Link></li>
+            <li><Link href="/hire" data-scramble>{t("hire")}</Link></li>
+            <li><Link href="/notes" data-scramble>{t("notes")}</Link></li>
+            <li><Link href="/design" data-scramble>{t("design")}</Link></li>
+            <li><Link href="/lab" data-scramble>{t("lab")}</Link></li>
+            <li><Link href="/cv" data-scramble>{t("cv_text")}</Link></li>
           </ul>
         </div>
         <div className={styles.legal}>
           <ul className={styles.list}>
-            <li><Link href="/work" data-scramble>{t("work")}</Link></li>
-            <li><Link href="/hire" data-scramble>{t("hire")}</Link></li>
             <li><Link href="/impressum" data-scramble>{t("imprint")}</Link></li>
             <li><Link href="/datenschutz" data-scramble>{t("privacy")}</Link></li>
           </ul>

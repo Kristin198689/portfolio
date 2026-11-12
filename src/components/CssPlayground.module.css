@@ -1,0 +1,89 @@
+.grid {
+  display: grid;
+  gap: var(--grid-gap);
+  margin-top: var(--space-12);
+  direction: ltr;
+}
+
+@media (min-width: 56rem) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.editor,
+.preview {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.presets button {
+  min-height: 2.5rem;
+  padding: 0 var(--space-4);
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.presets button[aria-pressed="true"] {
+  background: var(--color-on-field);
+  color: var(--color-field);
+}
+
+.reset {
+  margin-inline-start: auto;
+  border-color: transparent !important;
+  text-decoration: underline;
+}
+
+.editor label,
+.preview > span {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.editor textarea {
+  width: 100%;
+  padding: var(--space-4);
+  border: 1px solid currentColor;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--color-on-field) 8%, transparent);
+  color: inherit;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+  resize: vertical;
+  tab-size: 2;
+}
+
+.blocked {
+  font-size: var(--fs-small);
+  color: var(--color-danger);
+}
+
+.host {
+  min-height: 16rem;
+  padding: var(--space-6);
+  background: #fafaf7;
+  color: #0a0a0a;
+  overflow: auto;
+}

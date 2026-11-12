@@ -158,6 +158,15 @@ export function CommandPalette() {
           router.push("/hire");
         },
       },
+      ...(["notes", "design", "lab", "cv"] as const).map((k) => ({
+        id: k,
+        group: t("groups.go"),
+        label: t(`items.${k}`),
+        run: () => {
+          close();
+          router.push(`/${k}`);
+        },
+      })),
       {
         id: "imprint",
         group: t("groups.legal"),

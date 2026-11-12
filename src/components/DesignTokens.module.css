@@ -1,0 +1,140 @@
+.block {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-16);
+}
+
+.h {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.swatches,
+.pairs,
+.type,
+.space,
+.motion {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatches {
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+}
+
+.swatches li {
+  display: grid;
+  gap: 0.2rem;
+  font-size: var(--fs-small);
+}
+
+.chip {
+  display: block;
+  height: 4rem;
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 40%, transparent);
+}
+
+/* every <code> sits inside a styled list, so the selector stays local */
+.swatches code,
+.pairs code,
+.type code,
+.space code,
+.motion code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  overflow-wrap: anywhere;
+}
+
+.pairs li {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  gap: var(--space-3);
+  align-items: center;
+  font-size: var(--fs-small);
+}
+
+.pairs li > span {
+  display: grid;
+  place-items: center;
+  height: 2.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 40%, transparent);
+  font-weight: 800;
+}
+
+.type li {
+  display: grid;
+  gap: 0.2rem;
+  padding: var(--space-3) 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-on-field) 25%, transparent);
+}
+
+.type span {
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.space li {
+  display: grid;
+  grid-template-columns: 7rem 1fr 4rem;
+  gap: var(--space-3);
+  align-items: center;
+  font-size: var(--fs-small);
+}
+
+.space li > span {
+  display: block;
+  height: 0.9rem;
+  max-width: 100%;
+  background: var(--color-on-field);
+}
+
+.motion li {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.track {
+  position: relative;
+  container-type: inline-size;
+  height: 3rem;
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 40%, transparent);
+  overflow: hidden;
+}
+
+.track span {
+  position: absolute;
+  inset-block: 0.5rem;
+  inset-inline-start: 0.5rem;
+  width: 2rem;
+  background: var(--color-on-field);
+  transition-property: transform;
+}
+
+.track:hover span,
+.track:focus-visible span {
+  transform: translateX(calc(100cqw - 3.2rem));
+}
+
+.track em {
+  position: absolute;
+  inset-inline-end: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-style: normal;
+  font-size: var(--fs-small);
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track span {
+    transition: none;
+  }
+}

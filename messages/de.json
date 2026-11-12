@@ -57,7 +57,7 @@
     },
     "progress": "Szene",
     "hint": "Scrollen",
-    "status": "Offen für Anstellung und Freelance",
+    "status": "Offen für Anstellung, Freelance und B2B",
     "recruiters": "Für Recruiter →"
   },
   "depth": {
@@ -219,6 +219,21 @@
         "changes": "Änderungen angefordert",
         "merged": "Freigegeben und gemergt"
       }
+    },
+    "aiSupport": {
+      "title": "Was ich noch nicht gemacht habe, liefere ich mit KI",
+      "text": "Wenn eine Aufgabe etwas Neues verlangt, lerne ich es mit Claude und GPT und liefere es Schritt für Schritt, jedes Ergebnis geprüft. Ich kenne meine Werkzeuge und weiß, wie man ihre Ergebnisse verifiziert.",
+      "chips": [
+        "Tailwind CSS",
+        "SQL / PostgreSQL",
+        "REST / GraphQL",
+        "Docker",
+        "Figma-Handoff",
+        "Storybook",
+        "State Management",
+        "Testing Library"
+      ],
+      "tag": "mit KI-Unterstützung"
     }
   },
   "projects": {
@@ -404,9 +419,14 @@
     "privacy": "Datenschutz",
     "back": "Zurück zum Portfolio",
     "legalTitle": "Rechtliches",
-    "cv": "Profil als PDF",
+    "cv": "Lebenslauf (Klartext)",
     "hire": "Für Recruiter",
-    "work": "Alle Projekte"
+    "work": "Alle Projekte",
+    "design": "Design System",
+    "lab": "CSS-Spielwiese",
+    "notes": "Notizen",
+    "more": "Mehr",
+    "cv_text": "Lebenslauf (Klartext)"
   },
   "seo": {
     "kicker": "SEO",
@@ -544,7 +564,7 @@
     },
     "items": {
       "toggleTheme": "Hell / Dunkel umschalten",
-      "cv": "Profil herunterladen (PDF)",
+      "cv": "Lebenslauf (Klartext)",
       "github": "GitHub öffnen",
       "email": "E-Mail schreiben",
       "imprint": "Impressum",
@@ -552,7 +572,10 @@
       "top": "Nach oben",
       "hire": "Für Recruiter",
       "work": "Alle Projekte",
-      "dev": "Entwickleransicht (Raster und Live-Werte)"
+      "dev": "Entwickleransicht (Raster und Live-Werte)",
+      "design": "Design System",
+      "lab": "CSS-Spielwiese",
+      "notes": "Notizen"
     },
     "langNames": {
       "de": "Deutsch",
@@ -646,7 +669,7 @@
     "rows": [
       {
         "k": "Ich suche",
-        "v": "Eine Anstellung im Unternehmen oder Freelance-Projekte. Beides passt mir"
+        "v": "Stellen als Entwicklerin (Next.js, React, TypeScript) in jedem Format: vor Ort, hybrid oder remote; Anstellung, Freelance oder B2B"
       },
       {
         "k": "Standort",
@@ -851,5 +874,119 @@
   "konami": {
     "title": "Gefunden",
     "text": "Der Konami-Code. Solche Details mag ich."
+  },
+  "personal": {
+    "hello": "Hallo, {name}. Diese Seite ist für Sie vorbereitet.",
+    "sub": "Ich bin offen für jedes Format: vor Ort, hybrid oder remote; Anstellung, Freelance oder B2B.",
+    "more": "Recruiter-Zusammenfassung"
+  },
+  "link": {
+    "title": "Persönlichen Link erstellen",
+    "intro": "Geben Sie das Unternehmen oder die Person ein, bei der Sie sich bewerben. Der Link öffnet diese Seite mit einer Begrüßung.",
+    "label": "Unternehmen oder Name",
+    "ph": "z. B. Acme GmbH",
+    "out": "Ihr Link",
+    "copy": "Link kopieren",
+    "copied": "Kopiert",
+    "base": "Adresse der Seite (später die echte Domain)"
+  },
+  "design": {
+    "kicker": "Design System",
+    "title": "Tokens, Schrift, Motion",
+    "intro": "Das System hinter dieser Seite, live aus ihrem eigenen CSS gelesen. Wechseln Sie das Design mit dem Schalter in der Kopfzeile, die Werte aktualisieren sich.",
+    "colors": "Farb-Tokens",
+    "contrast": "Kontrast",
+    "type": "Schriftskala",
+    "space": "Abstände",
+    "motion": "Motion",
+    "components": "Komponenten",
+    "a11y": "Barrierefreiheits-Regeln",
+    "hoverMe": "Fahr darüber",
+    "rules": [
+      "Textkontrast mindestens 4,5:1, geprüft in hellem und dunklem Design",
+      "Sichtbarer Fokus auf jedem interaktiven Element",
+      "Touch-Ziele von mindestens 24 px",
+      "prefers-reduced-motion schaltet Animation ab",
+      "Erst semantisches HTML, ARIA nur wo nötig",
+      "Logische CSS-Eigenschaften, damit Rechts-nach-links-Sprachen funktionieren",
+      "Fluide Schrift und Abstände mit clamp(), keine fragilen Breakpoints"
+    ],
+    "sample": "Aa Zwölf Boxkämpfer"
+  },
+  "lab": {
+    "kicker": "Spielwiese",
+    "title": "CSS-Spielwiese",
+    "intro": "Bearbeiten Sie links das CSS, die Karte rechts ändert sich live. Es läuft in einem isolierten Shadow Root. Externe URLs und @import sind gesperrt.",
+    "css": "CSS",
+    "preview": "Vorschau",
+    "reset": "Zurücksetzen",
+    "presets": {
+      "fluid": "Fluide Schrift",
+      "grid": "Raster",
+      "glass": "Glas-Karte"
+    },
+    "blocked": "Externe URLs werden entfernt.",
+    "card": {
+      "title": "Fluide Karte",
+      "text": "Schrift und Abstände skalieren mit der Breite dieser Box.",
+      "button": "Button"
+    }
+  },
+  "cv": {
+    "kicker": "Lebenslauf, Klartext",
+    "title": "Christina Volodina",
+    "intro": "Eine schlichte, strukturierte Version für Bewerbermanagementsysteme. Die gestaltete Version finden Sie auf der Recruiter-Seite und im PDF.",
+    "summary": "Zusammenfassung",
+    "skills": "Skills",
+    "projects": "Projekte",
+    "languages": "Sprachen",
+    "contact": "Kontakt",
+    "print": "Drucken oder als PDF speichern",
+    "pdf": "Gestaltetes PDF"
+  },
+  "notes": {
+    "kicker": "Notizen",
+    "title": "Kurze Notizen",
+    "intro": "Wie ich arbeite, kurz und überprüfbar.",
+    "read": "Lesen",
+    "back": "Alle Notizen",
+    "date": "Geschrieben",
+    "items": {
+      "seo": {
+        "title": "SEO gehört zum Bauen: meine Checkliste",
+        "summary": "Was ich bei jeder Website prüfe, bevor sie live geht.",
+        "body": [
+          "Jede Seite bekommt pro Sprache einen eigenen Titel und eine eigene Beschreibung sowie genau eine Canonical-URL.",
+          "Sprachen werden mit hreflang verbunden, inklusive x-default, damit Suchmaschinen die richtige Version zeigen.",
+          "Strukturierte Daten (Schema.org JSON-LD) beschreiben die Website, die Person oder das Unternehmen und die Seite.",
+          "sitemap.xml und robots.txt werden generiert, nicht von Hand geschrieben. llms.txt hilft KI-Assistenten.",
+          "Ein H1 pro Seite, eine logische H2- und H3-Hierarchie, Alt-Texte bei Bildern.",
+          "Performance gehört zu SEO: Ich messe Lighthouse und Web Vitals und behebe, was sie zeigen.",
+          "Nach dem Launch: Search Console für Indexierung und Suchanfragen, dann kleine Änderungen an Titeln und Inhalten anhand der Daten."
+        ]
+      },
+      "ai": {
+        "title": "Wie ich mit Claude Code arbeite: erst die Regeln",
+        "summary": "KI ist schnell. Regeln machen sie verlässlich.",
+        "body": [
+          "Jedes Projekt hat eine CLAUDE.md: Stack, Designregeln, Security-Checkliste und Dinge, die nie passieren (kein Push ohne Freigabe, keine erfundenen Daten, keine Secrets im Frontend).",
+          "Vor großen Änderungen wird die Codebasis als Wissensgraph kartiert, damit Änderungen bei der Architektur beginnen und nicht beim Raten.",
+          "Gearbeitet wird in kleinen Schritten. Jeder Schritt endet mit Build, Lint und einer echten Prüfung im Browser.",
+          "Commits passieren nur, wenn ich es sage. Die KI schlägt vor, ich entscheide.",
+          "Bei Sprachen, die ich nicht spreche, wird der Text als KI-gestützt markiert und soll von Muttersprachlern geprüft werden."
+        ]
+      },
+      "lh": {
+        "title": "Lighthouse von 74 auf 94: was sich wirklich geändert hat",
+        "summary": "Echte Messungen dieser Seite, Desktop, Production-Build.",
+        "body": [
+          "Erste Messung: Performance 74, Barrierefreiheit 97, Best Practices 96, SEO 92, Blockierzeit etwa 500 ms.",
+          "WebGL-Kontexte und schwere Canvas starten jetzt erst in der Nähe des Viewports. Die Blockierzeit sank auf etwa 0 ms, Performance erreichte 97.",
+          "Ein fehlendes Favicon lieferte 404 und die Canonical-URL zeigte auf den falschen Host. Beides behoben: Best Practices 100, SEO 100.",
+          "Kleine Labels und dekorative Zahlen hatten zu wenig Kontrast, und die Pull-Request-Demo nutzte falsche ARIA-Rollen und winzige Buttons. Behoben: Barrierefreiheit 100.",
+          "Nach weiteren Funktionen pendelte sich der Wert bei Performance 94, Barrierefreiheit 100, Best Practices 100, SEO 100 ein. Die Zahlen werden mit Datum gespeichert und nach großen Änderungen neu gemessen."
+        ]
+      }
+    }
   }
 }

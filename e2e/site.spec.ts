@@ -160,3 +160,50 @@ test("all projects page links to live deployments", async ({ page }) => {
   const live = await page.locator('main a[href^="https://"][href*="vercel.app"]').count();
   expect(live).toBeGreaterThan(8);
 });
+
+test("personal link greets the company and cleans the name", async ({ page }) => {
+  await page.goto("/en?for=Acme%20GmbH%3Cscript%3E");
+  await expect(page.getByRole("status").first()).toContainText("Acme GmbHscript");
+  await expect(page.locator("script", { hasText: "alert" })).toHaveCount(0);
+});
+
+test("CSS playground applies edits live and blocks external URLs", async ({ page }) => {
+  await page.goto("/en/lab");
+  await page.getByRole("textbox").fill(".card{background:rgb(255, 0, 0)} h3{margin:0}");
+  const bg = await page.locator("main div").first().evaluate(() => {
+    const host = document.querySelector("[class*=host]") as HTMLElement;
+    const card = host.shadowRoot!.querySelector(".card") as HTMLElement;
+    return getComputedStyle(card).backgroundColor;
+  });
+  expect(bg).toBe("rgb(255, 0, 0)");
+  await page.getByRole("textbox").fill("@import url(https://evil.example/x.css); .card{background:url(https://evil.example/a.png)}");
+  await expect(page.getByText("External URLs are removed.")).toBeVisible();
+});
+
+test("design system page reads live tokens and flips with the theme", async ({ page }) => {
+  await page.goto("/en/design");
+  await expect(page.getByText("--color-bg").first()).toBeVisible();
+  const before = await page.locator("main li b").first().textContent();
+  await page.locator("header button[aria-pressed]").click();
+  await expect.poll(async () => page.locator("main li b").first().textContent()).not.toBe(before);
+});
+
+test("notes list and article render", async ({ page }) => {
+  await page.goto("/en/notes");
+  await page.getByRole("link", { name: /SEO is part of the build/ }).click();
+  await expect(page).toHaveURL(/\/en\/notes\/seo$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("SEO is part of the build");
+  const ld = await page.locator('script[type="application/ld+json"]').last().textContent();
+  expect(JSON.parse(ld ?? "{}")["@type"]).toBe("Article");
+});
+
+test("plain-text CV lists skills and projects", async ({ page }) => {
+  await page.goto("/en/cv");
+  await expect(page.getByRole("heading", { name: "Skills", exact: true })).toBeVisible();
+  await expect(page.locator("main li").filter({ hasText: "NØFORM" })).toHaveCount(1);
+});
+
+test("skills section states that unknown tools are delivered with AI", async ({ page }) => {
+  await page.goto("/en");
+  await expect(page.getByText("What I haven't done yet, I deliver with AI")).toBeAttached();
+});

@@ -57,7 +57,7 @@
     },
     "progress": "Scene",
     "hint": "Scroll",
-    "status": "Open to jobs and freelance",
+    "status": "Open to jobs, freelance and B2B",
     "recruiters": "For recruiters →"
   },
   "depth": {
@@ -219,6 +219,21 @@
         "changes": "Changes requested",
         "merged": "Approved and merged"
       }
+    },
+    "aiSupport": {
+      "title": "What I haven't done yet, I deliver with AI",
+      "text": "If a task needs something new, I learn it with Claude and GPT and deliver it step by step, with every result checked. I know my tools, and I know how to verify what they produce.",
+      "chips": [
+        "Tailwind CSS",
+        "SQL / PostgreSQL",
+        "REST / GraphQL",
+        "Docker",
+        "Figma handoff",
+        "Storybook",
+        "State management",
+        "Testing Library"
+      ],
+      "tag": "with AI support"
     }
   },
   "projects": {
@@ -404,9 +419,14 @@
     "privacy": "Privacy policy",
     "back": "Back to portfolio",
     "legalTitle": "Legal",
-    "cv": "Profile as PDF",
+    "cv": "CV (plain text)",
     "hire": "For recruiters",
-    "work": "All projects"
+    "work": "All projects",
+    "design": "Design system",
+    "lab": "CSS playground",
+    "notes": "Notes",
+    "more": "More",
+    "cv_text": "CV (plain text)"
   },
   "seo": {
     "kicker": "SEO",
@@ -544,7 +564,7 @@
     },
     "items": {
       "toggleTheme": "Switch light / dark theme",
-      "cv": "Download profile (PDF)",
+      "cv": "CV (plain text)",
       "github": "Open GitHub",
       "email": "Write an email",
       "imprint": "Impressum",
@@ -552,7 +572,10 @@
       "top": "Back to top",
       "hire": "For recruiters",
       "work": "All projects",
-      "dev": "Developer view (grid and live stats)"
+      "dev": "Developer view (grid and live stats)",
+      "design": "Design system",
+      "lab": "CSS playground",
+      "notes": "Notes"
     },
     "langNames": {
       "de": "Deutsch",
@@ -646,7 +669,7 @@
     "rows": [
       {
         "k": "Looking for",
-        "v": "A position inside a company, or freelance projects. Either works for me"
+        "v": "Developer roles (Next.js, React, TypeScript) in any format: on-site, hybrid or remote; employment, freelance or B2B"
       },
       {
         "k": "Based in",
@@ -851,5 +874,119 @@
   "konami": {
     "title": "You found it",
     "text": "The Konami code. I like details like this one."
+  },
+  "personal": {
+    "hello": "Hello, {name}. This page is prepared for you.",
+    "sub": "I am open to any format: on-site, hybrid or remote; employment, freelance or B2B.",
+    "more": "Recruiter summary"
+  },
+  "link": {
+    "title": "Personal link maker",
+    "intro": "Type the company or person you are applying to. The link opens this site with a greeting for them.",
+    "label": "Company or name",
+    "ph": "e.g. Acme GmbH",
+    "out": "Your link",
+    "copy": "Copy link",
+    "copied": "Copied",
+    "base": "Site address (use your real domain later)"
+  },
+  "design": {
+    "kicker": "Design system",
+    "title": "Tokens, type, motion",
+    "intro": "The system behind this site, read live from its own CSS. Change the theme with the switch in the header and the values update.",
+    "colors": "Color tokens",
+    "contrast": "Contrast",
+    "type": "Type scale",
+    "space": "Spacing",
+    "motion": "Motion",
+    "components": "Components",
+    "a11y": "Accessibility rules",
+    "hoverMe": "Hover me",
+    "rules": [
+      "Text contrast of at least 4.5:1, checked in light and dark theme",
+      "Visible focus on every interactive element",
+      "Touch targets of at least 24 px",
+      "prefers-reduced-motion switches animation off",
+      "Semantic HTML first, ARIA only where needed",
+      "Logical CSS properties, so right-to-left languages work",
+      "Fluid type and spacing with clamp(), no fragile breakpoints"
+    ],
+    "sample": "Aa Quick brown fox"
+  },
+  "lab": {
+    "kicker": "Playground",
+    "title": "CSS playground",
+    "intro": "Edit the CSS on the left, the card on the right changes live. It runs in an isolated shadow root. External URLs and @import are blocked.",
+    "css": "CSS",
+    "preview": "Preview",
+    "reset": "Reset",
+    "presets": {
+      "fluid": "Fluid type",
+      "grid": "Grid",
+      "glass": "Glass card"
+    },
+    "blocked": "External URLs are removed.",
+    "card": {
+      "title": "Fluid card",
+      "text": "Type and spacing scale with the width of this box.",
+      "button": "Button"
+    }
+  },
+  "cv": {
+    "kicker": "CV, plain text",
+    "title": "Christina Volodina",
+    "intro": "A plain, structured version for applicant tracking systems. For the designed version see the recruiter page or the PDF.",
+    "summary": "Summary",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Languages",
+    "contact": "Contact",
+    "print": "Print or save as PDF",
+    "pdf": "Designed PDF"
+  },
+  "notes": {
+    "kicker": "Notes",
+    "title": "Short notes",
+    "intro": "How I work, in short and checkable form.",
+    "read": "Read",
+    "back": "All notes",
+    "date": "Written",
+    "items": {
+      "seo": {
+        "title": "SEO is part of the build: my checklist",
+        "summary": "What I check on every site before it goes live.",
+        "body": [
+          "Every page gets a unique title and description per language, and one canonical URL.",
+          "Languages are linked with hreflang, including x-default, so search engines show the right version.",
+          "Structured data (Schema.org JSON-LD) describes the site, the person or business and the page.",
+          "sitemap.xml and robots.txt are generated, not written by hand. llms.txt helps AI assistants.",
+          "One H1 per page, a logical H2 and H3 hierarchy, alt text on images.",
+          "Performance is part of SEO: I measure Lighthouse and Web Vitals and fix what they show.",
+          "After launch: Search Console for indexing and queries, then small changes to titles and content based on the data."
+        ]
+      },
+      "ai": {
+        "title": "How I work with Claude Code: rules first",
+        "summary": "AI is fast. Rules make it reliable.",
+        "body": [
+          "Every project has a CLAUDE.md: stack, design rules, a security checklist and things that never happen (no push without approval, no invented data, no secrets in the frontend).",
+          "Before large changes the codebase is mapped as a knowledge graph, so changes start from the architecture, not from guessing.",
+          "Work happens in small steps. Each step ends with build, lint and a real check in the browser.",
+          "Commits only happen when I say so. The AI proposes, I decide.",
+          "For languages I do not speak, the text is marked as AI-assisted and meant for a native speaker to review."
+        ]
+      },
+      "lh": {
+        "title": "Lighthouse from 74 to 94: what actually changed",
+        "summary": "Real measurements of this site, desktop, production build.",
+        "body": [
+          "First measurement: Performance 74, Accessibility 97, Best practices 96, SEO 92, blocking time about 500 ms.",
+          "WebGL contexts and heavy canvases now start only when they are near the viewport. Blocking time dropped to about 0 ms and Performance reached 97.",
+          "A missing favicon returned a 404 and the canonical URL pointed to the wrong host. Both fixed: Best practices 100, SEO 100.",
+          "Small labels and decorative numbers had too little contrast, and the pull request demo used wrong ARIA roles and tiny buttons. Fixed: Accessibility 100.",
+          "After adding more features the score settled at Performance 94, Accessibility 100, Best practices 100, SEO 100. The numbers are stored with their date and re-measured after big changes."
+        ]
+      }
+    }
   }
 }

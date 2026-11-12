@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitChars } from "@/lib/split";
 import { ContactLink } from "../ui/ContactLink";
 import { Link } from "@/i18n/navigation";
+import { PersonalNote } from "../PersonalNote";
 import styles from "./Hero.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -130,6 +131,7 @@ export function Hero() {
           </h1>
           <div className={styles.foot}>
             <div className={styles.leadWrap}>
+              <PersonalNote />
               <p className={styles.status}>
                 <span className={styles.pulse} aria-hidden="true" /> {t("status")}
               </p>

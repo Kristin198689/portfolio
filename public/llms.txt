@@ -7,7 +7,7 @@
 ## About
 - Languages spoken: German (B1), Ukrainian, Russian. English and Arabic copy is written with AI tools.
 - Location: Pforzheim, Germany.
-- Open to a position inside a company (employment) as well as freelance projects. Either works.
+- Open to any format: on-site, hybrid or remote; employment, freelance or B2B.
 
 ## Pages
 - [Portfolio, German](/de): the full portfolio in German
@@ -15,6 +15,10 @@
 - [Portfolio, Ukrainian](/uk): the full portfolio in Ukrainian
 - [Portfolio, Arabic](/ar): the full portfolio in Arabic (right to left)
 - [For recruiters](/en/hire): the 60-second summary for hiring teams
+- [All projects](/en/work): every project with live links
+- [Notes](/en/notes): short articles on SEO, working with AI, and Lighthouse
+- [Design system](/en/design): tokens, type, motion, accessibility rules
+- [CV, plain text](/en/cv): structured version for applicant tracking systems
 
 ## Contact
 - Email: volodina.webstudio@gmail.com

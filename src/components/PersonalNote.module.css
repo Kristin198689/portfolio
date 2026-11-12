@@ -1,0 +1,19 @@
+.note {
+  display: grid;
+  gap: 0.25rem;
+  max-width: 44rem;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid currentColor;
+  font-size: var(--fs-small);
+  line-height: 1.4;
+}
+
+.note strong {
+  font-size: 1rem;
+}
+
+.note a {
+  justify-self: start;
+  font-weight: 500;
+  text-underline-offset: 0.25em;
+}

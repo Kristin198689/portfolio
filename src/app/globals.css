@@ -262,3 +262,20 @@ html.party body {
     animation: none;
   }
 }
+
+/* Printing (CV page and others): only the content, no decoration */
+@media print {
+  header,
+  nav[aria-label],
+  [class*="Companion"],
+  [class*="ScrollProgress"],
+  [class*="SideNav"],
+  [class*="Konami"],
+  footer {
+    display: none !important;
+  }
+
+  body::after {
+    display: none;
+  }
+}
