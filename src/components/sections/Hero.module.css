@@ -224,7 +224,7 @@
 }
 
 .scene:first-child .title {
-  font-size: clamp(2.5rem, 15.5vw, 18rem);
+  font-size: clamp(2.5rem, 14.8vw, 18rem);
 }
 
 html[lang="ar"] .scene:first-child .title {

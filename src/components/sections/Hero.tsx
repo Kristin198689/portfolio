@@ -44,7 +44,7 @@ export function Hero() {
       if (drift && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         gsap.set(drift, { transformPerspective: 1400, transformStyle: "preserve-3d" });
         const lines = drift.querySelectorAll<HTMLElement>("[class*='line']");
-        gsap.set(lines[1] ?? [], { z: 70 });
+        gsap.set(lines[1] ?? [], { z: 36 });
         const ry = gsap.quickTo(drift, "rotationY", { duration: 0.9, ease: "power3" });
         const rx = gsap.quickTo(drift, "rotationX", { duration: 0.9, ease: "power3" });
         const onMove = (e: PointerEvent) => {
