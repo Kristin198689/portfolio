@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
-import { CssPlayground } from "@/components/CssPlayground";
+import { LabShell } from "@/components/lab/LabShell";
+import { pageMeta } from "@/lib/page-meta";
 import styles from "../hire/hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/lab">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "lab" });
-  return {
-    title: `${t("title")} · Christina Volodina`,
-    description: t("intro"),
-    alternates: {
-      canonical: `/${locale}/lab`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}/lab`])),
-    },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, "/lab", t("title"), md("lab"));
 }
 
 export default async function LabPage({ params }: PageProps<"/[locale]/lab">) {
@@ -33,7 +28,9 @@ export default async function LabPage({ params }: PageProps<"/[locale]/lab">) {
         {t("title")}
       </h1>
       <p className={styles.intro}>{t("intro")}</p>
-      <CssPlayground />
+      <Suspense fallback={null}>
+        <LabShell />
+      </Suspense>
     </main>
   );
 }

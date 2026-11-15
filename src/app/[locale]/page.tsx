@@ -9,6 +9,8 @@ import { Projects } from "@/components/sections/Projects";
 import { ScrollMarquee } from "@/components/sections/ScrollMarquee";
 import { Seo } from "@/components/sections/Seo";
 import { Skills } from "@/components/sections/Skills";
+import { Universe } from "@/components/universe/Universe";
+import { LabPreview } from "@/components/sections/LabPreview";
 import { Statement } from "@/components/sections/Statement";
 import { WaterShowcase } from "@/components/sections/WaterShowcase";
 
@@ -20,6 +22,8 @@ export default function HomePage({ params }: PageProps<"/[locale]">) {
       <Hero />
       <Depth />
       <Skills />
+      <Universe />
+      <LabPreview />
       <ScrollMarquee />
       <Projects />
       <Seo />

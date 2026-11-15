@@ -1,0 +1,48 @@
+.box {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.track {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-6) calc(var(--space-16) * 2);
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.fig {
+  position: relative;
+  margin: 0;
+}
+
+.mask {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.cap {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cap span {
+  opacity: 0.55;
+}

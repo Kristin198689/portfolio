@@ -1,0 +1,385 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-12);
+}
+
+.filters button {
+  min-height: 2.5rem;
+  padding: 0 var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 40%, transparent);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--dur-base, 0.25s), color var(--dur-base, 0.25s);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filters button:hover {
+    border-color: currentColor;
+  }
+}
+
+.filters button[aria-pressed="true"] {
+  background: var(--color-on-field);
+  color: var(--color-field);
+  border-color: var(--color-on-field);
+}
+
+.count {
+  margin: var(--space-6) 0 var(--space-3);
+  font-size: var(--fs-small);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.index {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: start;
+  gap: var(--space-2) var(--space-4);
+  width: 100%;
+  padding: var(--space-6) 0;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-on-field) 25%, transparent);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: padding var(--dur-base, 0.3s) var(--ease-out, ease);
+}
+
+.index li:last-child .row {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-on-field) 25%, transparent);
+}
+
+.row:focus-visible {
+  padding-inline-start: var(--space-4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    padding-inline-start: var(--space-4);
+  }
+}
+
+.num {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.55;
+}
+
+.rowMain {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.rowMain strong {
+  font-size: clamp(1.5rem, 1rem + 2.6vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.rowMain span {
+  max-width: 56ch;
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  opacity: 0.75;
+}
+
+.rowTags {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.rowTags i {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 35%, transparent);
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.open {
+  grid-column: 3;
+  grid-row: 1;
+  font-size: 1.5rem;
+}
+
+[dir="rtl"] .open {
+  transform: scaleX(-1);
+}
+
+@media (min-width: 64rem) {
+  .row {
+    grid-template-columns: 3rem minmax(0, 1.4fr) minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .rowTags {
+    grid-column: 3;
+    justify-content: flex-end;
+  }
+
+  .open {
+    grid-column: 4;
+  }
+}
+
+.stage {
+  margin-top: var(--space-10, 2.5rem);
+  scroll-margin-top: 5.5rem;
+}
+
+.back {
+  min-height: 2.5rem;
+  margin-bottom: var(--space-6);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.stageTitle {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(2.5rem, 1rem + 6vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.stageDesc {
+  max-width: 60ch;
+  margin: 0 0 var(--space-8);
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap);
+  min-width: 0;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    align-items: start;
+  }
+}
+
+.frame {
+  position: relative;
+  min-width: 0;
+  height: clamp(20rem, 62vw, 36rem);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 30%, transparent);
+  direction: ltr;
+  /* The stage is its own fixed dark surface with its own ink, so every experiment looks the same
+     in the light and the dark site theme (the page itself still follows the theme). */
+  --color-field: #0c0b12;
+  --color-on-field: #fafaf7;
+  --color-danger: #ff8a8a;
+  background: var(--color-field);
+  color: var(--color-on-field);
+}
+
+.frame[data-tall="true"] {
+  height: clamp(28rem, 80vw, 40rem);
+}
+
+.hint {
+  position: absolute;
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-3);
+  padding: 0.2rem 0.6rem;
+  background: rgb(0 0 0 / 0.55);
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+  animation: hintFade 0.5s ease 5s forwards;
+}
+
+@keyframes hintFade {
+  to {
+    opacity: 0;
+  }
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.primary,
+.ghost {
+  min-height: 2.75rem;
+  padding: 0 var(--space-5, 1.25rem);
+  border: 1px solid currentColor;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.primary {
+  border-color: var(--color-on-field);
+  background: var(--color-on-field);
+  color: var(--color-field);
+}
+
+.ghost {
+  background: transparent;
+  color: inherit;
+}
+
+.micro {
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid color-mix(in srgb, var(--color-on-field) 25%, transparent);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.params {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.param {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.param span {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.param output {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.param input[type="range"] {
+  width: 100%;
+  min-height: 1.5rem;
+  accent-color: var(--color-on-field);
+  cursor: pointer;
+}
+
+.param select {
+  min-height: 2.75rem;
+  padding: 0 var(--space-3);
+  border: 1px solid currentColor;
+  border-radius: 0;
+  background: var(--color-field);
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech li {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 40%, transparent);
+  font-size: var(--fs-small);
+}
+
+.muted {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  opacity: 0.65;
+}
+
+.notice {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  padding: var(--space-6);
+  text-align: center;
+  font-size: var(--fs-body);
+  opacity: 0.8;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.row:focus-visible,
+.back:focus-visible,
+.primary:focus-visible,
+.ghost:focus-visible,
+.filters button:focus-visible,
+.param input:focus-visible,
+.param select:focus-visible {
+  outline: 2px solid var(--color-on-field);
+  outline-offset: 3px;
+}

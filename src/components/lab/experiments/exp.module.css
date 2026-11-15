@@ -1,0 +1,68 @@
+.fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+
+.canvasDrag {
+  composes: canvas;
+  touch-action: none;
+  cursor: grab;
+}
+
+.center {
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.big {
+  margin: 0;
+  max-width: 100%;
+  font-size: clamp(2.5rem, 1rem + 11vw, 9rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.line {
+  display: block;
+  white-space: nowrap;
+}
+
+.ch {
+  display: inline-block;
+  will-change: transform;
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.caption {
+  position: absolute;
+  inset-inline: var(--space-4);
+  inset-block-end: var(--space-3);
+  font-size: var(--fs-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  pointer-events: none;
+}
