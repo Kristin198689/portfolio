@@ -20,16 +20,11 @@ export function Statement() {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const words = Array.from(el.querySelectorAll<HTMLElement>("[data-w]"));
-      // Unlit words use the muted text colour (readable contrast), lit words the full text colour.
-      const probe = document.createElement("span");
-      probe.style.color = "var(--color-text-muted)";
-      el.appendChild(probe);
-      const off = getComputedStyle(probe).color;
-      probe.remove();
-      const on = getComputedStyle(el).color;
-      gsap.set(words, { color: off });
+      // Each word mixes between the muted and the full text colour through --lit (0 to 1),
+      // so the colours follow the theme even when it is switched while scrolling.
+      gsap.set(words, { "--lit": 0 });
       gsap.to(words, {
-        color: on,
+        "--lit": 1,
         ease: "none",
         stagger: 0.1,
         scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: true },

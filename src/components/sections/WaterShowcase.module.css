@@ -26,6 +26,8 @@
   display: grid;
   gap: var(--space-3);
   pointer-events: none;
+  /* always sits on the dark gradient over the photo, so it stays light in both themes */
+  color: #f6f6f1;
   text-shadow: 0 1px 24px rgb(0 0 0 / 0.5);
 }
 

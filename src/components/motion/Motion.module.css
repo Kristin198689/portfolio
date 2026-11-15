@@ -9,7 +9,7 @@
   color: var(--color-on-field);
 }
 
-:global(html.js) .pre {
+:global(html.js:not(.pre-seen)) .pre {
   display: grid;
 }
 

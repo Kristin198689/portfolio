@@ -88,6 +88,8 @@ export function Motion({ name }: { name: string }) {
     try {
       seen = sessionStorage.getItem("preloaded") === "1";
     } catch {}
+    // the intro only belongs to the home page; every other page opens straight away
+    if (!/^\/[a-z]{2}\/?$/.test(location.pathname)) seen = true;
     const pre = preRef.current;
     if (!pre || seen) {
       if (pre) pre.style.display = "none";
