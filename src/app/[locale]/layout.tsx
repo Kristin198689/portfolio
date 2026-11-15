@@ -24,7 +24,10 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f4f0" },
+  ],
   colorScheme: "light dark",
 };
 
@@ -35,6 +38,16 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "meta" });
   return {
     metadataBase: new URL(siteConfig.url),
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48" },
+        { url: "/icon.svg", type: "image/svg+xml" },
+        { url: "/icons/icon-32.png", sizes: "32x32", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+      other: [{ rel: "mask-icon", url: "/icons/mask-icon.svg", color: "#bdb8fc" }],
+    },
+    appleWebApp: { title: "C. Volodina", capable: true },
     ...buildMetadata({ locale, title: t("title"), description: t("description") }),
   };
 }
