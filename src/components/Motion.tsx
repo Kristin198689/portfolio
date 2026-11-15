@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { splitChars } from "@/lib/split";
+import "@/lib/scroll";
 import styles from "./motion/Motion.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -51,10 +52,12 @@ export function Motion({ name }: { name: string }) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     lenisRef.current = lenis;
+    window.__lenis = lenis;
     cleanups.push(() => {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
+      window.__lenis = null;
     });
 
     // Page transition: a curtain wipes up, the route changes underneath, then it wipes away
@@ -69,13 +72,14 @@ export function Motion({ name }: { name: string }) {
       e.preventDefault();
       coveredRef.current = true;
       lenis.stop();
+      // a quick, quiet fade to the page colour instead of a sliding panel
       gsap.fromTo(
         curtain,
-        { yPercent: 100 },
+        { opacity: 0 },
         {
-          yPercent: 0,
-          duration: 0.7,
-          ease: "expo.inOut",
+          opacity: 1,
+          duration: 0.22,
+          ease: "power2.out",
           onComplete: () => router.push(url.pathname + url.search + url.hash),
         },
       );
@@ -90,6 +94,9 @@ export function Motion({ name }: { name: string }) {
     } catch {}
     // the intro only belongs to the home page; every other page opens straight away
     if (!/^\/[a-z]{2}\/?$/.test(location.pathname)) seen = true;
+    // a reload or the back button is not a first visit
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav && nav.type !== "navigate") seen = true;
     const pre = preRef.current;
     if (!pre || seen) {
       if (pre) pre.style.display = "none";
@@ -207,17 +214,29 @@ export function Motion({ name }: { name: string }) {
     const curtain = curtainRef.current;
     if (curtain && coveredRef.current) {
       coveredRef.current = false;
-      lenisRef.current?.scrollTo(0, { immediate: true });
-      window.scrollTo(0, 0);
+      // land on the section from the link (/#projects), not at the top of the page
+      const go = () => {
+        const target = location.hash ? document.querySelector<HTMLElement>(location.hash) : null;
+        if (target) lenisRef.current?.scrollTo(target, { immediate: true, force: true });
+        else {
+          lenisRef.current?.scrollTo(0, { immediate: true });
+          window.scrollTo(0, 0);
+        }
+      };
+      go();
+      if (location.hash) {
+        // pinned sections change the page height once ScrollTrigger has measured them
+        window.setTimeout(() => {
+          ScrollTrigger.refresh();
+          go();
+        }, 350);
+      }
       gsap.to(curtain, {
-        yPercent: -100,
-        duration: 0.9,
-        delay: 0.15,
-        ease: "expo.inOut",
-        onComplete: () => {
-          gsap.set(curtain, { yPercent: 100 });
-          lenisRef.current?.start();
-        },
+        opacity: 0,
+        duration: 0.4,
+        delay: 0.05,
+        ease: "power2.inOut",
+        onComplete: () => lenisRef.current?.start(),
       });
     }
 
@@ -293,9 +312,7 @@ export function Motion({ name }: { name: string }) {
           <span ref={countRef}>0</span>
         </span>
       </div>
-      <div ref={curtainRef} className={styles.curtain} aria-hidden="true">
-        <span>{name}</span>
-      </div>
+      <div ref={curtainRef} className={styles.curtain} aria-hidden="true" />
       <div ref={ringRef} className={styles.ring} aria-hidden="true">
         <span ref={labelRef} className={styles.label} />
       </div>

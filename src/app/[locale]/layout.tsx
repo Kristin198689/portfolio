@@ -73,7 +73,7 @@ export default async function LocaleLayout({
           {"try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}"}
         </Script>
         <Script id="js-flag" strategy="beforeInteractive">
-          {"document.documentElement.classList.add('js');try{if(sessionStorage.getItem('preloaded')==='1'||!/^\/[a-z]{2}\/?$/.test(location.pathname))document.documentElement.classList.add('pre-seen')}catch(e){}setTimeout(function(){if(!window.__motionReady)document.documentElement.classList.add('motion-failsafe')},4000)"}
+          {"document.documentElement.classList.add('js');try{if(sessionStorage.getItem('preloaded')==='1'||!/^\\/[a-z]{2}\\/?$/.test(location.pathname)||(performance.getEntriesByType('navigation')[0]||{}).type!=='navigate')document.documentElement.classList.add('pre-seen')}catch(e){}setTimeout(function(){if(!window.__motionReady)document.documentElement.classList.add('motion-failsafe')},4000)"}
         </Script>
         <JsonLd locale={locale} description={meta("description")} jobTitle={meta("jobTitle")} />
         <NextIntlClientProvider>
