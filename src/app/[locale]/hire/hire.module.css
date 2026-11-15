@@ -137,9 +137,11 @@
   transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
 
-.proof a:hover {
-  background: var(--color-on-field);
-  color: var(--color-field);
+@media (hover: hover) and (pointer: fine) {
+  .proof a:hover {
+    background: var(--color-on-field);
+    color: var(--color-field);
+  }
 }
 
 .proof strong {
@@ -176,10 +178,12 @@
   transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
 
-.tour a:hover,
-.btn:hover {
-  background: var(--color-on-field);
-  color: var(--color-field);
+@media (hover: hover) and (pointer: fine) {
+  .tour a:hover,
+  .btn:hover {
+    background: var(--color-on-field);
+    color: var(--color-field);
+  }
 }
 
 .talk {
@@ -208,9 +212,11 @@
   gap: var(--space-3);
 }
 
-.talk .btn:hover {
-  background: var(--color-field);
-  color: var(--color-on-field);
+@media (hover: hover) and (pointer: fine) {
+  .talk .btn:hover {
+    background: var(--color-field);
+    color: var(--color-on-field);
+  }
 }
 
 .pitch {

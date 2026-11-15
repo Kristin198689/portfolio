@@ -118,9 +118,14 @@
   transition-property: transform;
 }
 
-.track:hover span,
 .track:focus-visible span {
   transform: translateX(calc(100cqw - 3.2rem));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .track:hover span {
+    transform: translateX(calc(100cqw - 3.2rem));
+  }
 }
 
 .track em {

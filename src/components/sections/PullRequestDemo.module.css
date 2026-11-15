@@ -72,10 +72,16 @@
   opacity: 0.4;
 }
 
-.row:hover .plus,
 .plus:focus-visible {
   opacity: 1;
   border-color: currentColor;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover .plus {
+    opacity: 1;
+    border-color: currentColor;
+  }
 }
 
 .num {

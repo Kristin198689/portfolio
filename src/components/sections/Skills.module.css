@@ -152,9 +152,11 @@
     color var(--dur-base) var(--ease-out);
 }
 
-a.pill:hover {
-  background: var(--color-text);
-  color: var(--color-bg);
+@media (hover: hover) and (pointer: fine) {
+  a.pill:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

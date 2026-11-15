@@ -93,7 +93,9 @@
   transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
 
-.load:hover {
-  background: var(--color-on-field);
-  color: var(--color-field);
+@media (hover: hover) and (pointer: fine) {
+  .load:hover {
+    background: var(--color-on-field);
+    color: var(--color-field);
+  }
 }

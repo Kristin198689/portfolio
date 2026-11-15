@@ -18,6 +18,11 @@
   --ink: var(--p-paper);
 }
 
+/* a section that is dark in both themes */
+.rail[data-ink="night"] {
+  --ink: #f6f6f1;
+}
+
 .rail[data-show="true"] {
   opacity: 1;
   pointer-events: auto;
@@ -67,7 +72,6 @@
 }
 
 /* hovering the rail names every section */
-.rail:hover .label,
 .rail:focus-within .label {
   padding: 0.1rem 0.5rem;
   background: var(--p-ink);
@@ -76,15 +80,45 @@
   transform: none;
 }
 
-.rail[data-ink="field"]:hover .label,
+@media (hover: hover) and (pointer: fine) {
+  .rail:hover .label {
+    padding: 0.1rem 0.5rem;
+    background: var(--p-ink);
+    color: var(--p-paper);
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rail[data-ink="night"]:focus-within .label {
+  background: #f6f6f1;
+  color: #0a0a0a;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .rail[data-ink="night"]:hover .label {
+    background: #f6f6f1;
+    color: #0a0a0a;
+  }
+}
+
 .rail[data-ink="field"]:focus-within .label {
   background: var(--p-paper);
   color: var(--p-ink);
 }
 
-.item:hover .tick {
-  width: 1.2rem;
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .rail[data-ink="field"]:hover .label {
+    background: var(--p-paper);
+    color: var(--p-ink);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .item:hover .tick {
+    width: 1.2rem;
+    opacity: 1;
+  }
 }
 
 @media (min-width: 64rem) {

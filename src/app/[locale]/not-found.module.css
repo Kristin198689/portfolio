@@ -58,9 +58,11 @@
   transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
 
-.btn:hover {
-  background: var(--color-on-field);
-  color: var(--color-field);
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: var(--color-on-field);
+    color: var(--color-field);
+  }
 }
 
 .hint {

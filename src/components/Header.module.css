@@ -14,16 +14,37 @@
   color: var(--header-ink);
   transition:
     transform 500ms var(--ease-out),
-    color 300ms var(--ease-out);
+    color 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
+}
+
+/* once the page has moved, the bar gets a soft backing so text never runs through the links */
+.header[data-scrolled="true"] {
+  background: color-mix(in srgb, var(--header-bg, var(--color-field)) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
 .header[data-ink="field"] {
+  --header-bg: var(--color-field);
   --header-ink: var(--color-on-field);
   --btn-bg: var(--color-on-field);
   --btn-ink: var(--color-field);
 }
 
+.header[data-ink="paper"] {
+  --header-bg: var(--color-bg);
+}
+
+.header[data-ink="night"] {
+  --header-ink: #f6f6f1;
+  --btn-bg: #f6f6f1;
+  --btn-ink: #0a0a0b;
+  --header-bg: #0a0a0b;
+}
+
 .header[data-ink="plum"] {
+  --header-bg: var(--color-plum);
   --header-ink: var(--color-on-plum);
   --btn-bg: var(--color-on-plum);
   --btn-ink: var(--color-plum);
@@ -54,9 +75,11 @@
   text-decoration: none;
 }
 
-.nav a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
+@media (hover: hover) and (pointer: fine) {
+  .nav a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
 }
 
 .end {
@@ -110,19 +133,31 @@
   clip-path: inset(0 0 100% 0);
   visibility: hidden;
   transition:
-    clip-path 700ms var(--ease-in-out),
-    visibility 0s linear 700ms;
+    clip-path 450ms var(--ease-in-out),
+    visibility 0s linear 450ms;
 }
 
 .menu[data-open="true"] {
   clip-path: inset(0 0 0 0);
   visibility: visible;
-  transition: clip-path 700ms var(--ease-in-out);
+  transition: clip-path 450ms var(--ease-in-out);
 }
 
 .menu nav {
   display: flex;
   align-items: center;
+}
+
+.menu .menuFoot {
+  align-items: flex-start;
+  padding-top: var(--space-4);
+  border-top: 1px solid color-mix(in srgb, var(--color-on-plum) 30%, transparent);
+}
+
+.menuFoot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
 }
 
 .menuCta {

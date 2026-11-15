@@ -279,3 +279,19 @@ html.party body {
     display: none;
   }
 }
+
+
+/* Every pressable thing answers the press: a small scale on its own property, so it never fights
+   the transforms that GSAP sets for magnetic buttons. */
+button:not(:disabled):active,
+a[class]:active {
+  scale: 0.97;
+  transition: scale 120ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button:not(:disabled):active,
+  a[class]:active {
+    scale: 1;
+  }
+}

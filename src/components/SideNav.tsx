@@ -13,7 +13,7 @@ export function SideNav() {
   const pathname = usePathname();
   const [active, setActive] = useState("top");
   const [show, setShow] = useState(false);
-  const [ink, setInk] = useState<"paper" | "field">("field");
+  const [ink, setInk] = useState<"paper" | "field" | "night">("field");
   const railRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -30,10 +30,10 @@ export function SideNav() {
       setActive(current);
       setShow(window.scrollY > vh * 0.6);
       // ink follows the chapter under the middle of the screen
-      let chapter: "paper" | "field" = "paper";
+      let chapter: "paper" | "field" | "night" = "paper";
       document.querySelectorAll<HTMLElement>("[data-chapter]").forEach((el) => {
         const r = el.getBoundingClientRect();
-        if (r.top <= vh / 2 && r.bottom > vh / 2) chapter = el.dataset.chapter === "paper" ? "paper" : "field";
+        if (r.top <= vh / 2 && r.bottom > vh / 2) chapter = el.dataset.chapter === "paper" ? "paper" : el.dataset.chapter === "night" ? "night" : "field";
       });
       setInk(chapter);
     };

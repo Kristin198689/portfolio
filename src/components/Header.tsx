@@ -10,23 +10,36 @@ import { ThemeToggle } from "./ThemeToggle";
 import { PaletteButton } from "./CommandPalette";
 import styles from "./Header.module.css";
 
-type Ink = "paper" | "field";
+type Ink = "paper" | "field" | "night";
 
 const links = [
   { href: "/#skills", key: "skills" },
   { href: "/#projects", key: "projects" },
   { href: "/#seo", key: "seo" },
   { href: "/#ai", key: "ai" },
+  { href: "/hire", key: "hire" },
   { href: "/#contact", key: "contact" },
+] as const;
+
+// secondary pages shown small under the big links in the mobile menu
+const pages = [
+  { href: "/work", key: "work" },
+  { href: "/about", key: "about" },
+  { href: "/lab", key: "lab" },
+  { href: "/notes", key: "notes" },
+  { href: "/cv", key: "cv_text" },
+  { href: "/design", key: "design" },
 ] as const;
 
 // Same behaviour as Beauty Studio: the header takes the ink of the chapter under it,
 // hides when scrolling down, returns when scrolling up.
 export function Header() {
   const t = useTranslations("nav");
+  const f = useTranslations("footer");
   const [ink, setInk] = useState<Ink>("field");
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -36,13 +49,14 @@ export function Header() {
       let next: Ink = "field";
       document.querySelectorAll<HTMLElement>("[data-chapter]").forEach((el) => {
         const r = el.getBoundingClientRect();
-        if (r.top <= y && r.bottom > y) next = el.dataset.chapter === "field" ? "field" : "paper";
+        if (r.top <= y && r.bottom > y) next = el.dataset.chapter === "field" ? "field" : el.dataset.chapter === "night" ? "night" : "paper";
       });
       setInk(next);
     };
     let lastY = window.scrollY;
     const onDir = () => {
       const y = window.scrollY;
+      setScrolled(y > 24);
       if (Math.abs(y - lastY) > 6) {
         setHidden(y > lastY && y > 160);
         lastY = y;
@@ -82,6 +96,7 @@ export function Header() {
         className={styles.header}
         data-ink={open ? "plum" : ink}
         data-hidden={hidden && !open}
+        data-scrolled={scrolled && !open}
       >
         <Link href="/" className={styles.mark} onClick={() => setOpen(false)}>
           {siteConfig.shortName}
@@ -135,6 +150,19 @@ export function Header() {
               </li>
             ))}
           </ul>
+        </nav>
+        <nav aria-label={t("more")} className={styles.menuFoot}>
+          {pages.map((p) => (
+            <Link key={p.key} href={p.href} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
+              {f(p.key)}
+            </Link>
+          ))}
+          <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1}>
+            GitHub
+          </a>
+          <a href={`mailto:${siteConfig.email}`} tabIndex={open ? 0 : -1}>
+            {siteConfig.email}
+          </a>
         </nav>
       </div>
     </>
