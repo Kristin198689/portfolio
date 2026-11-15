@@ -7,8 +7,9 @@ import styles from "../hire/hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/accessibility">): Promise<Metadata> {
   const { locale } = await params;
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
   const t = await getTranslations({ locale, namespace: "about.a11y" });
-  return pageMeta(locale, "/accessibility", t("title"), t("intro"));
+  return pageMeta(locale, "/accessibility", t("title"), md("accessibility"));
 }
 
 export default async function AccessibilityPage({ params }: PageProps<"/[locale]/accessibility">) {

@@ -1,22 +1,16 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
 import { earlier } from "@/config/archive";
 import { WorkList } from "@/components/work/WorkList";
+import { pageMeta } from "@/lib/page-meta";
 import styles from "./work.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/work">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "work" });
-  return {
-    title: `${t("title")} · Christina Volodina`,
-    description: t("intro"),
-    alternates: {
-      canonical: `/${locale}/work`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}/work`])),
-    },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, "/work", t("title"), md("work"));
 }
 
 export default async function WorkPage({ params }: PageProps<"/[locale]/work">) {

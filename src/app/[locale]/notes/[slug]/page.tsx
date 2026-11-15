@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { notes } from "@/content/notes";
 import { siteConfig } from "@/config/site";
+import { pageMeta } from "@/lib/page-meta";
 import styles from "./note.module.css";
 
 export function generateStaticParams() {
@@ -15,15 +16,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/notes/[s
   const { locale, slug } = await params;
   if (!notes.some((n) => n.slug === slug)) return {};
   const t = await getTranslations({ locale, namespace: "notes.items" });
-  return {
-    title: `${t(`${slug}.title`)} · Christina Volodina`,
-    description: t(`${slug}.summary`),
-    alternates: {
-      canonical: `/${locale}/notes/${slug}`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}/notes/${slug}`])),
-    },
-    openGraph: { type: "article", title: t(`${slug}.title`), description: t(`${slug}.summary`) },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, `/notes/${slug}`, t(`${slug}.title`), md(`note_${slug}`), { type: "article" });
 }
 
 export default async function NotePage({ params }: PageProps<"/[locale]/notes/[slug]">) {

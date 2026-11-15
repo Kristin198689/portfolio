@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
 import { lighthouse } from "@/config/lighthouse";
 import { siteConfig } from "@/config/site";
 import { PersonalNote } from "@/components/PersonalNote";
+import { pageMeta } from "@/lib/page-meta";
 import styles from "./hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/hire">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "hire" });
-  return {
-    title: `${t("kicker")} · ${siteConfig.name}`,
-    description: t("intro"),
-    alternates: {
-      canonical: `/${locale}/hire`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}/hire`])),
-    },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, "/hire", t("kicker"), md("hire"));
 }
 
 export default async function HirePage({ params }: PageProps<"/[locale]/hire">) {

@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/page-meta";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LegalPage } from "@/components/LegalPage";
@@ -14,11 +15,8 @@ const docFor = (locale: string, build: (l: L) => ReturnType<typeof datenschutz>,
 export async function generateMetadata({ params }: PageProps<"/[locale]/datenschutz">): Promise<Metadata> {
   const { locale } = await params;
   const doc = docFor(locale, datenschutz);
-  return {
-    title: doc.title,
-    alternates: { canonical: `/${locale}/datenschutz` },
-    robots: { index: true, follow: true },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, "/datenschutz", doc.title, md("datenschutz"));
 }
 
 export default async function DatenschutzPage({ params }: PageProps<"/[locale]/datenschutz">) {

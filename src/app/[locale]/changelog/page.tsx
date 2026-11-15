@@ -8,8 +8,9 @@ import styles from "../hire/hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/changelog">): Promise<Metadata> {
   const { locale } = await params;
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
   const t = await getTranslations({ locale, namespace: "about.changelog" });
-  return pageMeta(locale, "/changelog", t("title"), t("intro"));
+  return pageMeta(locale, "/changelog", t("title"), md("changelog"));
 }
 
 export default async function ChangelogPage({ params }: PageProps<"/[locale]/changelog">) {

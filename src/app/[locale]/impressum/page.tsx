@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/page-meta";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LegalPage } from "@/components/LegalPage";
@@ -14,11 +15,8 @@ const docFor = (locale: string, build: (l: L) => ReturnType<typeof impressum>, t
 export async function generateMetadata({ params }: PageProps<"/[locale]/impressum">): Promise<Metadata> {
   const { locale } = await params;
   const doc = docFor(locale, impressum);
-  return {
-    title: doc.title,
-    alternates: { canonical: `/${locale}/impressum` },
-    robots: { index: true, follow: true },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, "/impressum", doc.title, md("impressum"));
 }
 
 export default async function ImpressumPage({ params }: PageProps<"/[locale]/impressum">) {

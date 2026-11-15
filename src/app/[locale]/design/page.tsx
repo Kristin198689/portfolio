@@ -1,21 +1,15 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
 import { DesignTokens } from "@/components/DesignTokens";
+import { pageMeta } from "@/lib/page-meta";
 import styles from "../hire/hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/design">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "design" });
-  return {
-    title: `${t("kicker")} · Christina Volodina`,
-    description: t("intro"),
-    alternates: {
-      canonical: `/${locale}/design`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}/design`])),
-    },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, "/design", t("kicker"), md("design"));
 }
 
 export default async function DesignPage({ params }: PageProps<"/[locale]/design">) {

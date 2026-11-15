@@ -18,8 +18,9 @@ const hrefs = {
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/about">): Promise<Metadata> {
   const { locale } = await params;
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
   const t = await getTranslations({ locale, namespace: "about.hub" });
-  return pageMeta(locale, "/about", t("title"), t("intro"));
+  return pageMeta(locale, "/about", t("title"), md("about"));
 }
 
 export default async function AboutPage({ params }: PageProps<"/[locale]/about">) {

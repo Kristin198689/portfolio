@@ -19,8 +19,8 @@ A portfolio built to be checked, not just admired: motion and WebGL on top, and 
 
 | Check | Result |
 |---|---|
-| Lighthouse (desktop, production build) | Performance 94, Accessibility 100, Best practices 100, SEO 100 |
-| End-to-end tests (Playwright) | 37 passing: languages and RTL, SEO head, layout overflow at 320 to 1024 px, palette, theme, forms, 404 |
+| Lighthouse (desktop, production build) | Performance 90 to 94 (varies per run), Accessibility 100, Best practices 100, SEO 100 |
+| End-to-end tests (Playwright) | 66 passing: languages and RTL, SEO head, layout overflow at 320 to 1024 px, palette, theme, forms, 404 |
 | Pull request checks (GitHub Actions) | ESLint, TypeScript, production build, e2e |
 
 The Lighthouse numbers are stored with their date in `src/config/lighthouse.ts` and re-measured after big changes.

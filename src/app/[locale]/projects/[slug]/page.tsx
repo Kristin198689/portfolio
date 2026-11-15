@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { projects } from "@/config/projects";
 import { siteConfig } from "@/config/site";
+import { pageMeta } from "@/lib/page-meta";
 import styles from "./case.module.css";
 
 const cases = projects.filter((p) => p.case);
@@ -20,18 +21,10 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/projects
   if (!p) return {};
   const t = await getTranslations({ locale, namespace: "projects.items" });
   const c = await getTranslations({ locale, namespace: "cases" });
-  const title = `${t(`${slug}.title`)} · ${c("ui.type")}`;
-  const description = c(`${slug}.summary`);
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: `/${locale}/projects/${slug}`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}/projects/${slug}`])),
-    },
-    openGraph: { title, description, images: [p.image], url: `/${locale}/projects/${slug}` },
-    twitter: { card: "summary_large_image", title, description },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  const meta = pageMeta(locale, `/projects/${slug}`, `${t(`${slug}.title`)} · ${c("ui.type")}`, md(`case_${slug}`));
+  // the case study has its own picture for sharing
+  return { ...meta, openGraph: { ...meta.openGraph, images: [{ url: p.image, width: 1200, height: 630 }] }, twitter: { ...meta.twitter, images: [p.image] } };
 }
 
 export default async function CasePage({ params }: PageProps<"/[locale]/projects/[slug]">) {
@@ -104,11 +97,18 @@ export default async function CasePage({ params }: PageProps<"/[locale]/projects
         </dl>
       </div>
 
-      {p.href ? (
-        <a href={p.href} target="_blank" rel="noopener noreferrer" className={styles.live} data-scramble>
-          {c("ui.live")} ↗
-        </a>
-      ) : null}
+      <div className={styles.links}>
+        {p.href ? (
+          <a href={p.href} target="_blank" rel="noopener noreferrer" className={styles.live} data-scramble>
+            {c("ui.live")} ↗
+          </a>
+        ) : null}
+        {p.repo ? (
+          <a href={p.repo} target="_blank" rel="noopener noreferrer" className={styles.live} data-variant="ghost" data-scramble>
+            {c("ui.code")} ↗
+          </a>
+        ) : null}
+      </div>
 
       <h2 className={styles.h2}>{c("ui.highlights")}</h2>
       <ol className={styles.points}>

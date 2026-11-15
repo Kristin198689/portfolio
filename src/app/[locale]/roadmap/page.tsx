@@ -6,8 +6,9 @@ import styles from "../hire/hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/roadmap">): Promise<Metadata> {
   const { locale } = await params;
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
   const t = await getTranslations({ locale, namespace: "about.roadmap" });
-  return pageMeta(locale, "/roadmap", t("title"), t("intro"));
+  return pageMeta(locale, "/roadmap", t("title"), md("roadmap"));
 }
 
 export default async function RoadmapPage({ params }: PageProps<"/[locale]/roadmap">) {

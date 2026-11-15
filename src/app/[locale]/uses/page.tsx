@@ -6,8 +6,9 @@ import styles from "../hire/hire.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/uses">): Promise<Metadata> {
   const { locale } = await params;
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
   const t = await getTranslations({ locale, namespace: "about.uses" });
-  return pageMeta(locale, "/uses", t("title"), t("intro"));
+  return pageMeta(locale, "/uses", t("title"), md("uses"));
 }
 
 export default async function UsesPage({ params }: PageProps<"/[locale]/uses">) {

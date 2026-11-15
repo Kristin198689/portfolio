@@ -25,7 +25,7 @@ export function PaletteButton() {
       type="button"
       className={styles.trigger}
       onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}
-      aria-label={t("palette")}
+      aria-label={`${t("palette")} ⌘K`}
       data-cursor={t("palette")}
     >
       <kbd>⌘K</kbd>

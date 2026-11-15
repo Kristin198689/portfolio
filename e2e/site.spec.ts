@@ -168,7 +168,7 @@ test("personal link greets the company and cleans the name", async ({ page }) =>
 });
 
 test("CSS playground applies edits live and blocks external URLs", async ({ page }) => {
-  await page.goto("/en/lab");
+  await page.goto("/en/lab?exp=playground");
   await page.getByRole("textbox").fill(".card{background:rgb(255, 0, 0)} h3{margin:0}");
   const bg = await page.locator("main div").first().evaluate(() => {
     const host = document.querySelector("[class*=host]") as HTMLElement;
@@ -225,4 +225,28 @@ test.describe("about pages", () => {
     await page.goto("/en/projects/noform");
     await expect(page.getByRole("heading", { name: "What I would do differently" })).toBeVisible();
   });
+});
+
+test.describe("navigation and SEO basics", () => {
+  test("mobile menu reaches recruiter, work, lab and about pages", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/en");
+    await page.getByRole("button", { name: /^menu$/i }).click();
+    const menu = page.locator("#mobile-menu");
+    for (const name of ["For recruiters", "All projects", "About my work", "Motion Lab", "Notes", "CV (plain text)"]) {
+      await expect(menu.getByRole("link", { name })).toBeVisible();
+    }
+    await menu.getByRole("link", { name: "For recruiters" }).click();
+    await expect(page).toHaveURL(/\/en\/hire$/);
+  });
+
+  for (const path of ["", "/hire", "/work", "/notes/seo", "/about", "/faq", "/projects/pizza"]) {
+    test(`/en${path} has x-default, share image and a real description`, async ({ page }) => {
+      await page.goto(`/en${path}`);
+      await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveCount(1);
+      await expect(page.locator('meta[property="og:image"]')).toHaveCount(1);
+      const d = await page.locator('meta[name="description"]').getAttribute("content");
+      expect((d ?? "").length).toBeGreaterThan(70);
+    });
+  }
 });

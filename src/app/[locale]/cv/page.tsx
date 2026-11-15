@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
 import { projects } from "@/config/projects";
 import { siteConfig } from "@/config/site";
 import { PrintButtons } from "@/components/PrintButton";
+import { pageMeta } from "@/lib/page-meta";
 import styles from "./cv.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/cv">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "cv" });
-  return {
-    title: `${t("kicker")} · ${siteConfig.name}`,
-    description: t("intro"),
-    alternates: {
-      canonical: `/${locale}/cv`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}/cv`])),
-    },
-  };
+  const md = await getTranslations({ locale, namespace: "metaDesc" });
+  return pageMeta(locale, "/cv", t("kicker"), md("cv"));
 }
 
 // Plain, linear HTML: no animation, no tricks, so applicant tracking systems and printers read it well.
