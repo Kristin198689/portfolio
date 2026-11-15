@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Christina Volodina — Web Developer",
-    "description": "Portfolio of Christina Volodina: Next.js, React, TypeScript, motion and multilingual websites.",
+    "title": "Christina Volodina | Full-Stack Web Developer, Next.js & React",
+    "description": "Full-stack web developer in Pforzheim, Germany: Next.js, React, TypeScript, SEO and WebGL. Multilingual websites and web apps. Open to jobs, freelance and B2B.",
     "jobTitle": "Web developer"
   },
   "nav": {
@@ -34,7 +34,9 @@
     "theme": "Theme",
     "palette": "Search",
     "themeToLight": "Switch to light",
-    "themeToDark": "Switch to dark"
+    "themeToDark": "Switch to dark",
+    "hire": "For recruiters",
+    "more": "More pages"
   },
   "hero": {
     "a": "Next.js",
@@ -423,7 +425,7 @@
     "hire": "For recruiters",
     "work": "All projects",
     "design": "Design system",
-    "lab": "CSS playground",
+    "lab": "Motion Lab",
     "notes": "Notes",
     "more": "More",
     "cv_text": "CV (plain text)",
@@ -575,7 +577,7 @@
       "work": "All projects",
       "dev": "Developer view (grid and live stats)",
       "design": "Design system",
-      "lab": "CSS playground",
+      "lab": "Motion Lab",
       "notes": "Notes",
       "about": "About my work"
     },
@@ -595,7 +597,8 @@
       "next": "Next case",
       "type": "Case study",
       "kicker": "Case study",
-      "live": "Live site"
+      "live": "Live site",
+      "code": "Code on GitHub"
     },
     "beauty": {
       "role": "Design · Frontend · Motion · i18n",
@@ -916,9 +919,9 @@
     "sample": "Aa Quick brown fox"
   },
   "lab": {
-    "kicker": "Playground",
-    "title": "CSS playground",
-    "intro": "Edit the CSS on the left, the card on the right changes live. It runs in an isolated shadow root. External URLs and @import are blocked.",
+    "kicker": "Creative coding lab",
+    "title": "Motion Lab",
+    "intro": "Sixteen working experiments in typography, cursor physics, WebGL, scroll and microinteractions. Pick one, play with it, change its parameters live and see what it is built with.",
     "css": "CSS",
     "preview": "Preview",
     "reset": "Reset",
@@ -932,6 +935,185 @@
       "title": "Fluid card",
       "text": "Type and spacing scale with the width of this box.",
       "button": "Button"
+    },
+    "catalog": {
+      "filter": "Filter by technology",
+      "all": "All",
+      "count": "{n} experiments",
+      "open": "Open experiment",
+      "empty": "No experiments with this tag yet."
+    },
+    "tags": {
+      "gsap": "GSAP",
+      "webgl": "WebGL",
+      "css": "CSS",
+      "react": "React",
+      "typescript": "TypeScript",
+      "typography": "Typography",
+      "cursor": "Cursor",
+      "scroll": "Scroll",
+      "physics": "Physics",
+      "image": "Image",
+      "micro": "Microinteractions"
+    },
+    "stage": {
+      "back": "Back to index",
+      "restart": "Restart",
+      "resetParams": "Reset parameters",
+      "params": "Parameters",
+      "tech": "Technologies",
+      "noParams": "No parameters here. Just play with it.",
+      "running": "Experiment running",
+      "restarted": "Experiment restarted",
+      "unsupported": "WebGL is not available on this device. Try another browser or another experiment.",
+      "error": "This experiment could not load. Please try again.",
+      "loading": "Loading experiment…",
+      "reducedNote": "Reduced motion is on, so this experiment is calmer and mostly static."
+    },
+    "hints": {
+      "drag": "Drag to explore",
+      "interact": "Interact with the experiment",
+      "move": "Move the pointer",
+      "scroll": "Scroll inside the frame"
+    },
+    "params": {
+      "speed": "Speed",
+      "intensity": "Intensity",
+      "density": "Density",
+      "distortion": "Distortion",
+      "easing": "Easing",
+      "rotation": "Rotation",
+      "count": "Count",
+      "strength": "Strength",
+      "radius": "Radius",
+      "length": "Length",
+      "width": "Width",
+      "gravity": "Gravity",
+      "bounce": "Bounce",
+      "mode": "Filter",
+      "image": "Image",
+      "charset": "Alphabet",
+      "scale": "Scale",
+      "parallax": "Parallax"
+    },
+    "options": {
+      "easing": {
+        "sine": "Sine",
+        "power": "Power",
+        "elastic": "Elastic",
+        "expo": "Expo",
+        "back": "Back"
+      },
+      "charset": {
+        "letters": "Letters",
+        "binary": "Binary",
+        "symbols": "Symbols"
+      },
+      "mode": {
+        "grayscale": "Grayscale",
+        "sepia": "Sepia",
+        "blur": "Blur",
+        "invert": "Invert"
+      }
+    },
+    "teaser": {
+      "kicker": "Creative coding",
+      "text": "{n} live experiments you can play with: type, cursor physics, shaders, scroll and microinteractions. Every one has real controls.",
+      "cta": "Open the lab",
+      "cursor": "Play"
+    },
+    "exp": {
+      "kinetic": {
+        "name": "Kinetic type",
+        "desc": "Every letter runs its own GSAP timeline. Change speed, amplitude and easing while it plays.",
+        "text": "Motion matters"
+      },
+      "magnetic": {
+        "name": "Magnetic letters",
+        "desc": "Glyphs are pulled toward the pointer and spring back with elastic easing.",
+        "text": "Magnet"
+      },
+      "scramble": {
+        "name": "Text scramble",
+        "desc": "Characters shuffle through an alphabet and settle one by one. Click for the next word.",
+        "words": [
+          "Design",
+          "Build",
+          "Ship",
+          "Repeat"
+        ]
+      },
+      "liquid": {
+        "name": "Liquid type",
+        "desc": "A real SVG turbulence filter melts live text. It swells when the pointer arrives.",
+        "text": "Liquid"
+      },
+      "trail": {
+        "name": "Cursor trail",
+        "desc": "A chain of points follows the pointer and tapers into a ribbon."
+      },
+      "elastic": {
+        "name": "Elastic cursor",
+        "desc": "Circles joined by real springs. Press to make the chain pulse."
+      },
+      "liquidimage": {
+        "name": "Liquid image",
+        "desc": "A fragment shader bends the photo around the pointer and splits its colour channels."
+      },
+      "sphere": {
+        "name": "Particle sphere",
+        "desc": "Thousands of GL points on a noise-displaced sphere. Drag to spin it with inertia."
+      },
+      "mesh": {
+        "name": "Noise mesh",
+        "desc": "A wireframe landscape displaced by noise in the vertex shader, with ripples from the pointer."
+      },
+      "gradient": {
+        "name": "Shader gradient",
+        "desc": "Domain-warped noise mapped to a soft palette, pulled toward the pointer."
+      },
+      "repulse": {
+        "name": "Repulsion particles",
+        "desc": "A word turned into particles that run from the pointer and spring home.",
+        "text": "Touch"
+      },
+      "gravity": {
+        "name": "Gravity and collisions",
+        "desc": "Balls with real collision response. Grab one, throw it, change gravity."
+      },
+      "scroll": {
+        "name": "Scroll reveal",
+        "desc": "Mask reveals, parallax and a skew driven by scroll velocity. Scroll inside the frame.",
+        "aria": "Scrollable image gallery"
+      },
+      "compare": {
+        "name": "Before and after",
+        "desc": "A draggable, keyboard-accessible comparison with a live filter.",
+        "aria": "Comparison position",
+        "before": "Before",
+        "after": "After"
+      },
+      "micro": {
+        "name": "Microinteractions",
+        "desc": "A spring toggle, a stateful button, form feedback and three loaders.",
+        "toggle": "Toggle",
+        "on": "On",
+        "off": "Off",
+        "button": "Button",
+        "send": "Send",
+        "sending": "Sending",
+        "sent": "Sent",
+        "form": "Form feedback",
+        "email": "Email",
+        "check": "Check",
+        "bad": "Please enter a valid email.",
+        "ok": "Looks good.",
+        "loaders": "Loaders"
+      },
+      "playground": {
+        "name": "CSS playground",
+        "desc": "Edit CSS and watch a card change live inside an isolated shadow root."
+      }
     }
   },
   "cv": {
@@ -1276,5 +1458,173 @@
       ],
       "x": "Create real layered assets (box lid and base) so the box could open physically. A single image forced a clip-path reveal."
     }
+  },
+  "universe": {
+    "kicker": "Skills Universe",
+    "title": "Every skill, with its proof",
+    "intro": "A map of what I work with. Pick a cluster, then a skill: it shows the projects and pages where it is proven.",
+    "core": {
+      "name": "CHRISTINA",
+      "role": "Full-stack developer"
+    },
+    "hint": {
+      "drag": "Drag to explore",
+      "select": "Select a skill cluster",
+      "skill": "Select a skill"
+    },
+    "legend": "Skill clusters",
+    "panelLabel": "Skill details",
+    "panelIdle": "Select a cluster",
+    "panelIdleText": "Seven clusters orbit the core. Hover one to see its connections, click to open it. The numbered buttons below do the same.",
+    "back": "Back to the map",
+    "ai": "Built with AI support",
+    "projects": "Where it is proven",
+    "worksWith": "Works together with",
+    "noProjects": "Shown in my daily workflow",
+    "private": "ServiceOS, private repository",
+    "case": "Case study",
+    "noGL": "The 3D view is not available on this device. The cluster buttons below work the same way.",
+    "lab": {
+      "all": "Open Motion Lab",
+      "cta": "Explore {tag} experiments"
+    },
+    "tags": {
+      "gsap": "GSAP",
+      "webgl": "WebGL",
+      "css": "CSS",
+      "react": "React",
+      "typescript": "TypeScript",
+      "typography": "typography",
+      "cursor": "cursor",
+      "scroll": "scroll",
+      "physics": "physics",
+      "image": "image",
+      "micro": "microinteraction"
+    },
+    "pages": {
+      "notesSeo": "Note: SEO",
+      "notesAi": "Note: working with AI",
+      "notesLh": "Note: Lighthouse",
+      "design": "Design system",
+      "accessibility": "Accessibility statement",
+      "decisions": "Decision records",
+      "teamflow": "Team workflow on this site",
+      "backend": "Backend layers on this site",
+      "responsive": "Fluid layout demo on this site"
+    },
+    "clusters": {
+      "frontend": {
+        "name": "Frontend",
+        "desc": "Interfaces that are fast, accessible and consistent: React, Next.js App Router, strict TypeScript and CSS Modules."
+      },
+      "backend": {
+        "name": "Backend",
+        "desc": "Service layers, validation and sessions. My example is the ServiceOS SaaS (private); Express and similar I build with AI support."
+      },
+      "creative": {
+        "name": "Creative development",
+        "desc": "Motion and 3D on the web: GSAP, ScrollTrigger, WebGL and CSS 3D, tuned for performance."
+      },
+      "seo": {
+        "name": "SEO & performance",
+        "desc": "Technical SEO, structured data, international SEO and measured Web Vitals, with real Lighthouse numbers."
+      },
+      "workflow": {
+        "name": "Workflow",
+        "desc": "Branches, pull requests, reviews, tests and deploys: the way teams ship."
+      },
+      "ai": {
+        "name": "AI-assisted development",
+        "desc": "Claude Code and GPT as pair-programmers, with rules, skills and checks on every step."
+      },
+      "uiux": {
+        "name": "UI / UX",
+        "desc": "Design systems, typography, responsive layouts and microinteractions. Figma handoff is built with AI support."
+      }
+    },
+    "skills": {
+      "responsive": "Responsive design",
+      "a11y": "Accessibility",
+      "validation": "Validation",
+      "auth": "Authentication and sessions",
+      "scrolldriven": "Scroll-driven animation",
+      "interactiveui": "Interactive UI",
+      "techseo": "Technical SEO",
+      "intlseo": "International SEO",
+      "metadata": "Metadata",
+      "perf": "Performance optimisation",
+      "pr": "Pull requests",
+      "review": "Code review",
+      "testing": "Testing",
+      "aicoding": "AI-assisted coding",
+      "aiworkflow": "AI workflow",
+      "skills": "Skills",
+      "designsystems": "Design systems",
+      "typography": "Typography",
+      "responsivelayouts": "Responsive layouts",
+      "microinteractions": "Microinteractions",
+      "ia": "Interface architecture",
+      "i18n": "Multilingual sites",
+      "rtl": "RTL layouts",
+      "contactapi": "Contact API route",
+      "rls": "Row-level security",
+      "repository": "Repository pattern",
+      "audit": "Audit log",
+      "securityheaders": "Security headers",
+      "gdprdata": "GDPR data handling",
+      "calendarapi": "Calendar integration",
+      "particles": "Particle systems",
+      "sitemap": "Sitemap and robots",
+      "ogimages": "Open Graph images",
+      "geo": "AI search readiness",
+      "assistant": "AI assistant widget",
+      "darklight": "Light and dark themes"
+    },
+    "bridges": {
+      "deploy": "deploy",
+      "metadata": "metadata",
+      "vitals": "web vitals",
+      "motion": "motion",
+      "typedData": "typed data",
+      "shaders": "shaders",
+      "dataFlow": "data flow",
+      "release": "release",
+      "verify": "verify",
+      "loop": "review loop",
+      "tokens": "tokens",
+      "styles": "styles",
+      "structure": "structure",
+      "tools": "tools",
+      "reach": "reach",
+      "adapter": "adapter",
+      "access": "access",
+      "realBrowser": "real browser",
+      "alive": "alive",
+      "trust": "trust"
+    }
+  },
+  "metaDesc": {
+    "hire": "Recruiter summary of Christina Volodina, full-stack web developer: skills, stack, work formats, languages, proof and how to get in touch.",
+    "work": "Every project by Christina Volodina with live links: Next.js sites, multilingual templates, WebGL and motion, plus an honest note on private repositories.",
+    "notes": "Short articles by a full-stack developer: technical SEO checklist, working with Claude Code, and how a real Lighthouse score went from 74 to 94.",
+    "design": "The design system of this portfolio: live colour, type, spacing and motion tokens, in light and dark theme, with accessibility rules.",
+    "lab": "Motion Lab: sixteen working creative-coding experiments in typography, cursor physics, WebGL, scroll and microinteractions. Change the parameters live.",
+    "cv": "Plain-text CV of Christina Volodina, full-stack web developer: skills, projects, languages and work formats, structured for recruiters and ATS.",
+    "about": "How Christina Volodina works: a 30/60/90 day plan, decision records, recruiter FAQ, accessibility statement, roadmap, tools and changelog.",
+    "plan": "What a new full-stack developer would do in the first 30, 60 and 90 days in a team: learn, contribute, own an area. A plan, not a claim.",
+    "decisions": "Short decision records behind this portfolio: why Next.js, CSS Modules, GSAP, raw WebGL and Playwright, with the trade-off of each choice.",
+    "faq": "Recruiter FAQ: work formats, how AI is used and verified, learning new technologies, GitHub teamwork, languages and access to code.",
+    "accessibility": "Accessibility statement for this portfolio: WCAG 2.2 AA self-assessment, what is checked, known limits and how to report a problem.",
+    "roadmap": "Honest roadmap of this portfolio and of what Christina Volodina is deepening next: Vitest, SQL, Docker, Tailwind and Figma handoff.",
+    "uses": "The tools behind this portfolio: Claude Code, GPT, Next.js, TypeScript, Playwright, Lighthouse, GitHub Actions and Vercel.",
+    "changelog": "Changelog of this portfolio, generated from the real git commit history: every change, date and commit link.",
+    "impressum": "Legal notice (Impressum) of Christina Volodina, web developer in Pforzheim, Germany.",
+    "datenschutz": "Privacy policy of this portfolio: no cookies, no analytics, and what data the contact options and the optional GitHub feed use.",
+    "note_seo": "A technical SEO checklist for every website: titles, structure, structured data, hreflang, sitemaps and Core Web Vitals, from real projects.",
+    "note_ai": "How a full-stack developer works with Claude Code: rules files, small verified steps, skills and checks that make AI-assisted code reliable.",
+    "note_lh": "Real measurements: how this Next.js site went from Lighthouse 74 to 94 on desktop in a production build, and what actually changed.",
+    "case_beauty": "Case study: a booking-focused Next.js template for beauty studios with GSAP and Lenis motion, WhatsApp requests and DE / EN / UK.",
+    "case_noform": "Case study: a cinematic streetwear brand site with scroll-driven scenes, canvas and WebGL, sound toggle and strict mono typography.",
+    "case_pizza": "Case study: a scroll storyboard for a pizza and döner delivery site, with GSAP, ScrollTrigger and a box that opens as you scroll."
   }
 }

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Christina Volodina — Webentwicklerin",
-    "description": "Portfolio von Christina Volodina: Next.js, React, TypeScript, Motion und mehrsprachige Websites.",
+    "title": "Christina Volodina | Full-Stack Webentwicklerin · Pforzheim",
+    "description": "Full-Stack-Webentwicklerin aus Pforzheim: Next.js, React, TypeScript, SEO und WebGL. Mehrsprachige Websites und Web-Apps. Offen für Festanstellung, Freelance und B2B.",
     "jobTitle": "Webentwicklerin"
   },
   "nav": {
@@ -34,7 +34,9 @@
     "theme": "Design",
     "palette": "Suche",
     "themeToLight": "Hell einschalten",
-    "themeToDark": "Dunkel einschalten"
+    "themeToDark": "Dunkel einschalten",
+    "hire": "Für Recruiter",
+    "more": "Weitere Seiten"
   },
   "hero": {
     "a": "Next.js",
@@ -423,7 +425,7 @@
     "hire": "Für Recruiter",
     "work": "Alle Projekte",
     "design": "Design System",
-    "lab": "CSS-Spielwiese",
+    "lab": "Motion Lab",
     "notes": "Notizen",
     "more": "Mehr",
     "cv_text": "Lebenslauf (Klartext)",
@@ -575,7 +577,7 @@
       "work": "Alle Projekte",
       "dev": "Entwickleransicht (Raster und Live-Werte)",
       "design": "Design System",
-      "lab": "CSS-Spielwiese",
+      "lab": "Motion Lab",
       "notes": "Notizen",
       "about": "Über meine Arbeit"
     },
@@ -595,7 +597,8 @@
       "next": "Nächste Fallstudie",
       "type": "Fallstudie",
       "kicker": "Fallstudie",
-      "live": "Live-Seite"
+      "live": "Live-Seite",
+      "code": "Code auf GitHub"
     },
     "beauty": {
       "role": "Design · Frontend · Motion · i18n",
@@ -916,9 +919,9 @@
     "sample": "Aa Zwölf Boxkämpfer"
   },
   "lab": {
-    "kicker": "Spielwiese",
-    "title": "CSS-Spielwiese",
-    "intro": "Bearbeiten Sie links das CSS, die Karte rechts ändert sich live. Es läuft in einem isolierten Shadow Root. Externe URLs und @import sind gesperrt.",
+    "kicker": "Creative-Coding-Labor",
+    "title": "Motion Lab",
+    "intro": "Sechzehn funktionierende Experimente zu Typografie, Cursor-Physik, WebGL, Scrollen und Mikrointeraktionen. Eins auswählen, ausprobieren, Parameter live ändern und sehen, womit es gebaut ist.",
     "css": "CSS",
     "preview": "Vorschau",
     "reset": "Zurücksetzen",
@@ -932,6 +935,185 @@
       "title": "Fluide Karte",
       "text": "Schrift und Abstände skalieren mit der Breite dieser Box.",
       "button": "Button"
+    },
+    "catalog": {
+      "filter": "Nach Technologie filtern",
+      "all": "Alle",
+      "count": "{n} Experimente",
+      "open": "Experiment öffnen",
+      "empty": "Noch keine Experimente mit diesem Tag."
+    },
+    "tags": {
+      "gsap": "GSAP",
+      "webgl": "WebGL",
+      "css": "CSS",
+      "react": "React",
+      "typescript": "TypeScript",
+      "typography": "Typografie",
+      "cursor": "Cursor",
+      "scroll": "Scroll",
+      "physics": "Physik",
+      "image": "Bild",
+      "micro": "Mikrointeraktionen"
+    },
+    "stage": {
+      "back": "Zurück zur Übersicht",
+      "restart": "Neu starten",
+      "resetParams": "Parameter zurücksetzen",
+      "params": "Parameter",
+      "tech": "Technologien",
+      "noParams": "Hier gibt es keine Parameter. Einfach ausprobieren.",
+      "running": "Experiment läuft",
+      "restarted": "Experiment neu gestartet",
+      "unsupported": "WebGL ist auf diesem Gerät nicht verfügbar. Probiere einen anderen Browser oder ein anderes Experiment.",
+      "error": "Dieses Experiment konnte nicht geladen werden. Bitte versuche es erneut.",
+      "loading": "Experiment wird geladen…",
+      "reducedNote": "Reduzierte Bewegung ist aktiv, deshalb ist dieses Experiment ruhiger und meist statisch."
+    },
+    "hints": {
+      "drag": "Ziehen zum Erkunden",
+      "interact": "Mit dem Experiment interagieren",
+      "move": "Zeiger bewegen",
+      "scroll": "Im Rahmen scrollen"
+    },
+    "params": {
+      "speed": "Tempo",
+      "intensity": "Intensität",
+      "density": "Dichte",
+      "distortion": "Verzerrung",
+      "easing": "Easing",
+      "rotation": "Rotation",
+      "count": "Anzahl",
+      "strength": "Stärke",
+      "radius": "Radius",
+      "length": "Länge",
+      "width": "Breite",
+      "gravity": "Schwerkraft",
+      "bounce": "Rückprall",
+      "mode": "Filter",
+      "image": "Bild",
+      "charset": "Alphabet",
+      "scale": "Skalierung",
+      "parallax": "Parallaxe"
+    },
+    "options": {
+      "easing": {
+        "sine": "Sinus",
+        "power": "Potenz",
+        "elastic": "Elastisch",
+        "expo": "Expo",
+        "back": "Zurück"
+      },
+      "charset": {
+        "letters": "Buchstaben",
+        "binary": "Binär",
+        "symbols": "Symbole"
+      },
+      "mode": {
+        "grayscale": "Graustufen",
+        "sepia": "Sepia",
+        "blur": "Unschärfe",
+        "invert": "Invertiert"
+      }
+    },
+    "teaser": {
+      "kicker": "Creative Coding",
+      "text": "{n} Live-Experimente zum Ausprobieren: Schrift, Cursor-Physik, Shader, Scrollen und Mikrointeraktionen. Jedes hat echte Regler.",
+      "cta": "Labor öffnen",
+      "cursor": "Spielen"
+    },
+    "exp": {
+      "kinetic": {
+        "name": "Kinetische Schrift",
+        "desc": "Jeder Buchstabe läuft auf seiner eigenen GSAP-Timeline. Tempo, Ausschlag und Easing lassen sich live ändern.",
+        "text": "Bewegung zählt"
+      },
+      "magnetic": {
+        "name": "Magnetische Buchstaben",
+        "desc": "Glyphen werden zum Zeiger gezogen und federn elastisch zurück.",
+        "text": "Magnet"
+      },
+      "scramble": {
+        "name": "Text-Scramble",
+        "desc": "Zeichen wirbeln durch ein Alphabet und setzen sich nacheinander. Klick für das nächste Wort.",
+        "words": [
+          "Design",
+          "Bauen",
+          "Liefern",
+          "Wiederholen"
+        ]
+      },
+      "liquid": {
+        "name": "Flüssige Schrift",
+        "desc": "Ein echter SVG-Turbulenzfilter lässt Live-Text schmelzen. Er schwillt an, wenn der Zeiger kommt.",
+        "text": "Flüssig"
+      },
+      "trail": {
+        "name": "Cursor-Spur",
+        "desc": "Eine Punktkette folgt dem Zeiger und läuft zu einem Band aus."
+      },
+      "elastic": {
+        "name": "Elastischer Cursor",
+        "desc": "Kreise, verbunden durch echte Federn. Drücken lässt die Kette pulsieren."
+      },
+      "liquidimage": {
+        "name": "Flüssiges Bild",
+        "desc": "Ein Fragment-Shader biegt das Foto um den Zeiger und trennt die Farbkanäle."
+      },
+      "sphere": {
+        "name": "Partikelkugel",
+        "desc": "Tausende GL-Punkte auf einer rauschverformten Kugel. Ziehen dreht sie mit Trägheit."
+      },
+      "mesh": {
+        "name": "Rauschgitter",
+        "desc": "Eine Drahtgitter-Landschaft, im Vertex-Shader durch Rauschen verformt, mit Wellen vom Zeiger."
+      },
+      "gradient": {
+        "name": "Shader-Verlauf",
+        "desc": "Domain-verzerrtes Rauschen auf einer weichen Palette, zum Zeiger hingezogen."
+      },
+      "repulse": {
+        "name": "Abstoßende Partikel",
+        "desc": "Ein Wort aus Partikeln, die vor dem Zeiger fliehen und zurückfedern.",
+        "text": "Touch"
+      },
+      "gravity": {
+        "name": "Schwerkraft und Kollisionen",
+        "desc": "Kugeln mit echter Kollisionsberechnung. Greifen, werfen, Schwerkraft ändern."
+      },
+      "scroll": {
+        "name": "Scroll-Reveal",
+        "desc": "Masken-Reveals, Parallaxe und eine Neigung, die von der Scrollgeschwindigkeit getrieben wird. Im Rahmen scrollen.",
+        "aria": "Scrollbare Bildergalerie"
+      },
+      "compare": {
+        "name": "Vorher und nachher",
+        "desc": "Ein ziehbarer, per Tastatur bedienbarer Vergleich mit Live-Filter.",
+        "aria": "Position des Vergleichs",
+        "before": "Vorher",
+        "after": "Nachher"
+      },
+      "micro": {
+        "name": "Mikrointeraktionen",
+        "desc": "Ein Feder-Schalter, ein Button mit Zuständen, Formular-Feedback und drei Ladeanzeigen.",
+        "toggle": "Schalter",
+        "on": "An",
+        "off": "Aus",
+        "button": "Button",
+        "send": "Senden",
+        "sending": "Wird gesendet",
+        "sent": "Gesendet",
+        "form": "Formular-Feedback",
+        "email": "E-Mail",
+        "check": "Prüfen",
+        "bad": "Bitte gib eine gültige E-Mail ein.",
+        "ok": "Sieht gut aus.",
+        "loaders": "Ladeanzeigen"
+      },
+      "playground": {
+        "name": "CSS-Spielwiese",
+        "desc": "CSS bearbeiten und eine Karte live in einem isolierten Shadow Root verändern sehen."
+      }
     }
   },
   "cv": {
@@ -1276,5 +1458,173 @@
       ],
       "x": "Echte Ebenen-Assets (Kartondeckel und Boden) erstellen, damit der Karton sich physisch öffnen könnte. Ein einzelnes Bild erzwang einen Clip-Path-Reveal."
     }
+  },
+  "universe": {
+    "kicker": "Skills Universe",
+    "title": "Jeder Skill, mit Beleg",
+    "intro": "Eine Karte dessen, womit ich arbeite. Wähle ein Cluster und dann einen Skill: Du siehst die Projekte und Seiten, die ihn belegen.",
+    "core": {
+      "name": "CHRISTINA",
+      "role": "Full-Stack-Entwicklerin"
+    },
+    "hint": {
+      "drag": "Ziehen zum Erkunden",
+      "select": "Cluster wählen",
+      "skill": "Skill wählen"
+    },
+    "legend": "Skill-Cluster",
+    "panelLabel": "Skill-Details",
+    "panelIdle": "Cluster wählen",
+    "panelIdleText": "Sieben Cluster kreisen um den Kern. Fahre über eines, um die Verbindungen zu sehen, klicke zum Öffnen. Die nummerierten Buttons darunter tun dasselbe.",
+    "back": "Zurück zur Karte",
+    "ai": "Mit KI-Unterstützung umgesetzt",
+    "projects": "Wo er belegt ist",
+    "worksWith": "Arbeitet zusammen mit",
+    "noProjects": "Zeigt sich in meinem Arbeitsalltag",
+    "private": "ServiceOS, privates Repository",
+    "case": "Fallstudie",
+    "noGL": "Die 3D-Ansicht ist auf diesem Gerät nicht verfügbar. Die Cluster-Buttons darunter funktionieren genauso.",
+    "lab": {
+      "all": "Motion Lab öffnen",
+      "cta": "{tag}-Experimente ansehen"
+    },
+    "tags": {
+      "gsap": "GSAP",
+      "webgl": "WebGL",
+      "css": "CSS",
+      "react": "React",
+      "typescript": "TypeScript",
+      "typography": "Typografie",
+      "cursor": "Cursor",
+      "scroll": "Scroll",
+      "physics": "Physik",
+      "image": "Bild",
+      "micro": "Mikrointeraktion"
+    },
+    "pages": {
+      "notesSeo": "Notiz: SEO",
+      "notesAi": "Notiz: Arbeiten mit KI",
+      "notesLh": "Notiz: Lighthouse",
+      "design": "Design-System",
+      "accessibility": "Barrierefreiheitserklärung",
+      "decisions": "Entscheidungsprotokolle",
+      "teamflow": "Teamablauf auf dieser Seite",
+      "backend": "Backend-Schichten auf dieser Seite",
+      "responsive": "Fluid-Layout-Demo auf dieser Seite"
+    },
+    "clusters": {
+      "frontend": {
+        "name": "Frontend",
+        "desc": "Schnelle, barrierefreie und konsistente Oberflächen: React, Next.js App Router, striktes TypeScript und CSS Modules."
+      },
+      "backend": {
+        "name": "Backend",
+        "desc": "Service-Schichten, Validierung und Sessions. Mein Beispiel ist das SaaS ServiceOS (privat); Express und Ähnliches setze ich mit KI-Unterstützung um."
+      },
+      "creative": {
+        "name": "Creative Development",
+        "desc": "Bewegung und 3D im Web: GSAP, ScrollTrigger, WebGL und CSS 3D, auf Performance getrimmt."
+      },
+      "seo": {
+        "name": "SEO & Performance",
+        "desc": "Technisches SEO, strukturierte Daten, internationales SEO und gemessene Web Vitals mit echten Lighthouse-Werten."
+      },
+      "workflow": {
+        "name": "Workflow",
+        "desc": "Branches, Pull Requests, Reviews, Tests und Deployments: so liefern Teams aus."
+      },
+      "ai": {
+        "name": "KI-gestützte Entwicklung",
+        "desc": "Claude Code und GPT als Pair-Programmer, mit Regeln, Skills und Prüfung bei jedem Schritt."
+      },
+      "uiux": {
+        "name": "UI / UX",
+        "desc": "Design-Systeme, Typografie, responsive Layouts und Mikrointeraktionen. Figma-Handoff setze ich mit KI-Unterstützung um."
+      }
+    },
+    "skills": {
+      "responsive": "Responsive Design",
+      "a11y": "Barrierefreiheit",
+      "validation": "Validierung",
+      "auth": "Authentifizierung und Sessions",
+      "scrolldriven": "Scroll-gesteuerte Animation",
+      "interactiveui": "Interaktive UI",
+      "techseo": "Technisches SEO",
+      "intlseo": "Internationales SEO",
+      "metadata": "Metadaten",
+      "perf": "Performance-Optimierung",
+      "pr": "Pull Requests",
+      "review": "Code-Review",
+      "testing": "Testen",
+      "aicoding": "KI-gestütztes Coden",
+      "aiworkflow": "KI-Workflow",
+      "skills": "Skills",
+      "designsystems": "Design-Systeme",
+      "typography": "Typografie",
+      "responsivelayouts": "Responsive Layouts",
+      "microinteractions": "Mikrointeraktionen",
+      "ia": "Interface-Architektur",
+      "i18n": "Mehrsprachige Seiten",
+      "rtl": "RTL-Layouts",
+      "contactapi": "Kontakt-API-Route",
+      "rls": "Row-Level-Security",
+      "repository": "Repository-Muster",
+      "audit": "Audit-Log",
+      "securityheaders": "Security-Header",
+      "gdprdata": "DSGVO-Datenverarbeitung",
+      "calendarapi": "Kalender-Integration",
+      "particles": "Partikelsysteme",
+      "sitemap": "Sitemap und robots",
+      "ogimages": "Open-Graph-Bilder",
+      "geo": "KI-Suche-Tauglichkeit",
+      "assistant": "KI-Assistent-Widget",
+      "darklight": "Helles und dunkles Design"
+    },
+    "bridges": {
+      "deploy": "Deploy",
+      "metadata": "Metadaten",
+      "vitals": "Web Vitals",
+      "motion": "Bewegung",
+      "typedData": "Typisierte Daten",
+      "shaders": "Shader",
+      "dataFlow": "Datenfluss",
+      "release": "Release",
+      "verify": "Prüfen",
+      "loop": "Review-Schleife",
+      "tokens": "Tokens",
+      "styles": "Styles",
+      "structure": "Struktur",
+      "tools": "Werkzeuge",
+      "reach": "Reichweite",
+      "adapter": "Adapter",
+      "access": "Zugriff",
+      "realBrowser": "Echter Browser",
+      "alive": "Lebendig",
+      "trust": "Vertrauen"
+    }
+  },
+  "metaDesc": {
+    "hire": "Kurzprofil für Recruiter: Christina Volodina, Full-Stack Webentwicklerin. Skills, Stack, Arbeitsformate, Sprachen, Belege und Kontakt.",
+    "work": "Alle Projekte von Christina Volodina mit Live-Links: Next.js-Seiten, mehrsprachige Vorlagen, WebGL und Motion, plus ehrlicher Hinweis zu privaten Repos.",
+    "notes": "Kurze Artikel einer Full-Stack-Entwicklerin: technische SEO-Checkliste, Arbeiten mit Claude Code und wie ein echter Lighthouse-Wert von 74 auf 94 stieg.",
+    "design": "Das Design-System dieses Portfolios: Farb-, Schrift-, Abstands- und Motion-Tokens live, im hellen und dunklen Design, mit Barrierefreiheitsregeln.",
+    "lab": "Motion Lab: sechzehn funktionierende Creative-Coding-Experimente zu Typografie, Cursor-Physik, WebGL, Scroll und Mikrointeraktionen. Live einstellbar.",
+    "cv": "Lebenslauf als Klartext von Christina Volodina, Full-Stack Webentwicklerin: Skills, Projekte, Sprachen und Arbeitsformate, ATS-gerecht strukturiert.",
+    "about": "Wie Christina Volodina arbeitet: 30/60/90-Tage-Plan, Entscheidungsprotokolle, Recruiter-FAQ, Barrierefreiheitserklärung, Roadmap, Tools und Changelog.",
+    "plan": "Was eine neue Full-Stack-Entwicklerin in den ersten 30, 60 und 90 Tagen im Team tut: lernen, beitragen, einen Bereich verantworten. Ein Plan, kein Versprechen.",
+    "decisions": "Kurze Entscheidungsprotokolle zu diesem Portfolio: warum Next.js, CSS Modules, GSAP, rohes WebGL und Playwright, jeweils mit Abwägung.",
+    "faq": "Recruiter-FAQ: Arbeitsformate, Einsatz und Prüfung von KI, Lernen neuer Technologien, Teamarbeit auf GitHub, Sprachen und Code-Zugang.",
+    "accessibility": "Barrierefreiheitserklärung dieses Portfolios: Selbsteinschätzung nach WCAG 2.2 AA, was geprüft ist, bekannte Grenzen und wie man Probleme meldet.",
+    "roadmap": "Ehrliche Roadmap dieses Portfolios und dessen, was Christina Volodina als Nächstes vertieft: Vitest, SQL, Docker, Tailwind und Figma-Handoff.",
+    "uses": "Die Werkzeuge hinter diesem Portfolio: Claude Code, GPT, Next.js, TypeScript, Playwright, Lighthouse, GitHub Actions und Vercel.",
+    "changelog": "Changelog dieses Portfolios, erzeugt aus der echten Git-Commit-Historie: jede Änderung mit Datum und Commit-Link.",
+    "impressum": "Impressum von Christina Volodina, Webentwicklerin in Pforzheim, Deutschland.",
+    "datenschutz": "Datenschutzerklärung dieses Portfolios: keine Cookies, keine Analyse-Tools, und welche Daten Kontaktwege und der optionale GitHub-Feed nutzen.",
+    "note_seo": "Eine technische SEO-Checkliste für jede Website: Titel, Struktur, strukturierte Daten, hreflang, Sitemaps und Core Web Vitals, aus echten Projekten.",
+    "note_ai": "Wie eine Full-Stack-Entwicklerin mit Claude Code arbeitet: Regeldateien, kleine geprüfte Schritte, Skills und Checks für verlässlichen KI-Code.",
+    "note_lh": "Echte Messungen: wie diese Next.js-Seite im Production-Build von Lighthouse 74 auf 94 kam und was sich wirklich geändert hat.",
+    "case_beauty": "Fallstudie: eine buchungsorientierte Next.js-Vorlage für Beauty-Studios mit GSAP- und Lenis-Motion, WhatsApp-Anfragen und DE / EN / UK.",
+    "case_noform": "Fallstudie: eine filmische Streetwear-Markenseite mit Scroll-Szenen, Canvas und WebGL, Sound-Schalter und strenger Mono-Typografie.",
+    "case_pizza": "Fallstudie: ein Scroll-Storyboard für eine Pizza- und Döner-Lieferseite mit GSAP, ScrollTrigger und einem Karton, der sich beim Scrollen öffnet."
   }
 }
