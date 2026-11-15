@@ -11,7 +11,7 @@ A portfolio built to be checked, not just admired: motion and WebGL on top, and 
 - **Four languages**: German, English, Ukrainian and Arabic with full right-to-left layout (`next-intl`, locale routing, hreflang).
 - **Motion and WebGL**: pinned horizontal hero, CSS 3D tunnel, 3D project carousel, water-refraction titles and images, a ray-marched 3D orb, a scroll-velocity marquee. All of it respects `prefers-reduced-motion`.
 - **SEO you can inspect**: the SEO section reads this page's own `<head>` live (title, canonical, hreflang, JSON-LD) and shows Web Vitals measured in your browser.
-- **For recruiters**: a one-page summary (`/hire`), all projects with live links (`/work`), a plain-text CV for applicant tracking systems (`/cv`), and personal links such as `/en?for=Company`.
+- **For recruiters**: a one-page summary (`/hire`), longer reading under `/about` (30/60/90 plan, decisions, FAQ, accessibility statement, roadmap, uses, changelog from git), all projects with live links (`/work`), a plain-text CV for applicant tracking systems (`/cv`), and personal links such as `/en?for=Company`.
 - **Engineering notes**: a design system page that reads its tokens from CSS (`/design`), a CSS playground in an isolated shadow root (`/lab`), and short notes (`/notes`).
 - **Small things**: command palette (`Ctrl/⌘ + K`), light and dark theme, a developer view with grid and live stats, custom 3D 404 page.
 
@@ -20,7 +20,7 @@ A portfolio built to be checked, not just admired: motion and WebGL on top, and 
 | Check | Result |
 |---|---|
 | Lighthouse (desktop, production build) | Performance 94, Accessibility 100, Best practices 100, SEO 100 |
-| End-to-end tests (Playwright) | 28 passing: languages and RTL, SEO head, layout overflow at 320 to 1024 px, palette, theme, forms, 404 |
+| End-to-end tests (Playwright) | 37 passing: languages and RTL, SEO head, layout overflow at 320 to 1024 px, palette, theme, forms, 404 |
 | Pull request checks (GitHub Actions) | ESLint, TypeScript, production build, e2e |
 
 The Lighthouse numbers are stored with their date in `src/config/lighthouse.ts` and re-measured after big changes.

@@ -61,6 +61,7 @@ export function Footer() {
           <ul className={styles.list}>
             <li><Link href="/work" data-scramble>{t("work")}</Link></li>
             <li><Link href="/hire" data-scramble>{t("hire")}</Link></li>
+            <li><Link href="/about" data-scramble>{t("about")}</Link></li>
             <li><Link href="/notes" data-scramble>{t("notes")}</Link></li>
             <li><Link href="/design" data-scramble>{t("design")}</Link></li>
             <li><Link href="/lab" data-scramble>{t("lab")}</Link></li>

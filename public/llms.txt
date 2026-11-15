@@ -16,6 +16,13 @@
 - [Portfolio, Arabic](/ar): the full portfolio in Arabic (right to left)
 - [For recruiters](/en/hire): the 60-second summary for hiring teams
 - [All projects](/en/work): every project with live links
+- [About my work](/en/about): hub for the pages below
+- [First 30, 60 and 90 days](/en/plan): how I would start in a new team
+- [Decisions](/en/decisions): why Next.js, CSS Modules, GSAP, Playwright, with trade-offs
+- [Recruiter FAQ](/en/faq): formats, AI use, teamwork, languages, code access
+- [Accessibility statement](/en/accessibility): what is checked and known limits
+- [Roadmap](/en/roadmap) and [Uses](/en/uses): next steps and tools
+- [Changelog](/en/changelog): generated from the git history
 - [Notes](/en/notes): short articles on SEO, working with AI, and Lighthouse
 - [Design system](/en/design): tokens, type, motion, accessibility rules
 - [CV, plain text](/en/cv): structured version for applicant tracking systems

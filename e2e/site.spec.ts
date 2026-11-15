@@ -207,3 +207,22 @@ test("skills section states that unknown tools are delivered with AI", async ({ 
   await page.goto("/en");
   await expect(page.getByText("What I haven't done yet, I deliver with AI")).toBeAttached();
 });
+
+test.describe("about pages", () => {
+  for (const path of ["about", "plan", "decisions", "faq", "accessibility", "roadmap", "uses", "changelog"]) {
+    test(`/${path} renders with one h1 and no overflow`, async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 800 });
+      await page.goto(`/en/${path}`);
+      await expect(page.locator("h1")).toHaveCount(1);
+      const over = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      expect(over).toBeLessThanOrEqual(0);
+    });
+  }
+
+  test("faq has FAQPage JSON-LD and case study shows decisions", async ({ page }) => {
+    await page.goto("/en/faq");
+    expect(await page.content()).toContain('"@type":"FAQPage"');
+    await page.goto("/en/projects/noform");
+    await expect(page.getByRole("heading", { name: "What I would do differently" })).toBeVisible();
+  });
+});

@@ -426,7 +426,8 @@
     "lab": "CSS-Spielwiese",
     "notes": "Notizen",
     "more": "Mehr",
-    "cv_text": "Lebenslauf (Klartext)"
+    "cv_text": "Lebenslauf (Klartext)",
+    "about": "Über meine Arbeit"
   },
   "seo": {
     "kicker": "SEO",
@@ -575,7 +576,8 @@
       "dev": "Entwickleransicht (Raster und Live-Werte)",
       "design": "Design System",
       "lab": "CSS-Spielwiese",
-      "notes": "Notizen"
+      "notes": "Notizen",
+      "about": "Über meine Arbeit"
     },
     "langNames": {
       "de": "Deutsch",
@@ -987,6 +989,292 @@
           "Nach weiteren Funktionen pendelte sich der Wert bei Performance 94, Barrierefreiheit 100, Best Practices 100, SEO 100 ein. Die Zahlen werden mit Datum gespeichert und nach großen Änderungen neu gemessen."
         ]
       }
+    }
+  },
+  "about": {
+    "hub": {
+      "kicker": "Über meine Arbeit",
+      "title": "Wie ich denke und arbeite",
+      "intro": "Längeres zum Lesen für alle, die wissen wollen, wie ich arbeite: Pläne, Entscheidungen, Antworten und ehrliche Grenzen.",
+      "open": "Öffnen",
+      "cards": {
+        "plan": "Meine ersten 30, 60 und 90 Tage",
+        "decisions": "Entscheidungen hinter dieser Seite",
+        "faq": "Fragen von Recruitern",
+        "a11y": "Barrierefreiheitserklärung",
+        "changelog": "Was sich wann geändert hat",
+        "roadmap": "Roadmap und Lernen",
+        "uses": "Werkzeuge und Setup",
+        "notes": "Kurze Notizen zu SEO, KI und Lighthouse"
+      },
+      "desc": {
+        "plan": "Was ich in einem neuen Team Schritt für Schritt tun würde.",
+        "decisions": "Warum Next.js, CSS Modules, GSAP, Playwright und mehr, mit Abwägungen.",
+        "faq": "Kurze, ehrliche Antworten zu Formaten, KI, Teamarbeit und Code.",
+        "a11y": "Was geprüft ist, was noch nicht perfekt ist, wie man ein Problem meldet.",
+        "changelog": "Jede Änderung dieser Seite, aus der echten Commit-Historie.",
+        "roadmap": "Was als Nächstes auf dieser Seite kommt und was ich vertiefe.",
+        "uses": "Die Werkzeuge, mit denen ich täglich arbeite.",
+        "notes": "Drei kurze Artikel mit echten Zahlen."
+      }
+    },
+    "plan": {
+      "kicker": "Plan",
+      "title": "Meine ersten 30, 60 und 90 Tage",
+      "intro": "Ein Plan, kein Erfahrungsversprechen: So würde ich ein neues Team und eine neue Codebasis angehen.",
+      "phases": [
+        {
+          "range": "Tag 1 bis 30",
+          "name": "Lernen",
+          "points": [
+            "Zuerst die Codebasis kartieren: Architektur, Konventionen, Tests, wie eine Änderung in Produktion kommt.",
+            "Lokal starten, die Checks laufen lassen, aktuelle Pull Requests lesen, um die Review-Kultur zu verstehen.",
+            "Einen kleinen ersten Pull Request liefern: ein Bug, eine Barrierefreiheits-Korrektur oder ein Test.",
+            "Früh viele Fragen stellen und die Antworten für die nächste neue Person aufschreiben."
+          ]
+        },
+        {
+          "range": "Tag 31 bis 60",
+          "name": "Beitragen",
+          "points": [
+            "Ein kleines Feature von Anfang bis Ende verantworten: Design-Review, Umsetzung, Tests, Review-Feedback.",
+            "Eine messbare Sache verbessern, zum Beispiel Lighthouse-Wert, Testabdeckung oder Build-Zeit, und die Zahlen zeigen.",
+            "KI-Tools so nutzen, wie das Team es erlaubt, mit Regeln und Prüfung jedes Ergebnisses."
+          ]
+        },
+        {
+          "range": "Tag 61 bis 90",
+          "name": "Verantworten",
+          "points": [
+            "Verantwortung für einen Bereich übernehmen, etwa Performance, Barrierefreiheit oder Internationalisierung.",
+            "Dokumentieren, wie es funktioniert, und die nächste Verbesserung mit klarem Grund vorschlagen.",
+            "Der nächsten neuen Person so helfen, wie mir der erste Monat geholfen hat."
+          ]
+        }
+      ],
+      "habitsTitle": "Wie ich im Team arbeite",
+      "habits": [
+        "Kleine Pull Requests mit Kontext: was sich ändert, warum, wie man testet.",
+        "Kurze schriftliche Updates statt langer Meetings.",
+        "Ich sage früh, wenn ich blockiert oder unsicher bin.",
+        "Code-Reviews sehe ich als Hilfe, nicht als Kritik."
+      ]
+    },
+    "decisions": {
+      "kicker": "Entscheidungen",
+      "title": "Entscheidungen hinter dieser Seite",
+      "intro": "Kurze Entscheidungsprotokolle: die Wahl, der Grund und der Preis dafür.",
+      "reason": "Warum",
+      "price": "Abwägung",
+      "items": [
+        {
+          "t": "Next.js App Router mit Server Components zuerst",
+          "why": "Schneller erster Aufruf und crawlbares HTML für SEO, Client-Code nur dort, wo Interaktion ihn braucht.",
+          "price": "Mehr Sorgfalt an der Grenze zwischen Server- und Client-Komponenten."
+        },
+        {
+          "t": "CSS Modules und Design-Tokens statt Tailwind",
+          "why": "Gekapselte Styles, Tokens als CSS-Variablen, keine zusätzliche Abhängigkeit und ein Ort, um die ganze Seite umzugestalten (siehe Design-System-Seite).",
+          "price": "Mehr CSS von Hand. Tailwind ist in Stellenanzeigen verbreitet, und ich kann es mit KI-Unterstützung lernen."
+        },
+        {
+          "t": "GSAP und rohes WebGL statt einer 3D-Bibliothek",
+          "why": "Die 3D-Effekte hier (Wasser, Orb, Begleiter) sind kleine Shader, daher bleibt das Bundle leicht und Lighthouse hoch.",
+          "price": "Mehr Shader-Code, den ich selbst pflegen muss."
+        },
+        {
+          "t": "next-intl mit logischen CSS-Eigenschaften",
+          "why": "Vier Sprachen inklusive Arabisch von rechts nach links aus einer Codebasis, mit hreflang und korrekter Textrichtung.",
+          "price": "Jedes Layout muss in beide Richtungen geprüft werden."
+        },
+        {
+          "t": "Playwright-End-to-End-Tests gegen den Production-Build",
+          "why": "Die echten Risiken dieser Seite sind Layout-Überlauf, Sprachen, SEO-Tags und Interaktion, und die sieht nur ein echter Browser.",
+          "price": "Langsamer als Unit-Tests. Unit-Tests mit Vitest gehören zur Geschäftslogik, wie in ServiceOS."
+        },
+        {
+          "t": "Zahlen mit Datum gespeichert, nicht live geladen",
+          "why": "Lighthouse-Werte, Testergebnisse und der Beitragsgraph werden beim Build gespeichert. Keine Drittanfrage aus Ihrem Browser und keine Zahl ohne Datum.",
+          "price": "Sie können veraltet sein, bis ich neu messe."
+        },
+        {
+          "t": "Keine Cookies und keine Analytics",
+          "why": "Einfach und DSGVO-freundlich für eine persönliche Seite.",
+          "price": "Keine Nutzungsdaten, bis die Seite online ist und die Search Console verbunden wurde."
+        }
+      ]
+    },
+    "faq": {
+      "kicker": "FAQ",
+      "title": "Fragen von Recruitern",
+      "intro": "Kurze, ehrliche Antworten.",
+      "items": [
+        {
+          "q": "In welchen Formaten arbeiten Sie?",
+          "a": "In jedem: vor Ort, hybrid oder remote; Anstellung, Freelance oder B2B. Ich wohne in Pforzheim."
+        },
+        {
+          "q": "Wie arbeiten Sie mit KI und wie prüfen Sie sie?",
+          "a": "Ich nutze Claude Code und GPT täglich, mit einer Regeldatei pro Projekt, kleinen Schritten und Build, Lint und Browser-Check nach jedem Schritt. Commits passieren nur mit meiner Freigabe."
+        },
+        {
+          "q": "Was, wenn Sie eine Technologie noch nicht kennen?",
+          "a": "Ich lerne sie mit Doku, Claude und GPT zuerst in einem kleinen Experiment und liefere sie dann Schritt für Schritt mit geprüften Ergebnissen. Auf dieser Seite sind solche Skills als mit KI-Unterstützung markiert."
+        },
+        {
+          "q": "Wie arbeiten Sie im Team auf GitHub?",
+          "a": "Feature-Branches, kleine Pull Requests mit Kontext, Code-Reviews lesen und beantworten, Merge-Konflikte lösen und main stabil halten."
+        },
+        {
+          "q": "Welche Sprachen sprechen Sie?",
+          "a": "Deutsch (B1), Ukrainisch und Russisch. Englische und arabische Texte entstehen mit KI-Tools. Ich baue Websites in jeder Sprache."
+        },
+        {
+          "q": "Kann ich Ihren Code sehen?",
+          "a": "Ja. Diese Seite, noform, beauty-studio-demo, pizza-doner-lieferservice und apartament-demo sind auf GitHub öffentlich. Kundenarbeit und Teamprodukte sind privat, die zeige ich Ihnen gern in einem Gespräch."
+        },
+        {
+          "q": "Wie gehen Sie mit Barrierefreiheit und SEO um?",
+          "a": "Als Teil des Bauens, nicht danach. Die Zahlen stehen auf dieser Seite, und die Barrierefreiheitserklärung nennt, was geprüft ist und was nicht."
+        }
+      ]
+    },
+    "a11y": {
+      "kicker": "Barrierefreiheit",
+      "title": "Barrierefreiheitserklärung",
+      "intro": "Ich strebe WCAG 2.2 Stufe AA an. Das ist eine Selbsteinschätzung, kein formales Audit.",
+      "date": "Zuletzt aktualisiert",
+      "doneTitle": "Was umgesetzt ist",
+      "limitsTitle": "Bekannte Grenzen",
+      "contactTitle": "Problem melden",
+      "done": [
+        "Semantisches HTML, ein H1 pro Seite und eine logische Überschriftenfolge.",
+        "Tastaturbedienung mit sichtbarem Fokus auf jedem interaktiven Element.",
+        "Textkontrast von mindestens 4,5 zu 1, geprüft im hellen und dunklen Design (siehe Design-System-Seite).",
+        "Animation schaltet sich mit der Systemeinstellung prefers-reduced-motion ab.",
+        "Touch-Ziele von mindestens 24 Pixeln.",
+        "Rechts-nach-links-Layout für Arabisch mit logischen CSS-Eigenschaften.",
+        "Automatische Prüfungen: Lighthouse-Barrierefreiheit 100 und Playwright-Tests bei jedem Pull Request."
+      ],
+      "limits": [
+        "Die 3D- und WebGL-Effekte sind dekorativ und für Hilfstechnologien ausgeblendet, aber gepinnte Scroll-Szenen können für manche Menschen anstrengend sein.",
+        "Der arabische Text entsteht mit KI-Tools und wurde nicht von Muttersprachlern geprüft.",
+        "Die PDF-Profilkarten werden aus HTML erzeugt und sind womöglich nicht voll barrierefrei. Die Klartext-CV-Seite ist die barrierefreie Version.",
+        "Ich habe noch keinen Test mit Screenreader-Nutzern durchgeführt."
+      ],
+      "contact": "Wenn etwas für Sie nicht funktioniert, schreiben Sie mir bitte. Ich antworte und behebe, was ich kann."
+    },
+    "changelog": {
+      "kicker": "Changelog",
+      "title": "Was sich wann geändert hat",
+      "intro": "Erzeugt aus der echten Commit-Historie dieser Seite.",
+      "commits": "Commits",
+      "open": "Auf GitHub öffnen",
+      "count": "Änderungen"
+    },
+    "roadmap": {
+      "kicker": "Roadmap",
+      "title": "Roadmap und Lernen",
+      "intro": "Was als Nächstes kommt. Das sind Pläne, keine Behauptungen.",
+      "groups": [
+        {
+          "name": "Als Nächstes auf dieser Seite",
+          "items": [
+            "Mit echter Domain veröffentlichen und die Search Console verbinden.",
+            "Lighthouse in den Pull-Request-Checks laufen lassen.",
+            "Unit-Tests mit Vitest für die Daten-Helfer ergänzen.",
+            "Mehr Fallstudien und kurze Notizen schreiben."
+          ]
+        },
+        {
+          "name": "Vertiefen mit KI-Unterstützung",
+          "items": [
+            "Tailwind CSS in einem echten Projekt.",
+            "SQL und PostgreSQL hinter der Repository-Schicht von ServiceOS.",
+            "Docker-Grundlagen für die lokale Entwicklung.",
+            "Figma-Handoff zu Code."
+          ]
+        },
+        {
+          "name": "Teamarbeit",
+          "items": [
+            "Mehr Review-Praxis bei Pull Requests in öffentlichen Projekten.",
+            "Entscheidungsprotokolle für jede größere Änderung schreiben."
+          ]
+        }
+      ]
+    },
+    "uses": {
+      "kicker": "Uses",
+      "title": "Werkzeuge und Setup",
+      "intro": "Womit ich täglich arbeite.",
+      "groups": [
+        {
+          "name": "KI",
+          "items": [
+            "Claude Code mit einer Regeldatei pro Projekt",
+            "GPT für Entwürfe, Übersetzung und Recherche"
+          ]
+        },
+        {
+          "name": "Skills und MCP",
+          "items": [
+            "UI UX Pro Max, Emil Design Engineer und Design-Taste-Skills für Oberflächen",
+            "Magic MCP für Komponenten-Ideen",
+            "Graphify, um eine Codebasis vor großen Änderungen zu kartieren"
+          ]
+        },
+        {
+          "name": "Code",
+          "items": [
+            "Next.js, React, striktes TypeScript",
+            "CSS Modules, GSAP, Lenis, WebGL",
+            "next-intl, ESLint, Node 20"
+          ]
+        },
+        {
+          "name": "Qualität",
+          "items": [
+            "Playwright für End-to-End-Tests, Vitest für Logik",
+            "Lighthouse und Web Vitals",
+            "Chrome und ein Check auf echten Geräten"
+          ]
+        },
+        {
+          "name": "Auslieferung",
+          "items": [
+            "GitHub mit Branches und Pull Requests",
+            "GitHub Actions",
+            "Vercel",
+            "macOS"
+          ]
+        }
+      ]
+    }
+  },
+  "casesExtra": {
+    "title_d": "Entscheidungen",
+    "title_x": "Was ich anders machen würde",
+    "beauty": {
+      "d": [
+        "Eine Konfiguration für alles (Tokens, Seitendaten, Texte), damit eine Kundenänderung eine Dateiänderung ist, keine Codeänderung.",
+        "Eine WhatsApp-Anfrage statt eines Buchungs-Backends: niedrigere Kosten und keine gespeicherten personenbezogenen Daten. Der Preis ist ein fehlender automatischer Kalender."
+      ],
+      "x": "Einen echten Verfügbarkeitskalender mit Backend ergänzen, sobald ein Kunde ihn braucht, und die Bildoptimierung automatisieren."
+    },
+    "noform": {
+      "d": [
+        "Nur GSAP, keine zweite Animationsbibliothek, damit Bundle und Denkmodell klein bleiben.",
+        "Lokale Schriften statt Font-CDN für DSGVO und Tempo. Die Display-Schrift hat kein Kyrillisch, daher nutzen ukrainische Überschriften bewusst eine zweite Schrift."
+      ],
+      "x": "Für jede Szene gleich zu Beginn ein Frame-Budget festlegen, statt nach dem ersten Review nachzujustieren."
+    },
+    "pizza": {
+      "d": [
+        "Ein filmischer Schnitt statt vorgetäuschter 3D-Physik, wo die Assets sie nicht hergaben.",
+        "Jede Kundenangabe bleibt leer, bis sie bestätigt ist. Keine erfundene Speisekarte, keine Preise, keine Telefonnummern."
+      ],
+      "x": "Echte Ebenen-Assets (Kartondeckel und Boden) erstellen, damit der Karton sich physisch öffnen könnte. Ein einzelnes Bild erzwang einen Clip-Path-Reveal."
     }
   }
 }

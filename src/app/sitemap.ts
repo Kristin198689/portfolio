@@ -11,6 +11,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...projects.filter((p) => p.case).map((p) => ({ path: `/projects/${p.key}`, priority: 0.8 })),
     { path: "/hire", priority: 0.7 },
     { path: "/work", priority: 0.8 },
+    { path: "/about", priority: 0.7 },
+    ...["/plan", "/decisions", "/faq", "/accessibility", "/roadmap", "/uses", "/changelog"].map((path) => ({ path, priority: 0.5 })),
     { path: "/notes", priority: 0.7 },
     ...notes.map((n) => ({ path: `/notes/${n.slug}`, priority: 0.6 })),
     { path: "/design", priority: 0.5 },

@@ -45,6 +45,8 @@ export default async function CasePage({ params }: PageProps<"/[locale]/projects
   const c = await getTranslations({ locale, namespace: "cases" });
   const points = c.raw(`${slug}.points`) as string[];
   const stack = c.raw(`${slug}.stack`) as string[];
+  const x = await getTranslations({ locale, namespace: "casesExtra" });
+  const decisions = x.raw(`${slug}.d`) as string[];
 
   const ld = {
     "@context": "https://schema.org",
@@ -116,6 +118,24 @@ export default async function CasePage({ params }: PageProps<"/[locale]/projects
             <p>{pt}</p>
           </li>
         ))}
+      </ol>
+
+      <h2 className={styles.h2}>{x("title_d")}</h2>
+      <ol className={styles.points}>
+        {decisions.map((d, i) => (
+          <li key={i}>
+            <span>{String(i + 1).padStart(2, "0")}</span>
+            <p>{d}</p>
+          </li>
+        ))}
+      </ol>
+
+      <h2 className={styles.h2}>{x("title_x")}</h2>
+      <ol className={styles.points}>
+        <li>
+          <span>→</span>
+          <p>{x(`${slug}.x`)}</p>
+        </li>
       </ol>
 
       <Link href={`/projects/${next.key}`} className={styles.next} data-scramble>

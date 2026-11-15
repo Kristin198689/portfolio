@@ -426,7 +426,8 @@
     "lab": "CSS playground",
     "notes": "Notes",
     "more": "More",
-    "cv_text": "CV (plain text)"
+    "cv_text": "CV (plain text)",
+    "about": "About my work"
   },
   "seo": {
     "kicker": "SEO",
@@ -575,7 +576,8 @@
       "dev": "Developer view (grid and live stats)",
       "design": "Design system",
       "lab": "CSS playground",
-      "notes": "Notes"
+      "notes": "Notes",
+      "about": "About my work"
     },
     "langNames": {
       "de": "Deutsch",
@@ -987,6 +989,292 @@
           "After adding more features the score settled at Performance 94, Accessibility 100, Best practices 100, SEO 100. The numbers are stored with their date and re-measured after big changes."
         ]
       }
+    }
+  },
+  "about": {
+    "hub": {
+      "kicker": "About my work",
+      "title": "How I think and work",
+      "intro": "Longer reading for people who want to know how I work: plans, decisions, answers and honest limits.",
+      "open": "Open",
+      "cards": {
+        "plan": "My first 30, 60 and 90 days",
+        "decisions": "Decisions behind this site",
+        "faq": "Questions recruiters ask",
+        "a11y": "Accessibility statement",
+        "changelog": "What changed and when",
+        "roadmap": "Roadmap and learning",
+        "uses": "Tools and setup",
+        "notes": "Short notes on SEO, AI and Lighthouse"
+      },
+      "desc": {
+        "plan": "What I would do in a new team, step by step.",
+        "decisions": "Why Next.js, CSS Modules, GSAP, Playwright and more, with trade-offs.",
+        "faq": "Short, honest answers about formats, AI, teamwork and code.",
+        "a11y": "What is checked, what is not perfect yet, how to report a problem.",
+        "changelog": "Every change of this site, from the real commit history.",
+        "roadmap": "What comes next on this site, and what I am deepening.",
+        "uses": "The tools I work with every day.",
+        "notes": "Three short articles with real numbers."
+      }
+    },
+    "plan": {
+      "kicker": "Plan",
+      "title": "My first 30, 60 and 90 days",
+      "intro": "A plan, not a promise of experience: this is how I would approach a new team and a new codebase.",
+      "phases": [
+        {
+          "range": "Days 1 to 30",
+          "name": "Learn",
+          "points": [
+            "Map the codebase first: architecture, conventions, tests, how a change reaches production.",
+            "Run it locally, run the checks, read recent pull requests to learn the review culture.",
+            "Ship a small first pull request: a bug, an accessibility fix or a test.",
+            "Ask many questions early and write the answers down for the next newcomer."
+          ]
+        },
+        {
+          "range": "Days 31 to 60",
+          "name": "Contribute",
+          "points": [
+            "Own a small feature end to end: design review, implementation, tests, review feedback.",
+            "Improve one measurable thing, for example a Lighthouse score, test coverage or build time, and show the numbers.",
+            "Use AI tools the way the team allows, with rules and a check on every result."
+          ]
+        },
+        {
+          "range": "Days 61 to 90",
+          "name": "Own",
+          "points": [
+            "Take responsibility for one area, such as performance, accessibility or internationalisation.",
+            "Document how it works and propose the next improvement with a clear reason.",
+            "Help the next newcomer the way the first month helped me."
+          ]
+        }
+      ],
+      "habitsTitle": "How I work with a team",
+      "habits": [
+        "Small pull requests with context: what changed, why, how to test it.",
+        "Short written updates instead of long meetings.",
+        "I say early when I am blocked or unsure.",
+        "I read code reviews as help, not as criticism."
+      ]
+    },
+    "decisions": {
+      "kicker": "Decisions",
+      "title": "Decisions behind this site",
+      "intro": "Short decision records: the choice, the reason and the price I pay for it.",
+      "reason": "Why",
+      "price": "Trade-off",
+      "items": [
+        {
+          "t": "Next.js App Router with Server Components first",
+          "why": "Fast first load and crawlable HTML for SEO, with client code only where interaction needs it.",
+          "price": "More care with the boundary between server and client components."
+        },
+        {
+          "t": "CSS Modules and design tokens instead of Tailwind",
+          "why": "Scoped styles, tokens as CSS variables, no extra dependency, and one place to restyle the whole site (see the design system page).",
+          "price": "More CSS to write by hand. Tailwind is common in jobs, and I can pick it up with AI support."
+        },
+        {
+          "t": "GSAP and raw WebGL instead of a 3D library",
+          "why": "The 3D effects here (water, orb, companion) are small shaders, so the bundle stays light and Lighthouse stays high.",
+          "price": "More shader code to maintain by hand."
+        },
+        {
+          "t": "next-intl with logical CSS properties",
+          "why": "Four languages including right-to-left Arabic from one codebase, with hreflang and correct text direction.",
+          "price": "Every layout must be checked in both directions."
+        },
+        {
+          "t": "Playwright end-to-end tests on the production build",
+          "why": "The real risks of this site are layout overflow, languages, SEO tags and interaction, and only a real browser sees them.",
+          "price": "Slower than unit tests. Unit tests with Vitest belong to business logic, as in ServiceOS."
+        },
+        {
+          "t": "Numbers stored with a date, not fetched live",
+          "why": "Lighthouse scores, test results and the contribution graph are saved at build time. No third-party request from your browser, and no number without a date.",
+          "price": "They can be out of date until I measure again."
+        },
+        {
+          "t": "No cookies and no analytics",
+          "why": "Simple and GDPR-friendly for a personal site.",
+          "price": "No usage data until the site is online and Search Console is connected."
+        }
+      ]
+    },
+    "faq": {
+      "kicker": "FAQ",
+      "title": "Questions recruiters ask",
+      "intro": "Short, honest answers.",
+      "items": [
+        {
+          "q": "What formats do you work in?",
+          "a": "Any: on-site, hybrid or remote; employment, freelance or B2B. I am based in Pforzheim, Germany."
+        },
+        {
+          "q": "How do you work with AI, and how do you check it?",
+          "a": "I use Claude Code and GPT every day, with a rules file per project, small steps, and a build, lint and browser check after each step. Commits only happen when I approve them."
+        },
+        {
+          "q": "What if you do not know a technology yet?",
+          "a": "I learn it with docs, Claude and GPT in a small experiment first, then deliver it step by step with every result checked. On this site such skills are marked as with AI support."
+        },
+        {
+          "q": "How do you work in a team on GitHub?",
+          "a": "Feature branches, small pull requests with context, reading and answering code reviews, resolving merge conflicts, and keeping main stable."
+        },
+        {
+          "q": "Which languages do you speak?",
+          "a": "German (B1), Ukrainian and Russian. English and Arabic texts are written with AI tools. I build sites in any language."
+        },
+        {
+          "q": "Can I see your code?",
+          "a": "Yes. This site, noform, beauty-studio-demo, pizza-doner-lieferservice and apartament-demo are public on GitHub. Client work and team products are private, and I can walk you through them in a call."
+        },
+        {
+          "q": "How do you handle accessibility and SEO?",
+          "a": "As part of the build, not afterwards. The numbers are on this site, and the accessibility statement lists what is checked and what is not."
+        }
+      ]
+    },
+    "a11y": {
+      "kicker": "Accessibility",
+      "title": "Accessibility statement",
+      "intro": "I aim for WCAG 2.2 level AA. This is a self-assessment, not a formal audit.",
+      "date": "Last updated",
+      "doneTitle": "What is in place",
+      "limitsTitle": "Known limits",
+      "contactTitle": "Report a problem",
+      "done": [
+        "Semantic HTML, one H1 per page and a logical heading order.",
+        "Keyboard access with a visible focus on every interactive element.",
+        "Text contrast of at least 4.5 to 1, checked in light and dark theme (see the design system page).",
+        "Animation switches off with the system setting prefers-reduced-motion.",
+        "Touch targets of at least 24 pixels.",
+        "Right-to-left layout for Arabic with logical CSS properties.",
+        "Automated checks: Lighthouse accessibility 100 and Playwright tests on every pull request."
+      ],
+      "limits": [
+        "The 3D and WebGL effects are decorative and hidden from assistive technology, but pinned scroll scenes can be demanding for some people.",
+        "The Arabic text is written with AI tools and has not been reviewed by a native speaker.",
+        "The PDF profile cards are generated from HTML and may not be fully accessible. The plain-text CV page is the accessible version.",
+        "I have not run a test with screen reader users yet."
+      ],
+      "contact": "If something does not work for you, please write to me. I will answer and fix what I can."
+    },
+    "changelog": {
+      "kicker": "Changelog",
+      "title": "What changed and when",
+      "intro": "Generated from the real commit history of this site.",
+      "commits": "Commits",
+      "open": "Open on GitHub",
+      "count": "changes"
+    },
+    "roadmap": {
+      "kicker": "Roadmap",
+      "title": "Roadmap and learning",
+      "intro": "What comes next. These are plans, not claims.",
+      "groups": [
+        {
+          "name": "Next on this site",
+          "items": [
+            "Publish with a real domain and connect Search Console.",
+            "Run Lighthouse in the pull request checks.",
+            "Add unit tests with Vitest for the data helpers.",
+            "Write more case studies and short notes."
+          ]
+        },
+        {
+          "name": "Deepening with AI support",
+          "items": [
+            "Tailwind CSS in a real project.",
+            "SQL and PostgreSQL behind the ServiceOS repository layer.",
+            "Docker basics for local development.",
+            "Figma handoff to code."
+          ]
+        },
+        {
+          "name": "Teamwork",
+          "items": [
+            "More pull request review practice on public projects.",
+            "Writing decision records for every bigger change."
+          ]
+        }
+      ]
+    },
+    "uses": {
+      "kicker": "Uses",
+      "title": "Tools and setup",
+      "intro": "What I work with every day.",
+      "groups": [
+        {
+          "name": "AI",
+          "items": [
+            "Claude Code with a rules file per project",
+            "GPT for drafts, translation and research"
+          ]
+        },
+        {
+          "name": "Skills and MCP",
+          "items": [
+            "UI UX Pro Max, Emil Design Engineer and design-taste skills for interface work",
+            "Magic MCP for component ideas",
+            "Graphify to map a codebase before large changes"
+          ]
+        },
+        {
+          "name": "Code",
+          "items": [
+            "Next.js, React, strict TypeScript",
+            "CSS Modules, GSAP, Lenis, WebGL",
+            "next-intl, ESLint, Node 20"
+          ]
+        },
+        {
+          "name": "Quality",
+          "items": [
+            "Playwright for end-to-end tests, Vitest for logic",
+            "Lighthouse and Web Vitals",
+            "Chrome and a real device check"
+          ]
+        },
+        {
+          "name": "Delivery",
+          "items": [
+            "GitHub with branches and pull requests",
+            "GitHub Actions",
+            "Vercel",
+            "macOS"
+          ]
+        }
+      ]
+    }
+  },
+  "casesExtra": {
+    "title_d": "Decisions",
+    "title_x": "What I would do differently",
+    "beauty": {
+      "d": [
+        "One config for everything (tokens, site data, messages), so a client change is a file edit, not a code change.",
+        "A WhatsApp request instead of a booking backend: lower cost and no personal data stored. The price is no automatic calendar."
+      ],
+      "x": "Add a real availability calendar with a backend once a client needs it, and automate image optimisation."
+    },
+    "noform": {
+      "d": [
+        "GSAP only, no second animation library, to keep the bundle and the mental model small.",
+        "Local fonts instead of a font CDN for GDPR and speed. The display face has no Cyrillic, so Ukrainian headings use a second font on purpose."
+      ],
+      "x": "Set a frame-budget target for every scene at the start instead of tuning after the first review."
+    },
+    "pizza": {
+      "d": [
+        "A cinematic cut instead of faking 3D physics where the assets could not support it.",
+        "Every client fact stays empty until it is confirmed. No invented menu, prices or phone numbers."
+      ],
+      "x": "Create real layered assets (box lid and base) so the box could open physically. A single image forced a clip-path reveal."
     }
   }
 }
