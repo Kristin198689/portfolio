@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", priority: 1 },
     ...projects.filter((p) => p.case).map((p) => ({ path: `/projects/${p.key}`, priority: 0.8 })),
     { path: "/hire", priority: 0.7 },
+    { path: "/services", priority: 0.9 },
+    { path: "/webdesign-pforzheim", priority: 0.8 },
     { path: "/work", priority: 0.8 },
     { path: "/about", priority: 0.7 },
     ...["/plan", "/decisions", "/faq", "/accessibility", "/roadmap", "/uses", "/changelog"].map((path) => ({ path, priority: 0.5 })),

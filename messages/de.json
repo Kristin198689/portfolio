@@ -36,7 +36,8 @@
     "themeToLight": "Hell einschalten",
     "themeToDark": "Dunkel einschalten",
     "hire": "Für Recruiter",
-    "more": "Weitere Seiten"
+    "more": "Weitere Seiten",
+    "services": "Leistungen"
   },
   "hero": {
     "a": "Next.js",
@@ -429,7 +430,9 @@
     "notes": "Notizen",
     "more": "Mehr",
     "cv_text": "Lebenslauf (Klartext)",
-    "about": "Über meine Arbeit"
+    "about": "Über meine Arbeit",
+    "services": "Leistungen",
+    "pagesTitle": "Seiten"
   },
   "seo": {
     "kicker": "SEO",
@@ -579,7 +582,8 @@
       "design": "Design System",
       "lab": "Motion Lab",
       "notes": "Notizen",
-      "about": "Über meine Arbeit"
+      "about": "Über meine Arbeit",
+      "services": "Leistungen"
     },
     "langNames": {
       "de": "Deutsch",
@@ -1187,7 +1191,9 @@
         "changelog": "Was sich wann geändert hat",
         "roadmap": "Roadmap und Lernen",
         "uses": "Werkzeuge und Setup",
-        "notes": "Kurze Notizen zu SEO, KI und Lighthouse"
+        "notes": "Kurze Notizen zu SEO, KI und Lighthouse",
+        "design": "Design-System",
+        "cv": "Lebenslauf, Klartext"
       },
       "desc": {
         "plan": "Was ich in einem neuen Team Schritt für Schritt tun würde.",
@@ -1197,7 +1203,9 @@
         "changelog": "Jede Änderung dieser Seite, aus der echten Commit-Historie.",
         "roadmap": "Was als Nächstes auf dieser Seite kommt und was ich vertiefe.",
         "uses": "Die Werkzeuge, mit denen ich täglich arbeite.",
-        "notes": "Drei kurze Artikel mit echten Zahlen."
+        "notes": "Drei kurze Artikel mit echten Zahlen.",
+        "design": "Farb-, Schrift-, Abstands- und Motion-Tokens live, hell und dunkel.",
+        "cv": "Skills, Projekte und Formate in einer Struktur, die Bewerbungssysteme lesen."
       }
     },
     "plan": {
@@ -1625,6 +1633,264 @@
     "note_lh": "Echte Messungen: wie diese Next.js-Seite im Production-Build von Lighthouse 74 auf 94 kam und was sich wirklich geändert hat.",
     "case_beauty": "Fallstudie: eine buchungsorientierte Next.js-Vorlage für Beauty-Studios mit GSAP- und Lenis-Motion, WhatsApp-Anfragen und DE / EN / UK.",
     "case_noform": "Fallstudie: eine filmische Streetwear-Markenseite mit Scroll-Szenen, Canvas und WebGL, Sound-Schalter und strenger Mono-Typografie.",
-    "case_pizza": "Fallstudie: ein Scroll-Storyboard für eine Pizza- und Döner-Lieferseite mit GSAP, ScrollTrigger und einem Karton, der sich beim Scrollen öffnet."
+    "case_pizza": "Fallstudie: ein Scroll-Storyboard für eine Pizza- und Döner-Lieferseite mit GSAP, ScrollTrigger und einem Karton, der sich beim Scrollen öffnet.",
+    "services": "Website erstellen lassen ab 999 € in Pforzheim: Relaunch, SEO, mehrsprachige Seiten sowie Web-Apps, SaaS und CRM. So setzt sich der Preis zusammen.",
+    "pforzheim": "Website und Web-App in Pforzheim erstellen lassen: neue Seiten, Relaunch, lokale SEO und Buchungssysteme. Persönlich oder online, ab 999 €."
+  },
+  "services": {
+    "kicker": "Leistungen",
+    "title": "Websites, SEO und Web-Apps",
+    "intro": "Ich baue schnelle, mehrsprachige Websites und individuelle Web-Apps für kleine Unternehmen und Teams: neue Seiten, Relaunch alter Seiten, SEO und Software wie Buchungssysteme und CRMs. Preise ab 999 €.",
+    "from_": "Ab",
+    "fromValue": "999 €",
+    "fromNote": "für eine One-Page-Seite oder eine kleine Unternehmenswebsite. Der Endpreis wird nach einem kurzen Gespräch schriftlich festgelegt. Es wird keine Umsatzsteuer berechnet (Kleinunternehmer, § 19 UStG).",
+    "cta": {
+      "write": "Projekt schildern",
+      "email": "E-Mail schreiben",
+      "work": "Meine Projekte ansehen"
+    },
+    "offersTitle": "Was ich mache",
+    "offers": [
+      {
+        "t": "Website erstellen lassen",
+        "d": "Eine neue Unternehmenswebsite oder Landingpage in Next.js: schnell, responsiv, barrierefrei, mit SEO ab dem ersten Commit.",
+        "p": "Ab 999 €"
+      },
+      {
+        "t": "Relaunch und Redesign",
+        "d": "Ihre alte Seite ist langsam, veraltet oder bei Google unsichtbar? Neues Design und neue Struktur, alte Adressen weitergeleitet, damit Rankings nicht verloren gehen, bessere Geschwindigkeit.",
+        "p": "Wie eine neue Seite, plus Weiterleitungen"
+      },
+      {
+        "t": "SEO und Performance",
+        "d": "Technisches SEO, Titel und Struktur, strukturierte Daten, hreflang für mehrere Sprachen, Core Web Vitals, Einrichtung der Search Console. Als Audit oder Teil eines Projekts.",
+        "p": "Audit oder Teil eines Projekts"
+      },
+      {
+        "t": "Webdesign und UI/UX",
+        "d": "Layout, Typografie, Farbe, responsives Verhalten und ein kleines Design-System, umgesetzt im Code. Figma-Handoff ist möglich, mit KI-Unterstützung umgesetzt.",
+        "p": "Im Projekt enthalten oder einzeln"
+      },
+      {
+        "t": "Web-Apps, SaaS und CRM",
+        "d": "Buchung und Terminplanung, Kundenkonten, Rechnungen, Dashboards, Admin-Bereiche. Mein Beispiel ist ServiceOS, ein privates SaaS mit PostgreSQL, Tests und sauberer Service-Schicht.",
+        "p": "Individuelles Angebot"
+      },
+      {
+        "t": "Mehrsprachige Websites",
+        "d": "Deutsch, Englisch, Ukrainisch, Russisch oder Arabisch mit Rechts-nach-links-Layout. Richtige Sprach-Tags, hreflang und eine Codebasis.",
+        "p": "Pro Sprache, siehe unten"
+      }
+    ],
+    "includedTitle": "In jeder Website enthalten",
+    "included": [
+      "Funktioniert auf Handy, Tablet und Desktop",
+      "SEO-Grundlagen: Titel, Beschreibungen, Überschriften, Sitemap, strukturierte Daten",
+      "Barrierefreiheit: Tastatur, Kontrast, semantisches HTML",
+      "Geschwindigkeit mit Lighthouse und Core Web Vitals geprüft",
+      "Kontaktformular oder direkter WhatsApp- und E-Mail-Link",
+      "Entwürfe für Impressum und Datenschutz. Diese brauchen eine rechtliche Prüfung",
+      "Hosting auf Vercel, für Sie eingerichtet"
+    ],
+    "priceTitle": "Wovon der Preis abhängt",
+    "priceIntro": "Der Einstiegspreis deckt eine klare, kompakte Seite ab. Diese Punkte erhöhen ihn.",
+    "factors": [
+      {
+        "k": "Seiten und Abschnitte",
+        "v": "Eine Seite oder zehn: Jeder eigene Abschnitt braucht Design- und Entwicklungszeit."
+      },
+      {
+        "k": "Design",
+        "v": "Ein klares Layout geht schneller als ein komplett individuelles Design mit Markenarbeit."
+      },
+      {
+        "k": "Bewegung und 3D",
+        "v": "Dezente Übergänge sind enthalten. Scroll-Storytelling, WebGL und eigene Animationen brauchen mehr Zeit."
+      },
+      {
+        "k": "Sprachen",
+        "v": "Jede weitere Sprache bringt Übersetzung, Prüfung und SEO-Einrichtung mit. Rechts-nach-links-Sprachen brauchen zusätzliche Layout-Arbeit."
+      },
+      {
+        "k": "Inhalte",
+        "v": "Fertige Texte und Fotos halten den Preis niedrig. Texten, Struktur und Bildarbeit kommen hinzu."
+      },
+      {
+        "k": "Funktionen",
+        "v": "Ein Formular oder ein Buchungslink ist einfach. Konten, Zahlungen, CRM-Logik und Admin-Bereiche machen daraus eine individuelle Anwendung."
+      },
+      {
+        "k": "SEO-Umfang",
+        "v": "Die Grundlagen sind enthalten. Migration einer alten Seite, Weiterleitungen und Keyword-Recherche werden separat angeboten."
+      },
+      {
+        "k": "Termin",
+        "v": "Ein Eilauftrag verschiebt andere Arbeit und kostet mehr als ein normaler Zeitplan."
+      }
+    ],
+    "priceNote": "Das sind Richtwerte. Das schriftliche Angebot nennt den Endpreis. Es wird keine Umsatzsteuer berechnet (Kleinunternehmer, § 19 UStG).",
+    "processTitle": "So läuft es ab",
+    "steps": [
+      {
+        "t": "Kurzes Gespräch oder Nachricht",
+        "d": "Ziele, Seiten, Sprachen, Termin."
+      },
+      {
+        "t": "Schriftliches Angebot",
+        "d": "Umfang und Festpreis, bevor die Arbeit beginnt."
+      },
+      {
+        "t": "Design und Struktur",
+        "d": "Layout, Schrift und Farbe an echten Inhalten."
+      },
+      {
+        "t": "Entwicklung und Test",
+        "d": "Next.js, auf echten Bildschirmgrößen in allen Sprachen geprüft."
+      },
+      {
+        "t": "Launch",
+        "d": "Domain, Hosting und Search Console, eingerichtet und geprüft."
+      }
+    ],
+    "whyTitle": "Warum mit mir",
+    "why": [
+      {
+        "t": "Belege statt Versprechen",
+        "d": "Live-Projekte mit Links und öffentlicher Code auf GitHub. Siehe die Projektseite."
+      },
+      {
+        "t": "Gemessene Qualität",
+        "d": "Lighthouse {perf} Performance, {a11y} Barrierefreiheit, {seo} SEO auf dieser Seite. Die Werte sind datiert."
+      },
+      {
+        "t": "Ihre Sprache",
+        "d": "Ich spreche Deutsch (B1), Ukrainisch und Russisch und baue Seiten in jeder Sprache."
+      },
+      {
+        "t": "Geprüfte KI-Hilfe",
+        "d": "Ich nutze Claude Code und GPT für Tempo, in kleinen Schritten und mit Prüfung nach jedem Schritt."
+      }
+    ],
+    "faqTitle": "Fragen",
+    "faq": [
+      {
+        "q": "Was kostet eine Website?",
+        "a": "Ab 999 € für eine One-Page-Seite oder eine kleine Unternehmenswebsite. Der Endpreis hängt von Seiten, Design, Sprachen, Inhalten und Funktionen ab und wird nach einem kurzen Gespräch schriftlich festgelegt."
+      },
+      {
+        "q": "Wie lange dauert es?",
+        "a": "Schnell. Eine kompakte Seite ist zügig gebaut. Das Tempo hängt vor allem davon ab, wie bald Texte, Fotos und Rückmeldungen kommen."
+      },
+      {
+        "q": "Können Sie meine alte Website neu gestalten, ohne Google-Rankings zu verlieren?",
+        "a": "Ja. Ich erfasse die alten Adressen, leite sie weiter, behalte Inhalte, die ranken, und verbessere Geschwindigkeit und Struktur."
+      },
+      {
+        "q": "Können Sie ein CRM oder SaaS bauen?",
+        "a": "Ja. Mein Beispiel ist ServiceOS, ein privates SaaS für Termine, Kunden und Rechnungen. Der Umfang wird individuell angeboten, und ich baue mit KI-Unterstützung und prüfe jeden Schritt."
+      },
+      {
+        "q": "In welchen Sprachen kann die Website sein?",
+        "a": "Deutsch, Englisch, Ukrainisch und Russisch aus eigenem Können. Arabisch mit Rechts-nach-links-Layout wird mit KI-Werkzeugen übersetzt, eine Prüfung durch Muttersprachler ist empfohlen."
+      },
+      {
+        "q": "Arbeiten Sie auch außerhalb von Pforzheim?",
+        "a": "Ja. Ich arbeite remote in ganz Deutschland und Europa und vor Ort im Raum Pforzheim."
+      }
+    ],
+    "areaTitle": "Wo ich arbeite",
+    "area": "Pforzheim, Deutschland, und remote in ganz Deutschland und Europa.",
+    "ctaTitle": "Ein Projekt oder eine alte Seite, die frischen Wind braucht?",
+    "ctaText": "Schicken Sie ein paar Zeilen dazu, was Sie brauchen. Sie bekommen eine Antwort und einen klaren nächsten Schritt.",
+    "metaTitle": "Website erstellen lassen ab 999 € | Webentwicklung Pforzheim",
+    "stats": {
+      "services": "Leistungen, und mehr",
+      "languages": "Sprachen, und mehr",
+      "a11y": "Barrierefreiheit",
+      "seo": "SEO-Wert"
+    },
+    "proofTitle": "Belege: Live-Projekte",
+    "statsNote": "Lighthouse, Desktop, Production-Build",
+    "moreTitle": "Nicht dabei?",
+    "moreText": "Schreiben Sie mir. Was immer Sie brauchen, ich finde einen Weg, es umzusetzen.",
+    "moreCta": "Nachricht schreiben"
+  },
+  "pforzheim": {
+    "metaTitle": "Webdesign und Webentwicklung in Pforzheim | Christina Volodina",
+    "metaDesc": "Website und Web-App in Pforzheim erstellen lassen: neue Seiten, Relaunch, lokale SEO und Buchungssysteme. Persönlich oder online, ab 999 €.",
+    "kicker": "Pforzheim",
+    "title": "Webdesign und Webentwicklung in Pforzheim",
+    "intro": "Ich lebe und arbeite in Pforzheim. Ich baue Websites und Web-Apps für Unternehmen und Teams in Pforzheim und Umgebung: persönlich oder online, auf Deutsch, Ukrainisch, Russisch oder Englisch.",
+    "needsTitle": "Was lokale Unternehmen meist brauchen",
+    "needs": [
+      {
+        "t": "Eine erste Website",
+        "d": "Klar, schnell und bei Google gefunden, mit Öffnungszeiten, Adresse und Kontakt."
+      },
+      {
+        "t": "Ein Relaunch der alten Seite",
+        "d": "Neues Design, bessere Geschwindigkeit, und alte Adressen werden weitergeleitet, damit Sie sichtbar bleiben."
+      },
+      {
+        "t": "Buchung und Anfragen",
+        "d": "Ein Kontaktformular, ein WhatsApp-Link oder ein Buchungssystem für Termine."
+      },
+      {
+        "t": "Gefunden in Pforzheim",
+        "d": "Titel und strukturierte Daten mit Ihrer Stadt und Search Console, damit Menschen in der Nähe Sie finden."
+      }
+    ],
+    "meetTitle": "So arbeiten wir zusammen",
+    "meet": [
+      {
+        "t": "Gespräch",
+        "d": "Persönlich in Pforzheim, per Video oder Nachricht."
+      },
+      {
+        "t": "Angebot",
+        "d": "Ein schriftliches Angebot mit Festpreis."
+      },
+      {
+        "t": "Umsetzung",
+        "d": "Ich baue, Sie prüfen, wir starten."
+      },
+      {
+        "t": "In Ihrer Sprache",
+        "d": "Deutsch, Ukrainisch, Russisch oder Englisch."
+      }
+    ],
+    "localTitle": "Grundlagen der lokalen Suche, inklusive",
+    "local": [
+      "Ihre Stadt und Leistung in Titeln und Überschriften",
+      "LocalBusiness-Daten (strukturiert)",
+      "Schnell auf dem Handy, wo die meisten lokalen Suchen stattfinden",
+      "Search Console eingerichtet",
+      "Beratung zu Ihrem Google-Unternehmensprofil"
+    ],
+    "priceText": "Websites ab 999 €. Es wird keine Umsatzsteuer berechnet (Kleinunternehmer, § 19 UStG).",
+    "priceCta": "Leistungen und wovon der Preis abhängt",
+    "faqTitle": "Fragen",
+    "faq": [
+      {
+        "q": "Was kostet eine Website in Pforzheim?",
+        "a": "Ab 999 € für eine kompakte Seite. Der Endpreis wird nach einem kurzen Gespräch schriftlich festgelegt."
+      },
+      {
+        "q": "Müssen wir uns persönlich treffen?",
+        "a": "Nein, aber wir können. In Pforzheim persönlich, oder per Video und Nachricht."
+      },
+      {
+        "q": "Arbeiten Sie nur in Pforzheim?",
+        "a": "Nein. Ich arbeite auch remote in ganz Deutschland und Europa."
+      },
+      {
+        "q": "Können Sie meine alte Seite neu gestalten, ohne Google-Rankings zu verlieren?",
+        "a": "Ja. Alte Adressen werden weitergeleitet, und Inhalte, die ranken, bleiben erhalten."
+      }
+    ],
+    "ctaTitle": "Sie brauchen eine Website in Pforzheim?",
+    "ctaText": "Schreiben Sie ein paar Zeilen dazu, was Sie brauchen. Sie bekommen eine Antwort und einen klaren nächsten Schritt.",
+    "email": "E-Mail schreiben",
+    "all": "Alle Leistungen"
   }
 }

@@ -36,7 +36,8 @@
     "themeToLight": "Switch to light",
     "themeToDark": "Switch to dark",
     "hire": "For recruiters",
-    "more": "More pages"
+    "more": "More pages",
+    "services": "Services"
   },
   "hero": {
     "a": "Next.js",
@@ -429,7 +430,9 @@
     "notes": "Notes",
     "more": "More",
     "cv_text": "CV (plain text)",
-    "about": "About my work"
+    "about": "About my work",
+    "services": "Services",
+    "pagesTitle": "Pages"
   },
   "seo": {
     "kicker": "SEO",
@@ -579,7 +582,8 @@
       "design": "Design system",
       "lab": "Motion Lab",
       "notes": "Notes",
-      "about": "About my work"
+      "about": "About my work",
+      "services": "Services"
     },
     "langNames": {
       "de": "Deutsch",
@@ -1187,7 +1191,9 @@
         "changelog": "What changed and when",
         "roadmap": "Roadmap and learning",
         "uses": "Tools and setup",
-        "notes": "Short notes on SEO, AI and Lighthouse"
+        "notes": "Short notes on SEO, AI and Lighthouse",
+        "design": "Design system",
+        "cv": "CV, plain text"
       },
       "desc": {
         "plan": "What I would do in a new team, step by step.",
@@ -1197,7 +1203,9 @@
         "changelog": "Every change of this site, from the real commit history.",
         "roadmap": "What comes next on this site, and what I am deepening.",
         "uses": "The tools I work with every day.",
-        "notes": "Three short articles with real numbers."
+        "notes": "Three short articles with real numbers.",
+        "design": "Colour, type, spacing and motion tokens, live, in light and dark.",
+        "cv": "Skills, projects and formats in a structure that applicant tracking systems read."
       }
     },
     "plan": {
@@ -1625,6 +1633,264 @@
     "note_lh": "Real measurements: how this Next.js site went from Lighthouse 74 to 94 on desktop in a production build, and what actually changed.",
     "case_beauty": "Case study: a booking-focused Next.js template for beauty studios with GSAP and Lenis motion, WhatsApp requests and DE / EN / UK.",
     "case_noform": "Case study: a cinematic streetwear brand site with scroll-driven scenes, canvas and WebGL, sound toggle and strict mono typography.",
-    "case_pizza": "Case study: a scroll storyboard for a pizza and döner delivery site, with GSAP, ScrollTrigger and a box that opens as you scroll."
+    "case_pizza": "Case study: a scroll storyboard for a pizza and döner delivery site, with GSAP, ScrollTrigger and a box that opens as you scroll.",
+    "services": "Website development from €999 in Pforzheim, Germany: redesign, SEO, multilingual sites and web apps, SaaS and CRM. How the price is built, in plain terms.",
+    "pforzheim": "Website and web app development in Pforzheim: new sites, redesign, local SEO and booking systems. In person or online, from €999."
+  },
+  "services": {
+    "kicker": "Services",
+    "title": "Websites, SEO and web apps",
+    "intro": "I build fast, multilingual websites and custom web apps for small businesses and teams: new sites, redesigns of old ones, SEO and software such as booking systems and CRMs. Prices start at €999.",
+    "from_": "From",
+    "fromValue": "€999",
+    "fromNote": "for a one-page site or a small business website. The final price is fixed in writing after a short call. No VAT is added (small business, § 19 UStG).",
+    "cta": {
+      "write": "Tell me about your project",
+      "email": "Write an email",
+      "work": "See my projects"
+    },
+    "offersTitle": "What I do",
+    "offers": [
+      {
+        "t": "Website development",
+        "d": "A new business website or landing page in Next.js: fast, responsive, accessible, with SEO built in from the first commit.",
+        "p": "From €999"
+      },
+      {
+        "t": "Redesign and relaunch",
+        "d": "Your old site is slow, dated or invisible in Google? New design and structure, old addresses redirected so rankings are not lost, better speed.",
+        "p": "Priced like a new site, plus redirects"
+      },
+      {
+        "t": "SEO and performance",
+        "d": "Technical SEO, titles and structure, structured data, hreflang for several languages, Core Web Vitals, Search Console setup. As an audit or part of a project.",
+        "p": "Audit or part of a project"
+      },
+      {
+        "t": "Design and UI/UX",
+        "d": "Layout, typography, colour, responsive behaviour and a small design system, built in code. Figma handoff is possible, built with AI support.",
+        "p": "Included in a project or on its own"
+      },
+      {
+        "t": "Web apps, SaaS and CRM",
+        "d": "Booking and scheduling, client accounts, invoicing, dashboards, admin areas. My example is ServiceOS, a private SaaS with PostgreSQL, tests and a clean service layer.",
+        "p": "Quoted individually"
+      },
+      {
+        "t": "Multilingual websites",
+        "d": "German, English, Ukrainian, Russian or Arabic with right-to-left layout. Correct language tags, hreflang and one codebase.",
+        "p": "Per language, see below"
+      }
+    ],
+    "includedTitle": "Included in every website",
+    "included": [
+      "Works on phone, tablet and desktop",
+      "SEO basics: titles, descriptions, headings, sitemap, structured data",
+      "Accessibility: keyboard, contrast, semantic HTML",
+      "Speed checked with Lighthouse and Core Web Vitals",
+      "Contact form or a direct WhatsApp and email link",
+      "Impressum and privacy page drafts. These need a legal review",
+      "Hosting on Vercel, set up for you"
+    ],
+    "priceTitle": "What the price depends on",
+    "priceIntro": "The starting price covers a clear, compact site. These things move it up.",
+    "factors": [
+      {
+        "k": "Pages and sections",
+        "v": "One page or ten: every unique section needs design and build time."
+      },
+      {
+        "k": "Design",
+        "v": "A clean layout is faster than fully custom design and brand work."
+      },
+      {
+        "k": "Motion and 3D",
+        "v": "Subtle transitions are included. Scroll storytelling, WebGL and custom animation take more time."
+      },
+      {
+        "k": "Languages",
+        "v": "Each extra language adds translation, review and SEO setup. Right-to-left languages need extra layout work."
+      },
+      {
+        "k": "Content",
+        "v": "Ready texts and photos keep the price down. Writing, structure and image work add to it."
+      },
+      {
+        "k": "Functions",
+        "v": "A form or booking link is simple. Accounts, payments, CRM logic and admin areas make it a custom application."
+      },
+      {
+        "k": "SEO scope",
+        "v": "Basics are included. Migrating an old site, redirects and keyword research are quoted separately."
+      },
+      {
+        "k": "Deadline",
+        "v": "A rush job moves other work and costs more than a normal schedule."
+      }
+    ],
+    "priceNote": "These are starting points. The written quote states the final price. No VAT is added (small business, § 19 UStG).",
+    "processTitle": "How it works",
+    "steps": [
+      {
+        "t": "Short call or message",
+        "d": "Goals, pages, languages, deadline."
+      },
+      {
+        "t": "Written quote",
+        "d": "Scope and a fixed price before any work starts."
+      },
+      {
+        "t": "Design and structure",
+        "d": "Layout, type and colour on real content."
+      },
+      {
+        "t": "Build and test",
+        "d": "Next.js, checked on real screen sizes, in all languages."
+      },
+      {
+        "t": "Launch",
+        "d": "Domain, hosting and Search Console, set up and checked."
+      }
+    ],
+    "whyTitle": "Why work with me",
+    "why": [
+      {
+        "t": "Proof, not promises",
+        "d": "Live projects with links and public code on GitHub. See the projects page."
+      },
+      {
+        "t": "Measured quality",
+        "d": "Lighthouse {perf} performance, {a11y} accessibility, {seo} SEO on this site. Numbers are dated."
+      },
+      {
+        "t": "Your language",
+        "d": "I speak German (B1), Ukrainian and Russian, and build sites in any language."
+      },
+      {
+        "t": "Checked AI help",
+        "d": "I use Claude Code and GPT for speed, with small steps and a check after each one."
+      }
+    ],
+    "faqTitle": "Questions",
+    "faq": [
+      {
+        "q": "How much does a website cost?",
+        "a": "From €999 for a one-page site or a small business website. The final price depends on pages, design, languages, content and functions, and is fixed in writing after a short call."
+      },
+      {
+        "q": "How long does it take?",
+        "a": "Quickly. A compact site is built fast. The pace depends mostly on how soon texts, photos and feedback arrive."
+      },
+      {
+        "q": "Can you redesign my old website without losing Google rankings?",
+        "a": "Yes. I map the old addresses, redirect them, keep the content that ranks and improve speed and structure."
+      },
+      {
+        "q": "Can you build a CRM or a SaaS?",
+        "a": "Yes. My example is ServiceOS, a private SaaS for appointments, clients and invoices. The scope is quoted individually, and I build with AI support and verify every step."
+      },
+      {
+        "q": "Which languages can the site have?",
+        "a": "German, English, Ukrainian and Russian from my own knowledge. Arabic with right-to-left layout is translated with AI tools, and a native check is recommended."
+      },
+      {
+        "q": "Do you work outside Pforzheim?",
+        "a": "Yes. I work remotely across Germany and Europe, and in person in the Pforzheim area."
+      }
+    ],
+    "areaTitle": "Where I work",
+    "area": "Pforzheim, Germany, and remotely across Germany and Europe.",
+    "ctaTitle": "Have a project, or an old site that needs a refresh?",
+    "ctaText": "Send a few lines about what you need. You get a reply and a clear next step.",
+    "metaTitle": "Website Development from €999 | Web, SEO & SaaS Services",
+    "stats": {
+      "services": "services, and more",
+      "languages": "languages, and more",
+      "a11y": "accessibility score",
+      "seo": "SEO score"
+    },
+    "proofTitle": "Proof: live projects",
+    "statsNote": "Lighthouse, desktop, production build",
+    "moreTitle": "Not on the list?",
+    "moreText": "Write to me. Whatever you need, I will find a way to build it.",
+    "moreCta": "Write a message"
+  },
+  "pforzheim": {
+    "metaTitle": "Web Design and Development in Pforzheim | Christina Volodina",
+    "metaDesc": "Website and web app development in Pforzheim: new sites, redesign, local SEO and booking systems. In person or online, from €999.",
+    "kicker": "Pforzheim",
+    "title": "Web design and development in Pforzheim",
+    "intro": "I live and work in Pforzheim. I build websites and web apps for businesses and teams in Pforzheim and the surrounding area: in person or online, in German, Ukrainian, Russian or English.",
+    "needsTitle": "What local businesses usually need",
+    "needs": [
+      {
+        "t": "A first website",
+        "d": "Clear, fast and found on Google, with your opening hours, address and contact."
+      },
+      {
+        "t": "A refresh of an old site",
+        "d": "New design, better speed, and old addresses redirected so you stay visible."
+      },
+      {
+        "t": "Booking and requests",
+        "d": "A contact form, a WhatsApp link or a booking system for appointments."
+      },
+      {
+        "t": "Found in Pforzheim",
+        "d": "Titles and structured data with your city and Search Console, so people nearby find you."
+      }
+    ],
+    "meetTitle": "Working together",
+    "meet": [
+      {
+        "t": "Talk",
+        "d": "In person in Pforzheim, or by video or message."
+      },
+      {
+        "t": "Quote",
+        "d": "A written quote with a fixed price."
+      },
+      {
+        "t": "Build",
+        "d": "I build, you review, we launch."
+      },
+      {
+        "t": "In your language",
+        "d": "German, Ukrainian, Russian or English."
+      }
+    ],
+    "localTitle": "Local search basics, included",
+    "local": [
+      "Your city and service in titles and headings",
+      "LocalBusiness structured data",
+      "Fast on phones, where most local searches happen",
+      "Search Console set up",
+      "Advice for your Google Business Profile"
+    ],
+    "priceText": "Websites start at €999. No VAT is added (small business, § 19 UStG).",
+    "priceCta": "Services and what the price depends on",
+    "faqTitle": "Questions",
+    "faq": [
+      {
+        "q": "How much does a website in Pforzheim cost?",
+        "a": "From €999 for a compact site. The final price is fixed in writing after a short call."
+      },
+      {
+        "q": "Do we have to meet in person?",
+        "a": "No, but we can. In Pforzheim in person, or by video and message."
+      },
+      {
+        "q": "Do you only work in Pforzheim?",
+        "a": "No. I also work remotely across Germany and Europe."
+      },
+      {
+        "q": "Can you redesign my old site without losing Google rankings?",
+        "a": "Yes. Old addresses are redirected and the content that ranks is kept."
+      }
+    ],
+    "ctaTitle": "Need a website in Pforzheim?",
+    "ctaText": "Write a few lines about what you need. You get a reply and a clear next step.",
+    "email": "Write an email",
+    "all": "All services"
   }
 }

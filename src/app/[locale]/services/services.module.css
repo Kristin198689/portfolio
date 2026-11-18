@@ -1,0 +1,322 @@
+.from {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-12);
+  padding-block: var(--space-6);
+  border-block: 1px solid color-mix(in srgb, var(--color-on-field) 30%, transparent);
+}
+
+.fromLabel {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.fromValue {
+  font-size: clamp(3.5rem, 1.5rem + 9vw, 9rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: var(--tracking-head);
+}
+
+.fromNote {
+  max-width: 52ch;
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.note {
+  max-width: 56ch;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  opacity: 0.7;
+}
+
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6) var(--grid-gap);
+  margin: var(--space-10) 0 var(--space-3);
+}
+
+@media (min-width: 48rem) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stats div {
+  display: grid;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid color-mix(in srgb, var(--color-on-field) 30%, transparent);
+}
+
+.stats dd {
+  margin: 0;
+  order: 1;
+  font-size: clamp(3rem, 1.5rem + 6vw, 7rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: var(--tracking-head);
+}
+
+.stats dt {
+  order: 2;
+  font-size: var(--fs-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.factors {
+  display: grid;
+  gap: var(--grid-gap);
+  margin: 0;
+}
+
+@media (min-width: 40rem) {
+  .factors {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 64rem) {
+  .factors {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.factors div,
+.factors li {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  padding: var(--space-5);
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 28%, transparent);
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+
+.factors {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.factors li strong {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+}
+
+.factors li p {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .factors li:hover,
+  .factors div:hover {
+    background: var(--color-on-field);
+    color: var(--color-field);
+  }
+}
+
+.fnum {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.factors dt {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+}
+
+.factors dd {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pills li {
+  padding: 0.55rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--color-on-field) 40%, transparent);
+  font-size: var(--fs-small);
+  line-height: 1.3;
+}
+
+.proof {
+  display: grid;
+  gap: var(--grid-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .proof {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.proof a {
+  display: grid;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.shot {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-on-field) 10%, transparent);
+}
+
+.shot img {
+  object-fit: cover;
+  transition: transform 700ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .proof a:hover .shot img {
+    transform: scale(1.05);
+  }
+}
+
+.proof strong {
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+}
+
+.proof a > span:last-child {
+  font-size: var(--fs-small);
+  opacity: 0.7;
+}
+
+.whyGrid {
+  display: grid;
+  gap: var(--grid-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .whyGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 64rem) {
+  .whyGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.whyGrid li {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  padding-top: var(--space-4);
+  border-top: 1px solid color-mix(in srgb, var(--color-on-field) 30%, transparent);
+}
+
+.whyGrid strong {
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-head);
+  text-transform: uppercase;
+}
+
+.whyGrid p {
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  opacity: 0.85;
+}
+
+.faqList {
+  display: grid;
+  margin: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-on-field) 25%, transparent);
+}
+
+.faqList details {
+  border-top: 1px solid color-mix(in srgb, var(--color-on-field) 25%, transparent);
+}
+
+.faqList summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 3.5rem;
+  padding-block: var(--space-4);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.25;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faqList summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqList summary::after {
+  content: "+";
+  flex: none;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: transform 250ms var(--ease-out);
+}
+
+.faqList details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faqList summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.faqList details p {
+  max-width: 62ch;
+  padding-bottom: var(--space-5);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  opacity: 0.85;
+}

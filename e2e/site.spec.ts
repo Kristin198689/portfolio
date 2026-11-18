@@ -233,7 +233,7 @@ test.describe("navigation and SEO basics", () => {
     await page.goto("/en");
     await page.getByRole("button", { name: /^menu$/i }).click();
     const menu = page.locator("#mobile-menu");
-    for (const name of ["For recruiters", "All projects", "About my work", "Motion Lab", "Notes", "CV (plain text)"]) {
+    for (const name of ["For recruiters", "Services", "All projects", "About my work", "Motion Lab", "CV (plain text)"]) {
       await expect(menu.getByRole("link", { name })).toBeVisible();
     }
     await menu.getByRole("link", { name: "For recruiters" }).click();
@@ -249,4 +249,32 @@ test.describe("navigation and SEO basics", () => {
       expect((d ?? "").length).toBeGreaterThan(70);
     });
   }
+});
+
+test("services page shows the starting price, structured data and works on a phone", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto("/en/services");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Websites, SEO and web apps");
+  await expect(page.getByText("€999").first()).toBeVisible();
+  expect(await page.content()).toContain('"minPrice":999');
+  expect(await page.content()).toContain('"@type":"FAQPage"');
+  await expect(page).toHaveTitle(/from €999/);
+  const over = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(over).toBeLessThanOrEqual(0);
+  await page.goto("/ar/services");
+  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+});
+
+test("Pforzheim page is reachable from services, not from the header or footer", async ({ page }) => {
+  await page.goto("/de/webdesign-pforzheim");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Pforzheim");
+  await expect(page).toHaveTitle(/Pforzheim/);
+  expect(await page.content()).toContain('"@type":"FAQPage"');
+  await page.goto("/de");
+  await expect(page.locator("header").getByRole("link", { name: "Leistungen" })).toBeVisible();
+  await expect(page.locator("header a[href*=pforzheim], footer a[href*=pforzheim]")).toHaveCount(0);
+  await page.goto("/de/services");
+  await expect(page.getByRole("link", { name: "Pforzheim", exact: true })).toBeVisible();
+  await expect(page.getByText("Nicht dabei?")).toBeVisible();
 });

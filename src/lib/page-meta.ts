@@ -10,10 +10,10 @@ export function pageMeta(
   path: string,
   title: string,
   description: string,
-  opts: { type?: "website" | "article"; noindex?: boolean } = {},
+  opts: { type?: "website" | "article"; noindex?: boolean; rawTitle?: boolean } = {},
 ): Metadata {
   const full = `${title} · ${siteConfig.name}`;
-  const finalTitle = full.length > 62 ? `${title} · ${siteConfig.shortName}` : full;
+  const finalTitle = opts.rawTitle ? title : full.length > 62 ? `${title} · ${siteConfig.shortName}` : full;
   const languages: Record<string, string> = Object.fromEntries(routing.locales.map((l) => [l, `/${l}${path}`]));
   languages["x-default"] = `/${routing.defaultLocale}${path}`;
   const image = `/${locale}/opengraph-image`;
