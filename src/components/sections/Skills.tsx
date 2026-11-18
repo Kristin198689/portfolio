@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
+import { watchScroll } from "@/lib/scroll-guard";
 import { siteConfig } from "@/config/site";
 import type { IconKey } from "@/config/icons";
 import { BrandIcon } from "../ui/BrandIcon";
@@ -47,6 +48,18 @@ const TOOLS: Array<{ name: string; icon?: IconKey; href?: string }> = [
 export function Skills() {
   const t = useTranslations("skills");
   const grid = useRef<HTMLDivElement>(null);
+  const guard = useRef<ReturnType<typeof watchScroll> | null>(null);
+
+  // a scroll closes open tiles and stops tiles passing under the pointer from opening
+  useEffect(() => {
+    guard.current = watchScroll(() => {
+      grid.current?.querySelectorAll<HTMLElement>('[data-open="true"]').forEach((el) => {
+        el.dataset.open = "false";
+        gsap.to(el, { x: 0, y: 0, rotationX: 0, rotationY: 0, duration: 0.4, ease: "power3.out" });
+      });
+    });
+    return () => guard.current?.stop();
+  }, []);
 
   const setPoint = (el: HTMLElement, e: React.PointerEvent) => {
     const r = el.getBoundingClientRect();
@@ -55,7 +68,7 @@ export function Skills() {
   };
 
   const onEnter = (e: React.PointerEvent<HTMLElement>) => {
-    if (e.pointerType === "touch") return;
+    if (e.pointerType === "touch" || guard.current?.isScrolling()) return;
     setPoint(e.currentTarget, e);
     e.currentTarget.dataset.open = "true";
   };
@@ -66,8 +79,12 @@ export function Skills() {
     gsap.to(e.currentTarget, { x: 0, y: 0, rotationX: 0, rotationY: 0, duration: 0.7, ease: "power3.out" });
   };
   const onMove = (e: React.PointerEvent<HTMLElement>) => {
-    if (e.pointerType === "touch") return;
+    if (e.pointerType === "touch" || guard.current?.isScrolling()) return;
     const el = e.currentTarget;
+    if (el.dataset.open !== "true") {
+      setPoint(el, e);
+      el.dataset.open = "true";
+    }
     const r = el.getBoundingClientRect();
     const nx = (e.clientX - (r.left + r.width / 2)) / r.width;
     const ny = (e.clientY - (r.top + r.height / 2)) / r.height;

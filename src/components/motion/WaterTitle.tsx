@@ -6,7 +6,24 @@ import styles from "./WaterTitle.module.css";
 
 // A heading that lives on water: ripples under the cursor, a click drops a stone, it breathes on
 // its own. The real <h2> stays in the DOM for screen readers and search engines.
-export function WaterTitle({ text }: { text: string }) {
+// Splits words into `n` lines of similar length.
+function balance(text: string, n: number): string[] {
+  if (n <= 1) return [text];
+  const words = text.split(" ");
+  const target = text.length / n;
+  const rows: string[] = [];
+  let cur = "";
+  for (const w of words) {
+    if (cur && cur.length + 1 + w.length > target * 1.15 && rows.length < n - 1) {
+      rows.push(cur);
+      cur = w;
+    } else cur = cur ? `${cur} ${w}` : w;
+  }
+  rows.push(cur);
+  return rows;
+}
+
+export function WaterTitle({ text, id, multiline = false }: { text: string; id?: string; multiline?: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
 
@@ -31,9 +48,13 @@ export function WaterTitle({ text }: { text: string }) {
       const probe = document.createElement("canvas").getContext("2d")!;
       probe.font = `800 100px ${family}`;
       if (!rtl && "letterSpacing" in probe) (probe as unknown as { letterSpacing: string }).letterSpacing = "-5.5px";
-      const unit = probe.measureText(upper).width / 100;
-      const size = (width * 0.97) / unit;
-      const height = Math.ceil(size * 0.92);
+      const rows = multiline ? balance(upper, Math.min(3, Math.max(1, Math.ceil(upper.length / 18)))) : [upper];
+      const unit = Math.max(...rows.map((r) => probe.measureText(r).width)) / 100;
+      let size = (width * 0.97) / unit;
+      // a sentence must not become huge: cap by width, and give Arabic more room between lines
+      if (multiline) size = Math.min(size, width * (rtl ? 0.1 : 0.14));
+      const gap = rtl ? 1.2 : 0.95;
+      const height = Math.ceil(size * (rtl ? 1.35 : 0.92) + size * gap * (rows.length - 1));
       el.style.height = `${height}px`;
 
       const tc = document.createElement("canvas");
@@ -50,13 +71,16 @@ export function WaterTitle({ text }: { text: string }) {
         c.font = `800 ${fs * dpr}px ${family}`;
         if (!rtl && "letterSpacing" in c) (c as unknown as { letterSpacing: string }).letterSpacing = `${-0.055 * fs * dpr}px`;
         c.textBaseline = "alphabetic";
-        if (rtl) {
-          c.direction = "rtl";
-          c.textAlign = "right";
-          c.fillText(upper, tc.width, fs * dpr * 0.83);
-        } else {
-          c.fillText(upper, 0, fs * dpr * 0.83);
-        }
+        rows.forEach((row, i) => {
+          const y = fs * dpr * ((rtl ? 0.9 : 0.83) + gap * i);
+          if (rtl) {
+            c.direction = "rtl";
+            c.textAlign = "right";
+            c.fillText(row, tc.width, y);
+          } else {
+            c.fillText(row, 0, y);
+          }
+        });
         const base = c.getImageData(0, 0, 1, 1).data[0];
         const edge = c.getImageData(rtl ? 0 : tc.width - 3, 0, 3, tc.height).data;
         let touches = false;
@@ -71,11 +95,11 @@ export function WaterTitle({ text }: { text: string }) {
       }
       return tc;
     });
-  }, [text]);
+  }, [text, multiline]);
 
   return (
     <div ref={wrap} className={styles.wrap}>
-      <h2 className={styles.title}>{text}</h2>
+      <h2 id={id} className={styles.title}>{text}</h2>
       <canvas ref={canvas} className={styles.canvas} aria-hidden="true" />
     </div>
   );
