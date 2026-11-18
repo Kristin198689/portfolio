@@ -23,17 +23,6 @@ export function Footer() {
       </div>
 
       <div className={styles.cols}>
-        <nav aria-label={t("navTitle")}>
-          <h3 className={styles.h}>{t("navTitle")}</h3>
-          <ul className={styles.list}>
-            <li><Link href="/#skills" data-scramble>{nav("skills")}</Link></li>
-            <li><Link href="/#projects" data-scramble>{nav("projects")}</Link></li>
-            <li><Link href="/#seo" data-scramble>{nav("seo")}</Link></li>
-            <li><Link href="/#ai" data-scramble>{nav("ai")}</Link></li>
-            <li><Link href="/#process" data-scramble>{nav("process")}</Link></li>
-            <li><Link href="/#contact" data-scramble>{nav("contact")}</Link></li>
-          </ul>
-        </nav>
         <div>
           <h3 className={styles.h}>{t("linksTitle")}</h3>
           <ul className={styles.list}>
@@ -56,18 +45,16 @@ export function Footer() {
             </li>
           </ul>
         </div>
-        <div>
-          <h3 className={styles.h}>{t("more")}</h3>
+        <nav aria-label={t("pagesTitle")}>
+          <h3 className={styles.h}>{t("pagesTitle")}</h3>
           <ul className={styles.list}>
-            <li><Link href="/work" data-scramble>{t("work")}</Link></li>
+            <li><Link href="/services" data-scramble>{t("services")}</Link></li>
             <li><Link href="/hire" data-scramble>{t("hire")}</Link></li>
-            <li><Link href="/about" data-scramble>{t("about")}</Link></li>
-            <li><Link href="/notes" data-scramble>{t("notes")}</Link></li>
-            <li><Link href="/design" data-scramble>{t("design")}</Link></li>
+            <li><Link href="/work" data-scramble>{t("work")}</Link></li>
             <li><Link href="/lab" data-scramble>{t("lab")}</Link></li>
-            <li><Link href="/cv" data-scramble>{t("cv_text")}</Link></li>
+            <li><Link href="/about" data-scramble>{t("about")}</Link></li>
           </ul>
-        </div>
+        </nav>
         <div className={styles.legal}>
           <ul className={styles.list}>
             <li><Link href="/impressum" data-scramble>{t("imprint")}</Link></li>

@@ -15,8 +15,7 @@ type Ink = "paper" | "field" | "night";
 const links = [
   { href: "/#skills", key: "skills" },
   { href: "/#projects", key: "projects" },
-  { href: "/#seo", key: "seo" },
-  { href: "/#ai", key: "ai" },
+  { href: "/services", key: "services" },
   { href: "/hire", key: "hire" },
   { href: "/#contact", key: "contact" },
 ] as const;
@@ -26,9 +25,7 @@ const pages = [
   { href: "/work", key: "work" },
   { href: "/about", key: "about" },
   { href: "/lab", key: "lab" },
-  { href: "/notes", key: "notes" },
   { href: "/cv", key: "cv_text" },
-  { href: "/design", key: "design" },
 ] as const;
 
 // Same behaviour as Beauty Studio: the header takes the ink of the chapter under it,

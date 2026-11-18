@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { pageMeta } from "@/lib/page-meta";
 import styles from "../hire/hire.module.css";
 
-const cards = ["plan", "decisions", "faq", "a11y", "changelog", "roadmap", "uses", "notes"] as const;
+const cards = ["plan", "decisions", "faq", "a11y", "changelog", "roadmap", "uses", "notes", "design", "cv"] as const;
 const hrefs = {
   plan: "/plan",
   decisions: "/decisions",
@@ -14,6 +14,8 @@ const hrefs = {
   roadmap: "/roadmap",
   uses: "/uses",
   notes: "/notes",
+  design: "/design",
+  cv: "/cv",
 } as const;
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/about">): Promise<Metadata> {
