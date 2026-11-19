@@ -229,9 +229,10 @@ function liquid(): Alt {
         let cg = k * (1 - 0.005 * cool);
         let cb = k * (1 + 0.02 * cool);
         if (f.tint > 0.01) {
-          // over water: acid fuchsia, a hot-pink chrome with a glowing pink rim
+          // over water: acid fuchsia, a hot-pink chrome with a glowing pink rim. On a light page the liquid
+          // is black underneath, so the pink gets a bright floor of its own and does not turn maroon.
           const g = f.tint;
-          const pink = k * 1.05 + fres * 0.4 + (mix > 0.5 ? 0.07 : 0);
+          const pink = mix * 0.62 + k * (1.05 - 0.35 * mix) + fres * 0.4;
           cr += (pink * 1.0 + 0.04 - cr) * g;
           cg += (pink * 0.03 - cg) * g;
           cb += (pink * 0.68 + 0.02 - cb) * g;

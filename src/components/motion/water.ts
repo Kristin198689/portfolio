@@ -17,8 +17,8 @@ void main(){
     // are visible even over a flat background. On a dark page they glow, on a light page they shade.
     float s=nn.x*0.75-nn.y*0.65;
     float m=length(nn);
-    vec3 glow=col+vec3(0.5,0.72,1.0)*(max(s,0.0)*3.8+m*1.0)*sh;
-    vec3 ink=col*(1.0-clamp((abs(s)*3.0+m*1.0)*sh,0.0,0.4))+vec3(0.0,0.05,0.22)*m*sh*1.4;
+    vec3 glow=col+vec3(0.5,0.72,1.0)*(max(s,0.0)*2.3+m*0.6)*sh;
+    vec3 ink=col*(1.0-clamp((abs(s)*1.9+m*0.6)*sh,0.0,0.26))+vec3(0.0,0.05,0.22)*m*sh*0.8;
     col=mix(glow,ink,lt);
   }
   gl_FragColor=vec4(col,1.0);
