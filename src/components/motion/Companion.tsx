@@ -191,11 +191,14 @@ export function Companion() {
         proj[i][1] += off[i][1];
       }
 
-      // Colour: electric cyan → blue → violet → magenta → pink, shimmering with position, depth,
-      // scroll and time. A few points are pure electric yellow sparks. No lime, no orange.
-      const tone = (i: number) =>
-        0.5 + 0.5 * Math.sin(time * 0.012 + prog * 7 + proj[i][2] * 1.2 + (proj[i][0] / size) * 2.4 + (i / N) * 3);
-      const toHue = (t: number) => 190 + t * 140;
+      // Colour: one acid gradient that flows across the mesh (and drifts with time and scroll):
+      // neon aqua → electric blue → violet → hot magenta → pink, then back. No stray accent dots.
+      const tone = (i: number) => {
+        const v = (proj[i][1] / size) * 0.9 + (proj[i][0] / size) * 0.5 + proj[i][2] * 0.08 + time * 0.0035 + prog * 2;
+        const f = v - Math.floor(v);
+        return f < 0.5 ? f * 2 : 2 - f * 2;
+      };
+      const toHue = (t: number) => 168 + t * 172;
 
       ctx.clearRect(0, 0, size, size);
       ctx.lineWidth = 0.8 + near * 0.6;
@@ -206,7 +209,7 @@ export function Companion() {
       }
       groups.forEach((g, gi) => {
         if (!g.length) return;
-        ctx.strokeStyle = `hsla(${toHue((gi + 0.5) / BUCKETS)}, 100%, 66%, ${0.7 + near * 0.3})`;
+        ctx.strokeStyle = `hsla(${toHue((gi + 0.5) / BUCKETS)}, 100%, 62%, ${0.78 + near * 0.22})`;
         ctx.beginPath();
         for (const [i, j] of g) {
           ctx.moveTo(proj[i][0], proj[i][1]);
@@ -216,9 +219,8 @@ export function Companion() {
       });
       for (let i = 0; i < N; i++) {
         const [px, py, pz] = proj[i];
-        const spark = i % 19 === 0;
-        const r = 0.9 + (pz + 1) * 0.55 + (spark ? 0.7 : 0) + Math.min(1.5, Math.hypot(vel[i][0], vel[i][1]) * 0.4);
-        ctx.fillStyle = spark ? "hsl(54, 100%, 58%)" : `hsl(${toHue(tone(i))}, 100%, 64%)`;
+        const r = 0.9 + (pz + 1) * 0.55 + Math.min(1.5, Math.hypot(vel[i][0], vel[i][1]) * 0.4);
+        ctx.fillStyle = `hsl(${toHue(tone(i))}, 100%, 66%)`;
         ctx.beginPath();
         ctx.arc(px, py, r, 0, Math.PI * 2);
         ctx.fill();
