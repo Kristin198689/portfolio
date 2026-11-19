@@ -28,3 +28,13 @@
     width: min(78vw, 20rem);
   }
 }
+
+/* lightning from the electrified window edges, drawn over everything and never in the way */
+.fx {
+  position: fixed;
+  inset: 0;
+  z-index: 21;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}

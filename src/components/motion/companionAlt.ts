@@ -11,6 +11,7 @@ export type Frame = {
   burst: number; // 1 right after a click, fades to 0
   ptr: { x: number; y: number } | null; // pointer in canvas px, or null
   light: boolean; // the page behind it is light
+  shock: number; // 1 right after an electric shock from a wall, fades to 0
 };
 export type Alt = (f: Frame) => void;
 
@@ -49,7 +50,7 @@ function liquid(): Alt {
 
     // where the liquid is: a heavy core and seven drops that orbit, merge with it and break away
     const agit = 1 + f.speed * 0.9;
-    const wave = 1 + f.burst * 0.35 * Math.sin(time * 0.5);
+    const wave = 1 + f.burst * 0.35 * Math.sin(time * 0.5) + f.shock * 0.18 * Math.sin(time * 1.9);
     blobs.forEach((b, i) => {
       const core = i === 0;
       const a = t * (2.2 + i * 0.55) * (i % 2 ? 1 : -1) * 0.9 + i * 0.9;
@@ -71,6 +72,11 @@ function liquid(): Alt {
       if (f.burst > 0.9) {
         b.vx += Math.cos(a) * (core ? 0 : 7);
         b.vy += Math.sin(a) * (core ? 0 : 7);
+      }
+      if (f.shock > 0.6) {
+        // convulsion: the drops twitch in every direction while the current runs through it
+        b.vx += (Math.random() - 0.5) * 5 * f.shock;
+        b.vy += (Math.random() - 0.5) * 5 * f.shock;
       }
       b.vx += -b.ox * 0.04;
       b.vy += -b.oy * 0.04;
@@ -201,11 +207,14 @@ function liquid(): Alt {
           const win = Math.pow(0.5 + 0.5 * Math.sin(ry * 5 + rx * 2 + t * 5), 12) * clamp01(0.5 - 0.5 * ry) * 0.3;
           black = (win + s1 * 0.85 + fres * 0.2) * mix;
         }
-        const k = v + black;
+        // an electric shock floods the surface with blue-white light
+        const flash = f.shock * (0.55 + 0.45 * Math.sin(time * 2.3));
+        const k = v + black + flash * 0.9;
         const cool = 1 - mix; // silver has the faintest cool tint, black has none
-        px[o] = Math.min(255, k * 255 * (1 - 0.03 * cool));
-        px[o + 1] = Math.min(255, k * 255 * (1 - 0.005 * cool));
-        px[o + 2] = Math.min(255, k * 255 * (1 + 0.02 * cool));
+        const sh = f.shock;
+        px[o] = Math.min(255, k * 255 * (1 - 0.03 * cool - 0.45 * sh));
+        px[o + 1] = Math.min(255, k * 255 * (1 - 0.005 * cool - 0.12 * sh));
+        px[o + 2] = Math.min(255, k * 255 * (1 + 0.02 * cool + 0.3 * sh));
         px[o + 3] = a * 255;
       }
     }

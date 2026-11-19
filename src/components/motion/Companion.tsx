@@ -58,6 +58,60 @@ function build(): { shapes: V3[][]; edges: Array<[number, number]> } {
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 
+// Lightning between a wall and the creature: a jagged arc to its body, and a crackle running along the
+// wall. Redrawn every frame with fresh jitter, so it flickers for about a third of a second.
+type Bolt = { x: number; y: number; wall: "l" | "r" | "t" | "b"; age: number };
+function drawBolts(g: CanvasRenderingContext2D, bolts: Bolt[], ax: number, ay: number, light: boolean) {
+  g.clearRect(0, 0, g.canvas.width, g.canvas.height);
+  for (let i = bolts.length - 1; i >= 0; i--) {
+    bolts[i].age += 1;
+    if (bolts[i].age > 20) bolts.splice(i, 1);
+  }
+  if (!bolts.length) return;
+  const zig = (x0: number, y0: number, x1: number, y1: number, amp: number, steps: number) => {
+    const dx = x1 - x0;
+    const dy = y1 - y0;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len;
+    const ny = dx / len;
+    g.beginPath();
+    g.moveTo(x0, y0);
+    for (let s = 1; s < steps; s++) {
+      const t = s / steps;
+      const j = (Math.random() - 0.5) * amp;
+      g.lineTo(x0 + dx * t + nx * j, y0 + dy * t + ny * j);
+    }
+    g.lineTo(x1, y1);
+  };
+  g.lineCap = "round";
+  g.lineJoin = "round";
+  g.globalCompositeOperation = light ? "source-over" : "lighter";
+  for (const b of bolts) {
+    const life = 1 - b.age / 20;
+    const flick = Math.random() > 0.25 ? 1 : 0.3;
+    // wall point and the direction along the wall
+    const wx = b.wall === "l" ? 0 : b.wall === "r" ? g.canvas.width : b.x;
+    const wy = b.wall === "t" ? 0 : b.wall === "b" ? g.canvas.height : b.y;
+    const along = b.wall === "l" || b.wall === "r" ? [0, 1] : [1, 0];
+    const paths: Array<[number, number, number, number, number, number]> = [
+      [wx, wy, ax, ay, 26, 9],
+      [wx - along[0] * 110, wy - along[1] * 110, wx, wy, 14, 8],
+      [wx, wy, wx + along[0] * 110, wy + along[1] * 110, 14, 8],
+      [wx, wy, ax + (Math.random() - 0.5) * 70, ay + (Math.random() - 0.5) * 70, 30, 8],
+    ];
+    for (const [x0, y0, x1, y1, amp, steps] of paths) {
+      zig(x0, y0, x1, y1, amp, steps);
+      g.strokeStyle = light ? `rgba(40, 20, 200, ${0.35 * life * flick})` : `rgba(60, 200, 255, ${0.5 * life * flick})`;
+      g.lineWidth = 7;
+      g.stroke();
+      g.strokeStyle = light ? `rgba(10, 0, 90, ${0.95 * life * flick})` : `rgba(255, 255, 255, ${0.95 * life * flick})`;
+      g.lineWidth = 1.8;
+      g.stroke();
+    }
+  }
+  g.globalCompositeOperation = "source-over";
+}
+
 // Is the page behind the companion light? Walks up from the element under its centre to the first
 // opaque background and checks its brightness.
 function isLightBehind(box: HTMLElement): boolean {
@@ -82,11 +136,13 @@ function isLightBehind(box: HTMLElement): boolean {
 export function Companion() {
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const fx = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const box = wrap.current;
     const cv = canvas.current;
-    if (!box || !cv) return;
+    const fxCv = fx.current;
+    if (!box || !cv || !fxCv) return;
     const ctx = cv.getContext("2d");
     if (!ctx) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -100,6 +156,8 @@ export function Companion() {
       cv.width = Math.round(size * dpr);
       cv.height = Math.round(size * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      fxCv.width = window.innerWidth;
+      fxCv.height = window.innerHeight;
     };
     resize();
 
@@ -115,6 +173,21 @@ export function Companion() {
     let alt: Alt | null = null;
     let light = false;
     let burst = 0;
+    // "Alien" behaviour of the liquid look (desktop, fine pointer): it hunts the cursor across the whole
+    // window. The window edges are electrified: touching one shocks it and throws it back.
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const fxCtx = fxCv.getContext("2d");
+    let lastMove = 0;
+    let ax = 0;
+    let ay = 0;
+    let avx = 0;
+    let avy = 0;
+    let roamInit = false;
+    let shock = 0;
+    let shockCool = 0;
+    let lungeT = 0;
+    let lungeCool = 0;
+    const bolts: Array<{ x: number; y: number; wall: "l" | "r" | "t" | "b"; age: number }> = [];
     // Per-point spring offsets: the cursor pushes points away, they spring back
     const off = Array.from({ length: N }, () => [0, 0]);
     const vel = Array.from({ length: N }, () => [0, 0]);
@@ -151,7 +224,65 @@ export function Companion() {
       } else {
         const x = waveX - size * 0.15;
         const y = vh * 0.5 - size / 2 + waveY;
-        box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        const homeX = vw - size / 2 + x;
+        const homeY = y + size / 2;
+        if (alt && fine && !reduce) {
+          const ra = size * 0.33;
+          if (!roamInit) {
+            roamInit = true;
+            ax = homeX;
+            ay = homeY;
+          }
+          const hunting = cx0 > -9000 && performance.now() - lastMove < 5000;
+          const tx = hunting ? cx0 : homeX;
+          const ty = hunting ? cy0 : homeY;
+          const dx = tx - ax;
+          const dy = ty - ay;
+          const dist = Math.hypot(dx, dy) || 1;
+          // it is slower than a hurried hand, so you can run; it lunges when you let it get close
+          if (hunting && dist < size * 1.1 && lungeCool <= 0) {
+            lungeT = 16;
+            lungeCool = 150;
+          }
+          const top = lungeT > 0 ? 7 : hunting ? 3.4 : 2.4;
+          const sp = Math.min(top, dist * 0.07);
+          avx += (((dx / dist) * sp) - avx) * 0.09;
+          avy += (((dy / dist) * sp) - avy) * 0.09;
+          if (lungeT > 0) lungeT -= 1;
+          if (lungeCool > 0) lungeCool -= 1;
+          ax += avx;
+          ay += avy;
+          // the electrified walls
+          const hit = (wall: "l" | "r" | "t" | "b") => {
+            avx = wall === "l" ? Math.abs(avx) + 5 : wall === "r" ? -Math.abs(avx) - 5 : avx * -0.6;
+            avy = wall === "t" ? Math.abs(avy) + 5 : wall === "b" ? -Math.abs(avy) - 5 : avy * -0.6;
+            if (shockCool <= 0) {
+              shock = 1;
+              shockCool = 30;
+              burst = 1;
+              bolts.push({ x: Math.min(vw, Math.max(0, ax)), y: Math.min(vh, Math.max(0, ay)), wall, age: 0 });
+            }
+          };
+          if (ax < ra) {
+            ax = ra;
+            hit("l");
+          } else if (ax > vw - ra) {
+            ax = vw - ra;
+            hit("r");
+          }
+          if (ay < ra) {
+            ay = ra;
+            hit("t");
+          } else if (ay > vh - ra) {
+            ay = vh - ra;
+            hit("b");
+          }
+          if (shockCool > 0) shockCool -= 1;
+          box.style.transform = `translate3d(${ax - vw + size / 2}px, ${ay - size / 2}px, 0)`;
+        } else {
+          roamInit = false;
+          box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        }
       }
 
       // Morph between shapes by scroll progress
@@ -186,7 +317,9 @@ export function Companion() {
         const scale = r0.width / size || 1;
         const ptr = cx0 > -9000 ? { x: (cx0 - r0.left) / scale, y: (cy0 - r0.top) / scale } : null;
         if (time % 10 === 1) light = isLightBehind(box);
-        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr, light });
+        shock *= 0.93;
+        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr, light, shock });
+        if (fxCtx) drawBolts(fxCtx, bolts, ax, ay, light);
         if (!reduce && visible) frame = requestAnimationFrame(draw);
         return;
       }
@@ -272,6 +405,7 @@ export function Companion() {
       mx = e.clientX / window.innerWidth - 0.5;
       my = e.clientY / window.innerHeight - 0.5;
       cx0 = e.clientX;
+      lastMove = performance.now();
       cy0 = e.clientY;
     };
     // Click anywhere: the mesh bursts outward and settles back
@@ -300,6 +434,9 @@ export function Companion() {
 
     const setMode = (n: number) => {
       alt = createAlt(n);
+      roamInit = false;
+      bolts.length = 0;
+      fxCtx?.clearRect(0, 0, fxCv.width, fxCv.height);
       kick();
     };
     setMode(readOrb());
@@ -323,8 +460,11 @@ export function Companion() {
   }, []);
 
   return (
-    <div ref={wrap} className={styles.wrap} aria-hidden="true">
-      <canvas ref={canvas} className={styles.canvas} />
-    </div>
+    <>
+      <div ref={wrap} className={styles.wrap} aria-hidden="true">
+        <canvas ref={canvas} className={styles.canvas} />
+      </div>
+      <canvas ref={fx} className={styles.fx} aria-hidden="true" />
+    </>
   );
 }
