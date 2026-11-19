@@ -18,10 +18,17 @@ async function overflowing(page: Page) {
       }
       return false;
     };
+    // anything inside a fixed layer (the companion) cannot cause sideways scrolling
+    const inFixed = (el: Element) => {
+      for (let p: Element | null = el; p && p !== document.documentElement; p = p.parentElement) {
+        if (getComputedStyle(p).position === "fixed") return true;
+      }
+      return false;
+    };
     const bad: string[] = [];
     document.querySelectorAll("body *").forEach((e) => {
       const cs = getComputedStyle(e);
-      if (cs.position === "fixed" || cs.display === "none" || e.closest("[class*=Companion]")) return;
+      if (cs.display === "none" || inFixed(e)) return;
       const r = e.getBoundingClientRect();
       if (r.width && (r.right > W + 1 || r.left < -1) && !clipped(e)) bad.push(e.tagName + "." + String(e.className).slice(0, 30));
     });
