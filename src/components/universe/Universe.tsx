@@ -196,7 +196,7 @@ export function Universe() {
       <div className={styles.stage} data-gl={gl ? "on" : "off"}>
         <canvas ref={canvas} className={styles.canvas} aria-hidden="true" />
         <div className={styles.overlay} aria-hidden="true">
-          <div ref={coreEl} className={styles.core}>
+          <div ref={coreEl} className={styles.core} data-uni="core">
             <span className={styles.coreName}>{t("core.name")}</span>
             <span className={styles.coreRole}>{t("core.role")}</span>
           </div>
@@ -207,6 +207,7 @@ export function Universe() {
                 clusterEls.current[i] = el;
               }}
               className={styles.cl}
+              data-uni="cluster"
               data-hover={hover === i}
             >
               <b>{String(i + 1).padStart(2, "0")}</b>
@@ -233,6 +234,7 @@ export function Universe() {
                 nodeEls.current[s.id] = el;
               }}
               className={styles.node}
+              data-uni="node"
               data-on={sel.skill === s.id}
               onClick={() => choose(sel.cluster, s.id)}
             >

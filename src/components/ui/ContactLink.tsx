@@ -16,6 +16,7 @@ export function ContactLink({
       href="/#contact"
       className={`${styles.button} ${className ?? ""}`}
       data-magnetic
+      data-creature-cta
       data-scramble
       data-cursor={label}
     >

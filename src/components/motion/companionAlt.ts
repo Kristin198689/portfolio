@@ -15,6 +15,9 @@ export type Frame = {
   vx: number; // velocity of the creature on screen, px per frame
   vy: number;
   tint: number; // 0 normal, 1 over a water section: the liquid turns acid fuchsia
+  dim: number; // 0..1 dozing: darker
+  flash: number; // 0..1 a bright blink
+  rage: number; // 0..1 angry: the surface twitches
 };
 export type Alt = (f: Frame) => void;
 
@@ -25,8 +28,8 @@ const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 //    a studio-like environment that slowly turns. Blobs merge and split like real liquid.
 //    On dark sections it is silver mirror, on light sections it is pure glossy black.
 //    The pointer pulls a long, stretchy tendril out of it, a click throws it into waves.
-function liquid(): Alt {
-  const G = 160; // the field is computed on a coarse grid and scaled up smoothly
+function liquid(G = 160): Alt {
+  // the field is computed on a coarse grid and scaled up smoothly
   const field = new Float32Array(G * G);
   const raw = new Float32Array(G * G);
   const height = new Float32Array(G * G);
@@ -50,6 +53,8 @@ function liquid(): Alt {
     const cell = size / G;
     const t = time * 0.004;
     mix += ((f.light ? 1 : 0) - mix) * 0.08;
+    // over water the liquid is fuchsia chrome on any page (the glossy-black look is for plain sections only)
+    const mixEff = mix * (1 - f.tint);
 
     // where the liquid is: a heavy core and seven drops that orbit, merge with it and break away
     const agit = 1 + f.speed * 0.9;
@@ -81,10 +86,11 @@ function liquid(): Alt {
         b.vx += Math.cos(a) * (core ? 0 : 7);
         b.vy += Math.sin(a) * (core ? 0 : 7);
       }
-      if (f.shock > 0.6) {
-        // convulsion: the drops twitch in every direction while the current runs through it
-        b.vx += (Math.random() - 0.5) * 5 * f.shock;
-        b.vy += (Math.random() - 0.5) * 5 * f.shock;
+      const twitch = Math.max(f.shock > 0.6 ? f.shock : 0, f.rage > 0.35 ? f.rage * 0.7 : 0);
+      if (twitch > 0) {
+        // convulsion: the drops twitch in every direction (a shock, or anger)
+        b.vx += (Math.random() - 0.5) * 5 * twitch;
+        b.vy += (Math.random() - 0.5) * 5 * twitch;
       }
       b.vx += -b.ox * 0.04;
       b.vy += -b.oy * 0.04;
@@ -206,7 +212,7 @@ function liquid(): Alt {
         const fres = Math.pow(1 - nz, 2.4);
         const s1 = Math.pow(Math.max(0, rx * L1[0] + ry * L1[1] + rz * L1[2]), 34);
         let v = 0;
-        if (mix < 0.995) {
+        if (mixEff < 0.995) {
           // chrome: a bright sky over a hard horizon, a dark ground with a pale band, and narrow light
           // stripes that slide across the surface as it moves
           const v0 = 0.5 - 0.5 * ry; // 0 looks up, 1 looks down
@@ -215,24 +221,23 @@ function liquid(): Alt {
           const ground = 0.05 + 0.3 * Math.pow(0.5 + 0.5 * Math.sin((v0 - 0.5) * 8 + t * 3), 2);
           const stripe = Math.pow(0.5 + 0.5 * Math.sin(ry * 9 + rx * 3 + t * 5), 9) * 0.7;
           const lum = Math.pow(Math.min(1.3, ground + (sky - ground) * aboveHorizon + stripe + s1 * 0.8 + fres * 0.25), 1.35);
-          v = lum * (1 - mix);
+          v = lum * (1 - mixEff);
         }
         let black = 0;
-        if (mix > 0.005) {
+        if (mixEff > 0.005) {
           // pure black glossy: only a broad soft window reflection, one crisp highlight and a thin rim
           const win = Math.pow(0.5 + 0.5 * Math.sin(ry * 5 + rx * 2 + t * 5), 12) * clamp01(0.5 - 0.5 * ry) * 0.3;
-          black = (win + s1 * 0.85 + fres * 0.2) * mix;
+          black = (win + s1 * 0.85 + fres * 0.2) * mixEff;
         }
-        const k = v + black;
-        const cool = 1 - mix; // silver has the faintest cool tint, black has none
+        const k = (v + black) * (1 - 0.5 * f.dim) + f.flash * 0.5;
+        const cool = 1 - mixEff; // silver has the faintest cool tint, black has none
         let cr = k * (1 - 0.03 * cool); // silver has the faintest cool tint, black has none
         let cg = k * (1 - 0.005 * cool);
         let cb = k * (1 + 0.02 * cool);
         if (f.tint > 0.01) {
-          // over water: acid fuchsia, a hot-pink chrome with a glowing pink rim. On a light page the liquid
-          // is black underneath, so the pink gets a bright floor of its own and does not turn maroon.
+          // over water: acid fuchsia, a hot-pink chrome with a glowing pink rim and all the reflections
           const g = f.tint;
-          const pink = mix * 0.62 + k * (1.05 - 0.35 * mix) + fres * 0.4;
+          const pink = k * 1.05 + fres * 0.4;
           cr += (pink * 1.0 + 0.04 - cr) * g;
           cg += (pink * 0.03 - cg) * g;
           cb += (pink * 0.68 + 0.02 - cb) * g;
@@ -250,6 +255,11 @@ function liquid(): Alt {
     ctx.imageSmoothingQuality = "high";
     ctx.drawImage(off, 0, 0, size, size);
   };
+}
+
+/** A smaller, cheaper liquid for the little copies the creature splits into: same material, same shape. */
+export function createMini(): Alt {
+  return liquid(72);
 }
 
 export function createAlt(mode: number): Alt | null {

@@ -81,7 +81,7 @@ export function Hero() {
             </div>
             <div className={styles.ctas}>
               <ContactLink label={n("contactLabel")}>{n("contact")}</ContactLink>
-              <Link href="/hire" className={styles.recruit} data-scramble>
+              <Link href="/hire" className={styles.recruit} data-scramble data-creature-cta>
                 {t("recruiters")}
               </Link>
             </div>

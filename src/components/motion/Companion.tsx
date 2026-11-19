@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { createAlt, type Alt } from "./companionAlt";
 import { onOrb, readOrb } from "@/lib/orb";
+import { createLife, strike, type Box, type Seg } from "./creatureLife";
 import styles from "./Companion.module.css";
 
 type V3 = [number, number, number];
@@ -58,8 +59,6 @@ function build(): { shapes: V3[][]; edges: Array<[number, number]> } {
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 
-type Box = { l: number; t: number; r: number; b: number };
-
 // Rectangles of the text and controls currently on screen. The creature stays off them.
 function readTextBoxes(): Box[] {
   const out: Box[] = [];
@@ -80,33 +79,9 @@ function readTextBoxes(): Box[] {
 // the middle is pushed sideways, and both halves are split again. Forks branch off the main path and
 // thin out. A real flash restrikes a few times along a slightly different path, which is what makes
 // it read as lightning and not as a zigzag.
-type Seg = [number, number, number, number, number]; // x0, y0, x1, y1, width
 type Bolt = { x: number; y: number; wall: "l" | "r" | "t" | "b"; age: number; segs: Seg[] };
 const BOLT_LIFE = 22;
 const RESTRIKE = [0, 3, 7, 12];
-
-function strike(x0: number, y0: number, x1: number, y1: number, disp: number, w: number, out: Seg[]) {
-  const dx = x1 - x0;
-  const dy = y1 - y0;
-  const len = Math.hypot(dx, dy);
-  if (len < 7) {
-    out.push([x0, y0, x1, y1, w]);
-    return;
-  }
-  const nx = -dy / len;
-  const ny = dx / len;
-  const off = (Math.random() - 0.5) * disp;
-  const mx = (x0 + x1) / 2 + nx * off;
-  const my = (y0 + y1) / 2 + ny * off;
-  strike(x0, y0, mx, my, disp * 0.52, w, out);
-  strike(mx, my, x1, y1, disp * 0.52, w, out);
-  // forks leave the middle of the main path at a sharp angle and fade away
-  if (w >= 0.85 && Math.random() < 0.3) {
-    const a = Math.atan2(dy, dx) + (Math.random() < 0.5 ? -1 : 1) * (0.35 + Math.random() * 0.5);
-    const fl = len * (0.7 + Math.random() * 0.9);
-    strike(mx, my, mx + Math.cos(a) * fl, my + Math.sin(a) * fl, disp * 0.45, w * 0.5, out);
-  }
-}
 
 function drawBolts(g: CanvasRenderingContext2D, bolts: Bolt[], ax: number, ay: number, light: boolean) {
   const W = g.canvas.width;
@@ -233,6 +208,10 @@ export function Companion() {
     // window. The window edges are electrified: touching one shocks it and throws it back.
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const fxCtx = fxCv.getContext("2d");
+    const life = createLife();
+    let mouseSpd = 0; // cursor speed in px per second, smoothed
+    let lastMoveT = 0;
+    let lifeOut: ReturnType<typeof life.step> | null = null;
     let lastMove = 0;
     let ax = 0;
     let ay = 0;
@@ -330,14 +309,30 @@ export function Companion() {
           const cursorOn = cx0 > -9000 && performance.now() - lastMove < 5000;
           // Text blocks on screen, re-read now and then: the creature steers around them.
           if (time % 24 === 0) textBoxes = readTextBoxes();
+          const body = size * 0.38; // the visible body is an oval with drops around it, so count a generous radius
+          // the creature's inner life: feeding, sniffing, fear, sleep, portals... it may take over the controls
+          mouseSpd *= 0.93;
+          life.setEnabled(true);
+          const L = life.step({ time, ax, ay, avx, avy, size, body, vw, vh, cx: cx0, cy: cy0, cursorOn, cursorSpeed: mouseSpd, led: mood === "hunt", light, tint, boxes: textBoxes });
+          if (L.teleport) {
+            ax = L.teleport.x;
+            ay = L.teleport.y;
+            avx = 0;
+            avy = 0;
+          }
+          const ctrl = L.control;
+          lifeOut = L;
+          if (ctrl && mood === "hunt") {
+            mood = "rest";
+            moodT = 40;
+          }
           // It obeys a cursor that comes close to its body (about 25 px from the edge) and then keeps a
           // fixed gap to it: the cursor stays outside, the creature follows at arm's length. The grip
           // holds while the cursor stays near and lets go slowly when it is clearly gone, so it never
           // flickers between "led" and "free".
-          const body = size * 0.38; // the visible body is an oval with drops around it, so count a generous radius
           const cd = Math.hypot(ax - cx0, ay - cy0);
-          if (cursorOn && cd < body + 28) grip = Math.min(1, grip + 0.2);
-          else if (cursorOn && cd < body + 80) grip = grip > 0 ? grip : 0; // in the band: keep what it has
+          if (!ctrl && cursorOn && cd < body + 28) grip = Math.min(1, grip + 0.2);
+          else if (!ctrl && cursorOn && cd < body + 80) grip = grip > 0 ? grip : 0; // in the band: keep what it has
           else grip = Math.max(0, grip - 0.03);
           const led = grip > 0.3;
           if (led) {
@@ -360,7 +355,10 @@ export function Companion() {
           }
           let tx = ax;
           let ty = ay;
-          if (mood === "escape") {
+          if (ctrl) {
+            tx = ctrl.tx;
+            ty = ctrl.ty;
+          } else if (mood === "escape") {
             tx = ex;
             ty = ey;
           } else if (mood === "hunt" && cursorOn) {
@@ -382,7 +380,13 @@ export function Companion() {
           const dx = tx - ax;
           const dy = ty - ay;
           const dist = Math.hypot(dx, dy) || 1;
-          if (mood === "hunt") {
+          if (ctrl) {
+            // something special is going on: its own speed and eagerness
+            const sp = Math.min(ctrl.top, dist * ctrl.gain * 1.6);
+            const k = Math.min(0.3, 0.04 + ctrl.gain);
+            avx += ((dx / dist) * sp - avx) * k;
+            avy += ((dy / dist) * sp - avy) * k;
+          } else if (mood === "hunt") {
             // a damped spring: eases in, eases out, no overshoot, no twitching
             avx += dx * 0.035 - avx * 0.34;
             avy += dy * 0.035 - avy * 0.34;
@@ -392,13 +396,13 @@ export function Companion() {
               avy = (avy / v) * 9;
             }
           } else {
-            const top = mood === "escape" ? 4.75 : 0.68;
+            const top = (mood === "escape" ? 4.75 : 0.68) * L.speedMul;
             const sp = mood === "escape" ? top : Math.min(top, dist * 0.07);
             avx += (((dx / dist) * sp) - avx) * (mood === "escape" ? 0.1 : 0.05);
             avy += (((dy / dist) * sp) - avy) * (mood === "escape" ? 0.1 : 0.05);
           }
           // steer around text: inside a padded text box it is pushed out by the shortest way
-          if (mood !== "escape" || dist > size * 0.8) {
+          if (!ctrl || ctrl.avoidText > 0) {
             for (const r of textBoxes) {
               const pad = ra * 0.9;
               if (ax > r.l - pad && ax < r.r + pad && ay > r.t - pad && ay < r.b + pad) {
@@ -407,7 +411,7 @@ export function Companion() {
                 const toT = ay - (r.t - pad);
                 const toB = r.b + pad - ay;
                 const m = Math.min(toL, toR, toT, toB);
-                const push = mood === "escape" ? 0.05 : mood === "hunt" ? 0.02 : 0.22; // a dash for the wall only bends around text
+                const push = ctrl ? 0.22 * ctrl.avoidText : mood === "escape" ? 0.05 : mood === "hunt" ? 0.02 : 0.22; // a dash for the wall only bends around text
                 if (m === toL) avx -= push;
                 else if (m === toR) avx += push;
                 else if (m === toT) avy -= push;
@@ -428,7 +432,7 @@ export function Companion() {
           }
           // the electrified walls
           const hit = (wall: "l" | "r" | "t" | "b") => {
-            if (mood === "hunt") {
+            if (mood === "hunt" || (ctrl && !ctrl.shock)) {
               // being led into a wall: it just stops there, no bounce
               if (wall === "l" || wall === "r") avx = 0;
               else avy = 0;
@@ -443,6 +447,7 @@ export function Companion() {
             if (shockCool <= 0) {
               shock = 1;
               shockCool = 30;
+              life.onWallHit();
               burst = 1;
               if (tintTarget > 0.5) window.dispatchEvent(new CustomEvent("waterdrop", { detail: { x: ax, y: ay, amp: 420, r: 5 } }));
               bolts.push({ x: Math.min(vw, Math.max(0, ax)), y: Math.min(vh, Math.max(0, ay)), wall, age: 0, segs: [] });
@@ -463,9 +468,11 @@ export function Companion() {
             hit("b");
           }
           if (shockCool > 0) shockCool -= 1;
-          box.style.transform = `translate3d(${ax - vw + size / 2}px, ${ay - size / 2}px, 0)`;
+          box.style.transform = `translate3d(${ax - vw + size / 2}px, ${ay - size / 2}px, 0) scale(${L.sx.toFixed(3)}, ${L.sy.toFixed(3)})`;
         } else {
           roamInit = false;
+          life.setEnabled(false);
+          lifeOut = null;
           box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         }
       }
@@ -515,8 +522,11 @@ export function Companion() {
           });
         }
         tint += (tintTarget - tint) * 0.08;
-        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr: mood === "hunt" ? null : ptr, light, shock, vx: avx, vy: avy, tint });
-        if (fxCtx) drawBolts(fxCtx, bolts, ax, ay, light);
+        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr: mood === "hunt" ? null : ptr, light, shock, vx: avx, vy: avy, tint, dim: lifeOut?.dim ?? 0, flash: lifeOut?.flash ?? 0, rage: lifeOut?.rage ?? 0 });
+        if (fxCtx) {
+          drawBolts(fxCtx, bolts, ax, ay, light);
+          if (lifeOut) life.draw(fxCtx, light, tint);
+        }
         if (!reduce && visible) frame = requestAnimationFrame(draw);
         return;
       }
@@ -599,6 +609,9 @@ export function Companion() {
       if (!frame) frame = requestAnimationFrame(draw);
     };
     const onMove = (e: PointerEvent) => {
+      const dtMs = e.timeStamp - lastMoveT;
+      if (dtMs > 0 && dtMs < 200 && cx0 > -9000) mouseSpd = mouseSpd * 0.5 + (Math.hypot(e.clientX - cx0, e.clientY - cy0) / dtMs) * 1000 * 0.5;
+      lastMoveT = e.timeStamp;
       mx = e.clientX / window.innerWidth - 0.5;
       my = e.clientY / window.innerHeight - 0.5;
       cx0 = e.clientX;
@@ -647,6 +660,7 @@ export function Companion() {
     return () => {
       if (frame) cancelAnimationFrame(frame);
       offOrb();
+      life.dispose();
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       document.documentElement.removeEventListener("mouseleave", onLeave);
