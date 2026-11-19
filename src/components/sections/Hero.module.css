@@ -131,7 +131,8 @@
   line-height: 1.3;
 }
 
-@media (min-width: 56rem) {
+/* the horizontal track runs on every screen size; with reduced motion the scenes stack instead */
+@media (prefers-reduced-motion: no-preference) {
   .track {
     flex-direction: row;
     width: max-content;
@@ -141,12 +142,16 @@
     width: 100vw;
     height: 100svh;
     min-height: 0;
+    /* keeps buttons and text clear of the progress line */
+    padding-bottom: calc(var(--space-12) + 2.5rem);
   }
 
   .progress {
     display: flex;
   }
+}
 
+@media (min-width: 56rem) {
   .foot {
     flex-direction: row;
     align-items: flex-end;
@@ -229,4 +234,15 @@
 
 html[lang="ar"] .scene:first-child .title {
   font-size: clamp(2.5rem, 14vw, 18rem);
+}
+
+/* every scene: the headline is painted on a water canvas; the real heading stays for assistive tech */
+.scene > :not([data-water]):not(.vertical) {
+  position: relative;
+  z-index: 1;
+}
+
+.scene:has([data-ready="true"]) [data-wline] {
+  color: transparent;
+  -webkit-text-stroke-color: transparent;
 }

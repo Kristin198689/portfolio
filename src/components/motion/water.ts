@@ -23,7 +23,7 @@ export function startWater(
   box: HTMLElement,
   cv: HTMLCanvasElement,
   paint: Paint,
-  opts: { strength?: number; ambient?: boolean } = {},
+  opts: { strength?: number; ambient?: boolean; watchHeight?: boolean; preload?: boolean } = {},
 ): () => void {
   const noop = () => {};
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return noop;
@@ -79,7 +79,7 @@ export function startWater(
 
   const build = () => {
     const rect = box.getBoundingClientRect();
-    const key = `${Math.round(rect.width)}`;
+    const key = opts.watchHeight ? `${Math.round(rect.width)}x${Math.round(rect.height)}` : `${Math.round(rect.width)}`;
     if (rect.width < 10 || key === builtKey) return;
     const tex = paint(box);
     if (!tex) return;
@@ -178,19 +178,26 @@ export function startWater(
   // Lazy: the GL context, texture painting and simulation only start when the element is near the
   // viewport, so they cost nothing during the first load.
   let started = false;
+  const begin = () => {
+    if (started) return;
+    started = true;
+    const family = getComputedStyle(box).fontFamily;
+    document.fonts.load(`800 100px ${family}`, (box.textContent || "A").slice(0, 12)).then(start, start);
+  };
   const io = new IntersectionObserver(
     ([en]) => {
       visible = en.isIntersecting;
-      if (visible && !started) {
-        started = true;
-        const family = getComputedStyle(box).fontFamily;
-        document.fonts.load(`800 100px ${family}`, (box.textContent || "A").slice(0, 12)).then(start, start);
-      }
+      if (visible) begin();
       run();
     },
     { rootMargin: "600px 0px" },
   );
   io.observe(box);
+  // scenes that wait beside the screen (a horizontal track) get their texture ready before they arrive
+  const pre = opts.preload
+    ? new IntersectionObserver(([en]) => en.isIntersecting && begin(), { rootMargin: "0px 250%" })
+    : null;
+  pre?.observe(box);
   const ro = new ResizeObserver(() => build());
   const start = () => {
     if (!alive) return;
@@ -211,6 +218,7 @@ export function startWater(
     alive = false;
     if (frame) cancelAnimationFrame(frame);
     io.disconnect();
+    pre?.disconnect();
     ro.disconnect();
     window.removeEventListener("pointermove", onMove);
     window.removeEventListener("pointerdown", onDown);
