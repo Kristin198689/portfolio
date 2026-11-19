@@ -411,6 +411,7 @@
     "phone": "Phone"
   },
   "footer": {
+    "dont": "Don't touch!",
     "invite1": "Let's build",
     "invite2": "something <em>remarkable</em>",
     "cta": "Get in touch",

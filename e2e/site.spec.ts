@@ -285,3 +285,23 @@ test("Pforzheim page is reachable from services, not from the header or footer",
   await expect(page.getByRole("link", { name: "Pforzheim", exact: true })).toBeVisible();
   await expect(page.getByText("Nicht dabei?")).toBeVisible();
 });
+
+test("companion: the footer has the hidden button, in every language", async ({ page }) => {
+  for (const [locale, label] of [["en", "Don't touch!"], ["de", "Nicht anfassen!"], ["uk", "Не чіпай!"]] as const) {
+    await page.goto(`/${locale}`);
+    await expect(page.getByRole("button", { name: label })).toHaveCount(1);
+  }
+});
+
+test("hero water: one surface for all three screens, and the text is painted on it", async ({ page }) => {
+  await page.goto("/en");
+  await page.waitForTimeout(2500);
+  // a single water element, as wide as all the screens together
+  const info = await page.evaluate(() => {
+    const f = document.querySelectorAll("[data-water]");
+    const r = f[0]?.getBoundingClientRect();
+    return { count: f.length, ratio: r ? r.width / window.innerWidth : 0 };
+  });
+  expect(info.count).toBe(1);
+  expect(info.ratio).toBeGreaterThan(2.9);
+});

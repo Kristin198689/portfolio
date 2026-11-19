@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
 import { WaterTitle } from "./motion/WaterTitle";
 import { ContactLink } from "./ui/ContactLink";
+import { DontTouch } from "./motion/DontTouch";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -72,6 +73,7 @@ export function Footer() {
             © {new Date().getFullYear()} {siteConfig.name}
           </span>
           <span>{t("rights")}</span>
+          <DontTouch label={t("dont")} />
         </p>
         <div className={styles.water}>
           <WaterTitle text={siteConfig.name.split(" ")[1]} />
