@@ -12,6 +12,9 @@ export type Frame = {
   ptr: { x: number; y: number } | null; // pointer in canvas px, or null
   light: boolean; // the page behind it is light
   shock: number; // 1 right after an electric shock from a wall, fades to 0
+  vx: number; // velocity of the creature on screen, px per frame
+  vy: number;
+  tint: number; // 0 normal, 1 over a water section: the liquid turns acid fuchsia
 };
 export type Alt = (f: Frame) => void;
 
@@ -34,8 +37,8 @@ function liquid(): Alt {
   const img = octx.createImageData(G, G);
   const px = img.data;
 
-  type Blob = { x: number; y: number; r: number; vx: number; vy: number; ox: number; oy: number };
-  const blobs: Blob[] = Array.from({ length: 8 }, () => ({ x: 0, y: 0, r: 0, vx: 0, vy: 0, ox: 0, oy: 0 }));
+  type Blob = { x: number; y: number; r: number; vx: number; vy: number; ox: number; oy: number; phi: number; asp: number; cp: number; sn: number };
+  const blobs: Blob[] = Array.from({ length: 8 }, () => ({ x: 0, y: 0, r: 0, vx: 0, vy: 0, ox: 0, oy: 0, phi: 0, asp: 1, cp: 1, sn: 0 }));
   // a chain of beads from the body toward the pointer: together they form one stretched tendril
   const chain = Array.from({ length: 6 }, () => ({ x: 0, y: 0 }));
   let pull = 0; // how far the tendril is out, eased
@@ -54,10 +57,15 @@ function liquid(): Alt {
     blobs.forEach((b, i) => {
       const core = i === 0;
       const a = t * (2.2 + i * 0.55) * (i % 2 ? 1 : -1) * 0.9 + i * 0.9;
-      const reachOut = core ? 0.03 : 0.1 + 0.1 * (0.5 + 0.5 * Math.sin(t * (1.1 + i * 0.37) + i * 2));
-      const bx = c + Math.cos(a) * size * reachOut * agit;
-      const by = c + Math.sin(a * 1.17) * size * reachOut * agit;
-      const rt = size * (core ? 0.19 : 0.07 + 0.02 * Math.sin(t * 3 + i)) * wave;
+      const reachOut = core ? 0.035 : 0.11 + 0.13 * (0.5 + 0.5 * Math.sin(t * (1.1 + i * 0.37) + i * 2));
+      // moving makes the liquid trail behind: the drops lag, the body stretches along its path
+      const sp = Math.hypot(f.vx, f.vy);
+      const bx = c + Math.cos(a) * size * reachOut * agit - f.vx * (core ? 2 : 7 + i);
+      const by = c + Math.sin(a * 1.17) * size * reachOut * agit - f.vy * (core ? 2 : 7 + i);
+      const rt = size * (core ? 0.17 : 0.075 + 0.025 * Math.sin(t * 3 + i)) * wave;
+      // an oval, never a circle: it turns slowly, and lines up with the direction of travel when moving
+      b.phi = sp > 0.4 ? Math.atan2(f.vy, f.vx) : t * (0.9 + i * 0.13) + i;
+      b.asp = (core ? 1.3 : 1.15) + Math.min(0.3, sp * 0.07) + 0.1 * Math.sin(t * 2.3 + i);
       if (f.ptr) {
         const dx = f.ptr.x - (bx + b.ox);
         const dy = f.ptr.y - (by + b.oy);
@@ -87,7 +95,7 @@ function liquid(): Alt {
       let x = bx + b.ox;
       let y = by + b.oy;
       // keep every drop inside the canvas, so nothing is ever cut off
-      const lim = size * 0.5 - rt * 1.7 - 2;
+      const lim = size * 0.5 - rt * b.asp * 1.6 - 2; // the stretched body must stay inside the canvas
       const d2 = Math.hypot(x - c, y - c);
       if (d2 > lim) {
         x = c + ((x - c) / d2) * lim;
@@ -96,13 +104,15 @@ function liquid(): Alt {
       b.x = x;
       b.y = y;
       b.r = rt;
+      b.cp = Math.cos(b.phi);
+      b.sn = Math.sin(b.phi);
     });
 
     // the tendril: beads spread from the body toward the pointer, each one lagging a little behind
     // the one before, so the liquid stretches out like syrup and snaps back when you leave
     const near = f.ptr && Math.hypot(f.ptr.x - c, f.ptr.y - c) < size * 0.95;
     pull += ((near ? 1 : 0) - pull) * 0.1;
-    const reachMax = size * 0.5 - size * 0.04;
+    const beadR = (k: number) => size * (0.125 - k * 0.019) * pull;
     chain.forEach((bd, k) => {
       const share = (k + 1) / chain.length;
       let tx = c;
@@ -111,6 +121,8 @@ function liquid(): Alt {
         const dx = f.ptr.x - c;
         const dy = f.ptr.y - c;
         const dist = Math.hypot(dx, dy) || 1;
+        // the tendril may reach only as far as the canvas allows for the bead's own size, so its tip is never cut
+        const reachMax = Math.max(0, size * 0.5 - beadR(chain.length - 1) * 1.7 - size * 0.05 - 2);
         const len = Math.min(dist, reachMax) * share;
         tx = c + (dx / dist) * len;
         ty = c + (dy / dist) * len;
@@ -119,8 +131,6 @@ function liquid(): Alt {
       bd.x += (tx - bd.x) * ease;
       bd.y += (ty - bd.y) * ease;
     });
-    const beadR = (k: number) => size * (0.125 - k * 0.019) * pull;
-
     // the field
     for (let gy = 0; gy < G; gy++) {
       const py = (gy + 0.5) * cell;
@@ -131,7 +141,9 @@ function liquid(): Alt {
           const b = blobs[i];
           const dx = pxx - b.x;
           const dy = py - b.y;
-          v += (b.r * b.r) / (dx * dx + dy * dy + b.r * b.r * 1.1); // wide soft core: no peaks, no dimples
+          const al = (dx * b.cp + dy * b.sn) / b.asp; // shorter along its axis means a longer blob
+          const pe = -dx * b.sn + dy * b.cp;
+          v += (b.r * b.r) / (al * al + pe * pe + b.r * b.r * 1.1); // wide soft core: no peaks, no dimples
         }
         if (pull > 0.02) {
           for (let k = 0; k < chain.length; k++) {
@@ -167,7 +179,11 @@ function liquid(): Alt {
       for (let gx = 0; gx < G; gx++) {
         const idx = gy * G + gx;
         const o = idx * 4;
-        const a = clamp01((field[idx] - 0.985) / 0.035);
+        const fx0 = (gx + 0.5) * cell - c;
+        const fy0 = (gy + 0.5) * cell - c;
+        // whatever still reaches the edge fades out smoothly instead of being cut by a straight line
+        const edge = clamp01((size * 0.5 - Math.hypot(fx0, fy0)) / (size * 0.07));
+        const a = clamp01((field[idx] - 0.985) / 0.035) * edge;
         if (a <= 0 || gx < 1 || gy < 1 || gx > G - 2 || gy > G - 2) {
           px[o + 3] = 0;
           continue;
@@ -207,14 +223,22 @@ function liquid(): Alt {
           const win = Math.pow(0.5 + 0.5 * Math.sin(ry * 5 + rx * 2 + t * 5), 12) * clamp01(0.5 - 0.5 * ry) * 0.3;
           black = (win + s1 * 0.85 + fres * 0.2) * mix;
         }
-        // an electric shock floods the surface with blue-white light
-        const flash = f.shock * (0.55 + 0.45 * Math.sin(time * 2.3));
-        const k = v + black + flash * 0.9;
+        const k = v + black;
         const cool = 1 - mix; // silver has the faintest cool tint, black has none
-        const sh = f.shock;
-        px[o] = Math.min(255, k * 255 * (1 - 0.03 * cool - 0.45 * sh));
-        px[o + 1] = Math.min(255, k * 255 * (1 - 0.005 * cool - 0.12 * sh));
-        px[o + 2] = Math.min(255, k * 255 * (1 + 0.02 * cool + 0.3 * sh));
+        let cr = k * (1 - 0.03 * cool); // silver has the faintest cool tint, black has none
+        let cg = k * (1 - 0.005 * cool);
+        let cb = k * (1 + 0.02 * cool);
+        if (f.tint > 0.01) {
+          // over water: acid fuchsia, a hot-pink chrome with a glowing pink rim
+          const g = f.tint;
+          const pink = k * 1.05 + fres * 0.4 + (mix > 0.5 ? 0.07 : 0);
+          cr += (pink * 1.0 + 0.04 - cr) * g;
+          cg += (pink * 0.03 - cg) * g;
+          cb += (pink * 0.68 + 0.02 - cb) * g;
+        }
+        px[o] = Math.min(255, cr * 255);
+        px[o + 1] = Math.min(255, cg * 255);
+        px[o + 2] = Math.min(255, cb * 255);
         px[o + 3] = a * 255;
       }
     }

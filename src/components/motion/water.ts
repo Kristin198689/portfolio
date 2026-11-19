@@ -214,6 +214,16 @@ export function startWater(
   };
   window.addEventListener("pointermove", onMove, { passive: true });
   window.addEventListener("pointerdown", onDown, { passive: true });
+  // other things can make waves too: anything swimming in the water sends a "waterdrop" event
+  const onDrop = (e: Event) => {
+    const d = (e as CustomEvent<{ x: number; y: number; amp: number; r?: number }>).detail;
+    const r = box.getBoundingClientRect();
+    const x = d.x - r.left;
+    const y = d.y - r.top;
+    if (x < 0 || y < 0 || x > r.width || y > r.height) return;
+    drop(x, y, d.amp, d.r ?? 3);
+  };
+  window.addEventListener("waterdrop", onDrop);
   // repaint the texture when the theme flips (colours are baked into it)
   const themeObs = new MutationObserver(() => {
     builtKey = "";
@@ -230,5 +240,6 @@ export function startWater(
     ro.disconnect();
     window.removeEventListener("pointermove", onMove);
     window.removeEventListener("pointerdown", onDown);
+    window.removeEventListener("waterdrop", onDrop);
   };
 }

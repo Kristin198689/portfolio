@@ -102,7 +102,7 @@ export function WaterField({ reveal = false, tilt = false }: { reveal?: boolean;
   }, [tilt]);
 
   return (
-    <div ref={box} className={styles.field} data-water aria-hidden="true">
+    <div ref={box} className={styles.field} data-water data-waterfx aria-hidden="true">
       <canvas ref={canvas} className={styles.canvas} {...(reveal ? { "data-hfade": "" } : {})} />
     </div>
   );

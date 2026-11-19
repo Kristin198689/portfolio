@@ -58,55 +58,111 @@ function build(): { shapes: V3[][]; edges: Array<[number, number]> } {
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 
-// Lightning between a wall and the creature: a jagged arc to its body, and a crackle running along the
-// wall. Redrawn every frame with fresh jitter, so it flickers for about a third of a second.
-type Bolt = { x: number; y: number; wall: "l" | "r" | "t" | "b"; age: number };
+type Box = { l: number; t: number; r: number; b: number };
+
+// Rectangles of the text and controls currently on screen. The creature stays off them.
+function readTextBoxes(): Box[] {
+  const out: Box[] = [];
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  document.querySelectorAll<HTMLElement>("h1, h2, h3, p, li, dt, dd, label, input, textarea, button, a[href]").forEach((el) => {
+    const hasText = el.tagName === "INPUT" || el.tagName === "TEXTAREA" || (el.textContent ?? "").trim().length > 0;
+    if (!hasText || el.closest("[aria-hidden='true']")) return;
+    const r = el.getBoundingClientRect();
+    if (r.width < 24 || r.height < 10 || r.bottom < 0 || r.top > vh || r.right < 0 || r.left > vw) return;
+    if (r.width > vw * 0.95 && r.height > vh * 0.5) return; // a wrapper, not a text line
+    out.push({ l: r.left, t: r.top, r: r.right, b: r.bottom });
+  });
+  return out;
+}
+
+// Lightning between a wall and the creature. Each strike is a fractal: a line is split at its middle,
+// the middle is pushed sideways, and both halves are split again. Forks branch off the main path and
+// thin out. A real flash restrikes a few times along a slightly different path, which is what makes
+// it read as lightning and not as a zigzag.
+type Seg = [number, number, number, number, number]; // x0, y0, x1, y1, width
+type Bolt = { x: number; y: number; wall: "l" | "r" | "t" | "b"; age: number; segs: Seg[] };
+const BOLT_LIFE = 22;
+const RESTRIKE = [0, 3, 7, 12];
+
+function strike(x0: number, y0: number, x1: number, y1: number, disp: number, w: number, out: Seg[]) {
+  const dx = x1 - x0;
+  const dy = y1 - y0;
+  const len = Math.hypot(dx, dy);
+  if (len < 7) {
+    out.push([x0, y0, x1, y1, w]);
+    return;
+  }
+  const nx = -dy / len;
+  const ny = dx / len;
+  const off = (Math.random() - 0.5) * disp;
+  const mx = (x0 + x1) / 2 + nx * off;
+  const my = (y0 + y1) / 2 + ny * off;
+  strike(x0, y0, mx, my, disp * 0.52, w, out);
+  strike(mx, my, x1, y1, disp * 0.52, w, out);
+  // forks leave the middle of the main path at a sharp angle and fade away
+  if (w >= 0.85 && Math.random() < 0.3) {
+    const a = Math.atan2(dy, dx) + (Math.random() < 0.5 ? -1 : 1) * (0.35 + Math.random() * 0.5);
+    const fl = len * (0.7 + Math.random() * 0.9);
+    strike(mx, my, mx + Math.cos(a) * fl, my + Math.sin(a) * fl, disp * 0.45, w * 0.5, out);
+  }
+}
+
 function drawBolts(g: CanvasRenderingContext2D, bolts: Bolt[], ax: number, ay: number, light: boolean) {
-  g.clearRect(0, 0, g.canvas.width, g.canvas.height);
+  const W = g.canvas.width;
+  const H = g.canvas.height;
+  g.clearRect(0, 0, W, H);
   for (let i = bolts.length - 1; i >= 0; i--) {
     bolts[i].age += 1;
-    if (bolts[i].age > 20) bolts.splice(i, 1);
+    if (bolts[i].age > BOLT_LIFE) bolts.splice(i, 1);
   }
   if (!bolts.length) return;
-  const zig = (x0: number, y0: number, x1: number, y1: number, amp: number, steps: number) => {
-    const dx = x1 - x0;
-    const dy = y1 - y0;
-    const len = Math.hypot(dx, dy) || 1;
-    const nx = -dy / len;
-    const ny = dx / len;
-    g.beginPath();
-    g.moveTo(x0, y0);
-    for (let s = 1; s < steps; s++) {
-      const t = s / steps;
-      const j = (Math.random() - 0.5) * amp;
-      g.lineTo(x0 + dx * t + nx * j, y0 + dy * t + ny * j);
-    }
-    g.lineTo(x1, y1);
-  };
   g.lineCap = "round";
   g.lineJoin = "round";
   g.globalCompositeOperation = light ? "source-over" : "lighter";
   for (const b of bolts) {
-    const life = 1 - b.age / 20;
-    const flick = Math.random() > 0.25 ? 1 : 0.3;
-    // wall point and the direction along the wall
-    const wx = b.wall === "l" ? 0 : b.wall === "r" ? g.canvas.width : b.x;
-    const wy = b.wall === "t" ? 0 : b.wall === "b" ? g.canvas.height : b.y;
-    const along = b.wall === "l" || b.wall === "r" ? [0, 1] : [1, 0];
-    const paths: Array<[number, number, number, number, number, number]> = [
-      [wx, wy, ax, ay, 26, 9],
-      [wx - along[0] * 110, wy - along[1] * 110, wx, wy, 14, 8],
-      [wx, wy, wx + along[0] * 110, wy + along[1] * 110, 14, 8],
-      [wx, wy, ax + (Math.random() - 0.5) * 70, ay + (Math.random() - 0.5) * 70, 30, 8],
-    ];
-    for (const [x0, y0, x1, y1, amp, steps] of paths) {
-      zig(x0, y0, x1, y1, amp, steps);
-      g.strokeStyle = light ? `rgba(40, 20, 200, ${0.35 * life * flick})` : `rgba(60, 200, 255, ${0.5 * life * flick})`;
-      g.lineWidth = 7;
-      g.stroke();
-      g.strokeStyle = light ? `rgba(10, 0, 90, ${0.95 * life * flick})` : `rgba(255, 255, 255, ${0.95 * life * flick})`;
-      g.lineWidth = 1.8;
-      g.stroke();
+    if (RESTRIKE.includes(b.age)) {
+      b.segs = [];
+      const wx = b.wall === "l" ? 0 : b.wall === "r" ? W : b.x;
+      const wy = b.wall === "t" ? 0 : b.wall === "b" ? H : b.y;
+      const along = b.wall === "l" || b.wall === "r" ? [0, 1] : [1, 0];
+      const reach = Math.hypot(ax - wx, ay - wy);
+      strike(wx, wy, ax + (Math.random() - 0.5) * 24, ay + (Math.random() - 0.5) * 24, reach * 0.42, 1.7, b.segs);
+      // a crackle that runs along the wall in both directions
+      for (const dir of [-1, 1]) {
+        const len = 60 + Math.random() * 120;
+        strike(wx, wy, wx + along[0] * dir * len, wy + along[1] * dir * len, 22, 1.2, b.segs);
+      }
+    }
+    const life = 1 - b.age / BOLT_LIFE;
+    // the light stutters, strongest right at each restrike
+    const since = b.age - Math.max(...RESTRIKE.filter((r) => r <= b.age));
+    const flick = Math.max(0.28, 1 - since * 0.16) * life;
+    const wx = b.wall === "l" ? 0 : b.wall === "r" ? W : b.x;
+    const wy = b.wall === "t" ? 0 : b.wall === "b" ? H : b.y;
+    // a bright pool of light where it touches the wall
+    const pool = g.createRadialGradient(wx, wy, 0, wx, wy, 110);
+    pool.addColorStop(0, `rgba(30, 110, 255, ${0.55 * flick})`);
+    pool.addColorStop(0.4, `rgba(0, 70, 255, ${0.18 * flick})`);
+    pool.addColorStop(1, "rgba(0, 40, 255, 0)");
+    g.fillStyle = pool;
+    g.beginPath();
+    g.arc(wx, wy, 110, 0, Math.PI * 2);
+    g.fill();
+    for (const [mul, color] of [
+      [3.2, light ? `rgba(30, 0, 255, ${0.2 * flick})` : `rgba(40, 60, 255, ${0.22 * flick})`], // faint bloom
+      [1.5, light ? `rgba(20, 30, 255, ${0.55 * flick})` : `rgba(10, 90, 255, ${0.6 * flick})`], // halo
+      [0.8, `rgba(0, 140, 255, ${flick})`], // electric blue line
+      [0.35, `rgba(200, 245, 255, ${flick})`], // hot thin core
+    ] as const) {
+      g.strokeStyle = color;
+      for (const [x0, y0, x1, y1, w] of b.segs) {
+        g.lineWidth = Math.max(0.5, w * mul);
+        g.beginPath();
+        g.moveTo(x0, y0);
+        g.lineTo(x1, y1);
+        g.stroke();
+      }
     }
   }
   g.globalCompositeOperation = "source-over";
@@ -185,15 +241,48 @@ export function Companion() {
     let roamInit = false;
     let shock = 0;
     let shockCool = 0;
-    let lungeT = 0;
-    let lungeCool = 0;
-    const bolts: Array<{ x: number; y: number; wall: "l" | "r" | "t" | "b"; age: number }> = [];
+    // every few seconds it tries to break out through a wall; the wall always wins
+    let mood: "rest" | "hunt" | "escape" = "rest";
+    let moodT = 120;
+    let ex = 0;
+    let ey = 0;
+    let escapeAge = 0;
+    let walls: number[] = []; // a shuffled bag, so every wall gets its turn
+    let tint = 0;
+    let textBoxes: Box[] = [];
+    let tintTarget = 0;
+    const bolts: Bolt[] = [];
     // Per-point spring offsets: the cursor pushes points away, they spring back
     const off = Array.from({ length: N }, () => [0, 0]);
     const vel = Array.from({ length: N }, () => [0, 0]);
     const BUCKETS = 14;
     let frame = 0;
     let visible = true;
+
+    const startEscape = (vw: number, vh: number, ra: number, boxes: Box[]) => {
+      if (!walls.length) walls = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+      const wall = walls.pop() ?? 0;
+      // try several spots along the wall and take the one with the least text next to it
+      let best = Infinity;
+      for (let k = 0; k < 9; k++) {
+        const along = 0.1 + Math.random() * 0.8;
+        const px = wall === 0 ? ra : wall === 1 ? vw - ra : along * vw;
+        const py = wall === 2 ? ra : wall === 3 ? vh - ra : along * vh;
+        let cost = Math.random() * 0.2;
+        for (const r of boxes) {
+          const ox = Math.max(0, Math.min(px + ra, r.r) - Math.max(px - ra, r.l));
+          const oy = Math.max(0, Math.min(py + ra, r.b) - Math.max(py - ra, r.t));
+          cost += ox * oy;
+        }
+        if (cost < best) {
+          best = cost;
+          ex = wall === 0 ? -160 : wall === 1 ? vw + 160 : px;
+          ey = wall === 2 ? -160 : wall === 3 ? vh + 160 : py;
+        }
+      }
+      mood = "escape";
+      escapeAge = 0;
+    };
 
     const draw = () => {
       frame = 0;
@@ -233,34 +322,87 @@ export function Companion() {
             ax = homeX;
             ay = homeY;
           }
-          const hunting = cx0 > -9000 && performance.now() - lastMove < 5000;
-          const tx = hunting ? cx0 : homeX;
-          const ty = hunting ? cy0 : homeY;
+          const cursorOn = cx0 > -9000 && performance.now() - lastMove < 5000;
+          // Text blocks on screen, re-read now and then: the creature steers around them.
+          if (time % 24 === 0) textBoxes = readTextBoxes();
+          // moods: with the cursor close it leans toward it (from a distance, never sitting on it);
+          // with the cursor far or idle it keeps trying to break out through a wall
+          // it follows when the cursor is within about two and a half of its own sizes, and lets go beyond three
+          const cd = Math.hypot(ax - cx0, ay - cy0);
+          const cursorNear = cursorOn && cd < size * (mood === "hunt" ? 3.2 : 2.5);
+          if (cursorNear) {
+            if (mood !== "hunt") mood = "hunt";
+          } else if (mood === "hunt") {
+            mood = "rest";
+            moodT = 20;
+          }
+          if (mood === "escape" && (escapeAge += 1) > 600) mood = "rest";
+          if (mood === "rest") {
+            moodT -= 1;
+            if (moodT <= 0) startEscape(vw, vh, ra, textBoxes);
+          }
+          let tx = ax;
+          let ty = ay;
+          if (mood === "escape") {
+            tx = ex;
+            ty = ey;
+          } else if (mood === "hunt" && cursorOn) {
+            // keep a stand-off distance from the cursor, on the side it is already on
+            const d0 = Math.hypot(ax - cx0, ay - cy0) || 1;
+            const stand = size * 0.55;
+            tx = cx0 + ((ax - cx0) / d0) * stand;
+            ty = cy0 + ((ay - cy0) / d0) * stand;
+          }
           const dx = tx - ax;
           const dy = ty - ay;
           const dist = Math.hypot(dx, dy) || 1;
-          // it is slower than a hurried hand, so you can run; it lunges when you let it get close
-          if (hunting && dist < size * 1.1 && lungeCool <= 0) {
-            lungeT = 16;
-            lungeCool = 150;
+          const top = mood === "escape" ? 5.6 : mood === "hunt" ? 3.6 : 0.8;
+          const sp = mood === "escape" ? top : Math.min(top, dist * 0.07);
+          avx += (((dx / dist) * sp) - avx) * (mood === "escape" ? 0.1 : mood === "hunt" ? 0.08 : 0.05);
+          avy += (((dy / dist) * sp) - avy) * (mood === "escape" ? 0.1 : mood === "hunt" ? 0.08 : 0.05);
+          // steer around text: inside a padded text box it is pushed out by the shortest way
+          if (mood !== "escape" || dist > size * 0.8) {
+            for (const r of textBoxes) {
+              const pad = ra * 0.9;
+              if (ax > r.l - pad && ax < r.r + pad && ay > r.t - pad && ay < r.b + pad) {
+                const toL = ax - (r.l - pad);
+                const toR = r.r + pad - ax;
+                const toT = ay - (r.t - pad);
+                const toB = r.b + pad - ay;
+                const m = Math.min(toL, toR, toT, toB);
+                const push = mood === "escape" ? 0.05 : mood === "hunt" ? 0.1 : 0.22; // a dash for the wall only bends around text
+                if (m === toL) avx -= push;
+                else if (m === toR) avx += push;
+                else if (m === toT) avy -= push;
+                else avy += push;
+              }
+            }
           }
-          const top = lungeT > 0 ? 7 : hunting ? 3.4 : 2.4;
-          const sp = Math.min(top, dist * 0.07);
-          avx += (((dx / dist) * sp) - avx) * 0.09;
-          avy += (((dy / dist) * sp) - avy) * 0.09;
-          if (lungeT > 0) lungeT -= 1;
-          if (lungeCool > 0) lungeCool -= 1;
           ax += avx;
           ay += avy;
+          // swimming makes waves: over a water section every movement stirs the surface
+          if (tintTarget > 0.5) {
+            const speedNow = Math.hypot(avx, avy);
+            if (speedNow > 0.25 && time % 2 === 0) {
+              window.dispatchEvent(new CustomEvent("waterdrop", { detail: { x: ax, y: ay, amp: 6 + speedNow * 12, r: 3 } }));
+            } else if (time % 45 === 0) {
+              window.dispatchEvent(new CustomEvent("waterdrop", { detail: { x: ax, y: ay, amp: 55, r: 3 } })); // a slow breath of its own
+            }
+          }
           // the electrified walls
           const hit = (wall: "l" | "r" | "t" | "b") => {
-            avx = wall === "l" ? Math.abs(avx) + 5 : wall === "r" ? -Math.abs(avx) - 5 : avx * -0.6;
-            avy = wall === "t" ? Math.abs(avy) + 5 : wall === "b" ? -Math.abs(avy) - 5 : avy * -0.6;
+            avx = wall === "l" ? Math.abs(avx) + 3 : wall === "r" ? -Math.abs(avx) - 3 : avx * -0.6;
+            avy = wall === "t" ? Math.abs(avy) + 3 : wall === "b" ? -Math.abs(avy) - 3 : avy * -0.6;
+            if (mood === "escape") {
+              mood = "rest";
+              moodT = 20 + Math.random() * 40; // catches its breath before the next try
+            }
             if (shockCool <= 0) {
               shock = 1;
               shockCool = 30;
               burst = 1;
-              bolts.push({ x: Math.min(vw, Math.max(0, ax)), y: Math.min(vh, Math.max(0, ay)), wall, age: 0 });
+              if (tintTarget > 0.5) window.dispatchEvent(new CustomEvent("waterdrop", { detail: { x: ax, y: ay, amp: 420, r: 5 } }));
+              bolts.push({ x: Math.min(vw, Math.max(0, ax)), y: Math.min(vh, Math.max(0, ay)), wall, age: 0, segs: [] });
             }
           };
           if (ax < ra) {
@@ -318,7 +460,19 @@ export function Companion() {
         const ptr = cx0 > -9000 ? { x: (cx0 - r0.left) / scale, y: (cy0 - r0.top) / scale } : null;
         if (time % 10 === 1) light = isLightBehind(box);
         shock *= 0.93;
-        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr, light, shock });
+        if (time % 8 === 1) {
+          // over a water section the liquid turns acid green
+          const r1 = box.getBoundingClientRect();
+          const mx0 = r1.left + r1.width / 2;
+          const my0 = r1.top + r1.height / 2;
+          tintTarget = 0;
+          document.querySelectorAll<HTMLElement>("[data-waterfx]").forEach((el) => {
+            const e = el.getBoundingClientRect();
+            if (mx0 > e.left && mx0 < e.right && my0 > e.top && my0 < e.bottom) tintTarget = 1;
+          });
+        }
+        tint += (tintTarget - tint) * 0.08;
+        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr, light, shock, vx: avx, vy: avy, tint });
         if (fxCtx) drawBolts(fxCtx, bolts, ax, ay, light);
         if (!reduce && visible) frame = requestAnimationFrame(draw);
         return;

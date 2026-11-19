@@ -98,7 +98,7 @@ export function WaterTitle({ text, id, multiline = false }: { text: string; id?:
   }, [text, multiline]);
 
   return (
-    <div ref={wrap} className={styles.wrap}>
+    <div ref={wrap} className={styles.wrap} data-waterfx>
       <h2 id={id} className={styles.title}>{text}</h2>
       <canvas ref={canvas} className={styles.canvas} aria-hidden="true" />
     </div>

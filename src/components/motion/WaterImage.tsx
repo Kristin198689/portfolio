@@ -53,7 +53,7 @@ export function WaterImage({ src, alt, cursor }: { src: string; alt: string; cur
   }, [src]);
 
   return (
-    <div ref={wrap} className={styles.wrap} data-cursor={cursor}>
+    <div ref={wrap} className={styles.wrap} data-waterfx data-cursor={cursor}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img ref={img} src={src} alt={alt} className={styles.img} />
       <canvas ref={canvas} className={styles.canvas} aria-hidden="true" />
