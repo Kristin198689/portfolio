@@ -250,6 +250,11 @@ export function Companion() {
     let walls: number[] = []; // a shuffled bag, so every wall gets its turn
     let tint = 0;
     let textBoxes: Box[] = [];
+    let grip = 0; // how firmly the cursor holds it, 0 to 1
+    let ccx = 0;
+    let ccy = 0;
+    let dirx = 1;
+    let diry = 0;
     let tintTarget = 0;
     const bolts: Bolt[] = [];
     // Per-point spring offsets: the cursor pushes points away, they spring back
@@ -325,16 +330,28 @@ export function Companion() {
           const cursorOn = cx0 > -9000 && performance.now() - lastMove < 5000;
           // Text blocks on screen, re-read now and then: the creature steers around them.
           if (time % 24 === 0) textBoxes = readTextBoxes();
-          // moods: with the cursor close it leans toward it (from a distance, never sitting on it);
-          // with the cursor far or idle it keeps trying to break out through a wall
-          // it follows when the cursor is within about two and a half of its own sizes, and lets go beyond three
+          // It obeys a cursor that comes close to its body (about 25 px from the edge) and then keeps a
+          // fixed gap to it: the cursor stays outside, the creature follows at arm's length. The grip
+          // holds while the cursor stays near and lets go slowly when it is clearly gone, so it never
+          // flickers between "led" and "free".
+          const body = size * 0.38; // the visible body is an oval with drops around it, so count a generous radius
           const cd = Math.hypot(ax - cx0, ay - cy0);
-          const cursorNear = cursorOn && cd < size * (mood === "hunt" ? 3.2 : 2.5);
-          if (cursorNear) {
-            if (mood !== "hunt") mood = "hunt";
+          if (cursorOn && cd < body + 28) grip = Math.min(1, grip + 0.2);
+          else if (cursorOn && cd < body + 80) grip = grip > 0 ? grip : 0; // in the band: keep what it has
+          else grip = Math.max(0, grip - 0.03);
+          const led = grip > 0.3;
+          if (led) {
+            if (mood !== "hunt") {
+              mood = "hunt";
+              ccx = cx0;
+              ccy = cy0;
+              const r0 = Math.hypot(ax - cx0, ay - cy0) || 1;
+              dirx = (ax - cx0) / r0;
+              diry = (ay - cy0) / r0;
+            }
           } else if (mood === "hunt") {
             mood = "rest";
-            moodT = 20;
+            moodT = 60;
           }
           if (mood === "escape" && (escapeAge += 1) > 600) mood = "rest";
           if (mood === "rest") {
@@ -347,19 +364,39 @@ export function Companion() {
             tx = ex;
             ty = ey;
           } else if (mood === "hunt" && cursorOn) {
-            // keep a stand-off distance from the cursor, on the side it is already on
-            const d0 = Math.hypot(ax - cx0, ay - cy0) || 1;
-            const stand = size * 0.55;
-            tx = cx0 + ((ax - cx0) / d0) * stand;
-            ty = cy0 + ((ay - cy0) / d0) * stand;
+            // smooth the cursor and the side it is on, so mouse jitter never reaches the creature
+            ccx += (cx0 - ccx) * 0.3;
+            ccy += (cy0 - ccy) * 0.3;
+            const rx = ax - ccx;
+            const ry = ay - ccy;
+            const rl = Math.hypot(rx, ry) || 1;
+            dirx += (rx / rl - dirx) * 0.1;
+            diry += (ry / rl - diry) * 0.1;
+            const dl = Math.hypot(dirx, diry) || 1;
+            tx = ccx + (dirx / dl) * (body + 20);
+            ty = ccy + (diry / dl) * (body + 20);
+            // the target never goes past the electrified walls: a led creature stops at the wall
+            tx = Math.min(vw - ra, Math.max(ra, tx));
+            ty = Math.min(vh - ra, Math.max(ra, ty));
           }
           const dx = tx - ax;
           const dy = ty - ay;
           const dist = Math.hypot(dx, dy) || 1;
-          const top = mood === "escape" ? 5.6 : mood === "hunt" ? 3.6 : 0.8;
-          const sp = mood === "escape" ? top : Math.min(top, dist * 0.07);
-          avx += (((dx / dist) * sp) - avx) * (mood === "escape" ? 0.1 : mood === "hunt" ? 0.08 : 0.05);
-          avy += (((dy / dist) * sp) - avy) * (mood === "escape" ? 0.1 : mood === "hunt" ? 0.08 : 0.05);
+          if (mood === "hunt") {
+            // a damped spring: eases in, eases out, no overshoot, no twitching
+            avx += dx * 0.035 - avx * 0.34;
+            avy += dy * 0.035 - avy * 0.34;
+            const v = Math.hypot(avx, avy);
+            if (v > 9) {
+              avx = (avx / v) * 9;
+              avy = (avy / v) * 9;
+            }
+          } else {
+            const top = mood === "escape" ? 4.75 : 0.68;
+            const sp = mood === "escape" ? top : Math.min(top, dist * 0.07);
+            avx += (((dx / dist) * sp) - avx) * (mood === "escape" ? 0.1 : 0.05);
+            avy += (((dy / dist) * sp) - avy) * (mood === "escape" ? 0.1 : 0.05);
+          }
           // steer around text: inside a padded text box it is pushed out by the shortest way
           if (mood !== "escape" || dist > size * 0.8) {
             for (const r of textBoxes) {
@@ -370,7 +407,7 @@ export function Companion() {
                 const toT = ay - (r.t - pad);
                 const toB = r.b + pad - ay;
                 const m = Math.min(toL, toR, toT, toB);
-                const push = mood === "escape" ? 0.05 : mood === "hunt" ? 0.1 : 0.22; // a dash for the wall only bends around text
+                const push = mood === "escape" ? 0.05 : mood === "hunt" ? 0.02 : 0.22; // a dash for the wall only bends around text
                 if (m === toL) avx -= push;
                 else if (m === toR) avx += push;
                 else if (m === toT) avy -= push;
@@ -391,6 +428,12 @@ export function Companion() {
           }
           // the electrified walls
           const hit = (wall: "l" | "r" | "t" | "b") => {
+            if (mood === "hunt") {
+              // being led into a wall: it just stops there, no bounce
+              if (wall === "l" || wall === "r") avx = 0;
+              else avy = 0;
+              return;
+            }
             avx = wall === "l" ? Math.abs(avx) + 3 : wall === "r" ? -Math.abs(avx) - 3 : avx * -0.6;
             avy = wall === "t" ? Math.abs(avy) + 3 : wall === "b" ? -Math.abs(avy) - 3 : avy * -0.6;
             if (mood === "escape") {
@@ -472,7 +515,7 @@ export function Companion() {
           });
         }
         tint += (tintTarget - tint) * 0.08;
-        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr, light, shock, vx: avx, vy: avy, tint });
+        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr: mood === "hunt" ? null : ptr, light, shock, vx: avx, vy: avy, tint });
         if (fxCtx) drawBolts(fxCtx, bolts, ax, ay, light);
         if (!reduce && visible) frame = requestAnimationFrame(draw);
         return;
