@@ -246,3 +246,8 @@ html[lang="ar"] .scene:first-child .title {
   color: transparent;
   -webkit-text-stroke-color: transparent;
 }
+
+/* the rest of the scene's text is painted on the water too, so the real text hides */
+.scene:has([data-ready="true"]) [data-wtext] {
+  color: transparent;
+}

@@ -103,7 +103,7 @@ export function Hero() {
         {/* Scene 1: name */}
         <div className={styles.scene} data-scene>
           <WaterField tilt />
-          <p className={styles.vertical} aria-hidden="true">
+          <p className={styles.vertical} aria-hidden="true" data-wtext>
             {t("a")} · {t("b")} · {t("c")}
           </p>
           <h1 className={styles.title}>
@@ -113,10 +113,10 @@ export function Hero() {
           <div className={styles.foot}>
             <div className={styles.leadWrap}>
               <PersonalNote />
-              <p className={styles.status}>
+              <p className={styles.status} data-wtext>
                 <span className={styles.pulse} aria-hidden="true" /> {t("status")}
               </p>
-              <p className={styles.lead}>{t("lead")}</p>
+              <p className={styles.lead} data-wtext>{t("lead")}</p>
             </div>
             <div className={styles.ctas}>
               <ContactLink label={n("contactLabel")}>{n("contact")}</ContactLink>
@@ -130,27 +130,27 @@ export function Hero() {
         {/* Scene 2: role */}
         <div className={`${styles.scene} ${styles.sceneB}`} data-scene>
           <WaterField reveal />
-          <p className={styles.kicker} data-hfade>
+          <p className={styles.kicker} data-wtext>
             02 — {t("s2.kicker")}
           </p>
           <h2 className={`${styles.big} ${styles.outline}`} style={{ fontSize: fit([t("s2.line1"), t("s2.line2")]) }}>
             <span className={styles.line} data-wline>{t("s2.line1")}</span>
             <span className={styles.line} data-wline>{t("s2.line2")}</span>
           </h2>
-          <p className={styles.lead} data-hfade>{t("s2.lead")}</p>
+          <p className={styles.lead} data-wtext>{t("s2.lead")}</p>
         </div>
 
         {/* Scene 3: languages */}
         <div className={styles.scene} data-scene>
           <WaterField reveal />
-          <p className={styles.kicker} data-hfade>
+          <p className={styles.kicker} data-wtext>
             03 — {t("s3.kicker")}
           </p>
           <h2 className={styles.big} style={{ fontSize: fit([t("s3.line1"), t("s3.line2")]) }}>
             <span className={styles.line} dir="ltr" data-wline>{t("s3.line1")}</span>
             <span className={styles.line} dir="ltr" data-wline>{t("s3.line2")}</span>
           </h2>
-          <p className={styles.lead} data-hfade>{t("s3.lead")}</p>
+          <p className={styles.lead} data-wtext>{t("s3.lead")}</p>
         </div>
       </div>
 
