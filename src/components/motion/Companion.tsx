@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { createAlt, type Alt } from "./companionAlt";
+import { onOrb, readOrb } from "@/lib/orb";
 import styles from "./Companion.module.css";
 
 type V3 = [number, number, number];
@@ -56,6 +58,24 @@ function build(): { shapes: V3[][]; edges: Array<[number, number]> } {
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 
+// Is the page behind the companion light? Walks up from the element under its centre to the first
+// opaque background and checks its brightness.
+function isLightBehind(box: HTMLElement): boolean {
+  const r = box.getBoundingClientRect();
+  let el: Element | null = document.elementFromPoint(
+    Math.min(window.innerWidth - 1, Math.max(0, r.left + r.width / 2)),
+    Math.min(window.innerHeight - 1, Math.max(0, r.top + r.height / 2)),
+  );
+  while (el) {
+    const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+    if (m && (m.length < 4 || Number(m[3]) > 0.5)) {
+      return (0.299 * Number(m[0]) + 0.587 * Number(m[1]) + 0.114 * Number(m[2])) / 255 > 0.55;
+    }
+    el = el.parentElement;
+  }
+  return false;
+}
+
 // A wireframe mesh that travels with the visitor down the page. It drifts along the right edge on a
 // wavy path, spins with scroll speed and the pointer, and morphs sphere → cube → torus → octahedron.
 // The cursor pushes points away (they spring back), a click bursts the mesh, colours shimmer.
@@ -92,6 +112,9 @@ export function Companion() {
     let cx0 = -9999; // pointer in client px
     let cy0 = -9999;
     let time = 0;
+    let alt: Alt | null = null;
+    let light = false;
+    let burst = 0;
     // Per-point spring offsets: the cursor pushes points away, they spring back
     const off = Array.from({ length: N }, () => [0, 0]);
     const vel = Array.from({ length: N }, () => [0, 0]);
@@ -154,6 +177,19 @@ export function Companion() {
       const sy = Math.sin(ry);
       const cx = Math.cos(tilt);
       const sx = Math.sin(tilt);
+
+      if (alt) {
+        // an alternative look takes over the drawing; position, spin and pointer logic stay shared
+        time += 1;
+        burst *= 0.94;
+        const r0 = box.getBoundingClientRect();
+        const scale = r0.width / size || 1;
+        const ptr = cx0 > -9000 ? { x: (cx0 - r0.left) / scale, y: (cy0 - r0.top) / scale } : null;
+        if (time % 10 === 1) light = isLightBehind(box);
+        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr, light });
+        if (!reduce && visible) frame = requestAnimationFrame(draw);
+        return;
+      }
 
       const proj: Array<[number, number, number]> = pts.map(([px, py, pz]) => {
         const x1 = px * cy + pz * sy;
@@ -240,6 +276,7 @@ export function Companion() {
     };
     // Click anywhere: the mesh bursts outward and settles back
     const onDown = () => {
+      burst = 1;
       for (let i = 0; i < N; i++) {
         const a = Math.random() * Math.PI * 2;
         vel[i][0] += Math.cos(a) * 5;
@@ -261,7 +298,12 @@ export function Companion() {
       kick();
     };
 
-    kick();
+    const setMode = (n: number) => {
+      alt = createAlt(n);
+      kick();
+    };
+    setMode(readOrb());
+    const offOrb = onOrb(setMode);
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerdown", onDown, { passive: true });
     document.documentElement.addEventListener("mouseleave", onLeave);
@@ -270,6 +312,7 @@ export function Companion() {
     document.addEventListener("visibilitychange", onVis);
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      offOrb();
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       document.documentElement.removeEventListener("mouseleave", onLeave);
