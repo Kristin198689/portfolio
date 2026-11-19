@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { splitChars } from "@/lib/split";
 import { ContactLink } from "../ui/ContactLink";
 import { Link } from "@/i18n/navigation";
 import { PersonalNote } from "../PersonalNote";
@@ -14,8 +13,8 @@ import styles from "./Hero.module.css";
 gsap.registerPlugin(ScrollTrigger);
 
 // Three scenes on a horizontal track. On desktop the section pins and the scroll drives the track
-// sideways. Scene titles rise out of their masks as each scene arrives (containerAnimation).
-// Same on phones. Only with reduced motion do the scenes simply stack.
+// sideways, on phones too. The text of all three scenes lives on one shared water surface (WaterField).
+// With reduced motion the scenes simply stack and nothing is animated.
 // Sizes a big scene title so its longest line always fits inside the scene, in every language.
 const fit = (lines: string[]) =>
   `${Math.min(17, 80 / (Math.max(...lines.map((l) => Array.from(l).length)) * 0.64)).toFixed(2)}vw`;
@@ -37,21 +36,6 @@ export function Hero() {
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const scenes = gsap.utils.toArray<HTMLElement>("[data-scene]", tr);
       const last = scenes.length - 1;
-      // One paused timeline per later scene: characters rise, the rest fades up.
-      // The pinned scrub below plays or reverses it when that scene is about to arrive.
-      const reveals = scenes.slice(1).map((scene) => {
-        const tl = gsap.timeline({ paused: true });
-        scene.querySelectorAll<HTMLElement>("[data-hsplit]").forEach((line, li) => {
-          const chars = splitChars(line);
-          gsap.set(chars, { yPercent: 118 });
-          tl.to(chars, { yPercent: 0, duration: 1.1, ease: "expo.out", stagger: 0.03 }, li * 0.12);
-        });
-        const fades = scene.querySelectorAll("[data-hfade]");
-        gsap.set(fades, { y: 30, opacity: 0 });
-        tl.to(fades, { y: 0, opacity: 1, duration: 0.9, ease: "expo.out", stagger: 0.1 }, 0.25);
-        return { tl, on: false };
-      });
-
       gsap.to(tr, {
         x: () => -(tr.scrollWidth - window.innerWidth),
         ease: "none",
@@ -66,31 +50,8 @@ export function Hero() {
             const p = self.progress;
             if (bar.current) bar.current.style.transform = `scaleX(${p})`;
             if (count.current) count.current.textContent = `0${Math.round(p * last) + 1}`;
-            reveals.forEach((r, i) => {
-              const should = p * last >= i + 1 - 0.45; // scene i+1 is 45% of a screen away
-              if (should !== r.on) {
-                r.on = should;
-                if (should) r.tl.play();
-                else r.tl.reverse();
-              }
-            });
           },
         },
-      });
-    });
-
-    // Reduced motion: the scenes stack and reveal plainly
-    mm.add("(prefers-reduced-motion: reduce)", () => {
-      gsap.utils.toArray<HTMLElement>("[data-hsplit]", tr).forEach((line) => {
-        const chars = splitChars(line);
-        gsap.set(chars, { yPercent: 118 });
-        gsap.to(chars, {
-          yPercent: 0,
-          duration: 1.1,
-          ease: "expo.out",
-          stagger: 0.03,
-          scrollTrigger: { trigger: line, start: "top 88%", once: true },
-        });
       });
     });
 
@@ -100,9 +61,9 @@ export function Hero() {
   return (
     <section id="top" ref={root} className={styles.hero} data-chapter="field">
       <div ref={track} className={styles.track}>
+        <WaterField tilt />
         {/* Scene 1: name */}
         <div className={styles.scene} data-scene>
-          <WaterField tilt />
           <p className={styles.vertical} aria-hidden="true" data-wtext>
             {t("a")} · {t("b")} · {t("c")}
           </p>
@@ -129,7 +90,6 @@ export function Hero() {
 
         {/* Scene 2: role */}
         <div className={`${styles.scene} ${styles.sceneB}`} data-scene>
-          <WaterField reveal />
           <p className={styles.kicker} data-wtext>
             02 — {t("s2.kicker")}
           </p>
@@ -142,7 +102,6 @@ export function Hero() {
 
         {/* Scene 3: languages */}
         <div className={styles.scene} data-scene>
-          <WaterField reveal />
           <p className={styles.kicker} data-wtext>
             03 — {t("s3.kicker")}
           </p>

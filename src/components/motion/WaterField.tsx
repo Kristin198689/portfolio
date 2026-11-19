@@ -79,7 +79,9 @@ function paintText(c: CanvasRenderingContext2D, el: HTMLElement, box: DOMRect, d
   c.globalAlpha = 1;
 }
 
-export function WaterField({ reveal = false, tilt = false }: { reveal?: boolean; tilt?: boolean }) {
+// One water for the whole hero: a single canvas as wide as all three screens, so waves run across the
+// seams between the screens as one continuous surface.
+export function WaterField({ tilt = false }: { tilt?: boolean }) {
   const box = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
 
@@ -98,7 +100,8 @@ export function WaterField({ reveal = false, tilt = false }: { reveal?: boolean;
         const fg = hs.color;
         const r = b.getBoundingClientRect();
         if (r.width < 10 || r.height < 10) return null;
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        // one texture for all hero screens side by side: keep it a sane size
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5, 6000 / r.width);
         const tc = document.createElement("canvas");
         tc.width = Math.round(r.width * dpr);
         tc.height = Math.round(r.height * dpr);
@@ -157,12 +160,12 @@ export function WaterField({ reveal = false, tilt = false }: { reveal?: boolean;
     const step = () => {
       ry += (ty - ry) * 0.08;
       rx += (tx - rx) * 0.08;
+      // the canvas is as wide as all three screens, so it turns around the middle of what is on screen
+      cv.style.transformOrigin = `${window.innerWidth / 2 - el.getBoundingClientRect().left}px 50%`;
       cv.style.transform = `perspective(1400px) rotateY(${ry.toFixed(3)}deg) rotateX(${rx.toFixed(3)}deg)`;
       raf = Math.abs(ty - ry) + Math.abs(tx - rx) > 0.01 ? requestAnimationFrame(step) : 0;
     };
     const onMove = (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      if (r.right < 0 || r.left > window.innerWidth) return; // scene is off screen
       ty = (e.clientX / window.innerWidth - 0.5) * 5;
       tx = -(e.clientY / window.innerHeight - 0.5) * 4;
       if (!raf) raf = requestAnimationFrame(step);
@@ -176,7 +179,7 @@ export function WaterField({ reveal = false, tilt = false }: { reveal?: boolean;
 
   return (
     <div ref={box} className={styles.field} data-water data-waterfx aria-hidden="true">
-      <canvas ref={canvas} className={styles.canvas} {...(reveal ? { "data-hfade": "" } : {})} />
+      <canvas ref={canvas} className={styles.canvas} />
     </div>
   );
 }

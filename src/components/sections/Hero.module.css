@@ -11,6 +11,7 @@
 }
 
 .track {
+  position: relative;
   display: flex;
   flex-direction: column;
   /* scenes slide left to right in every language; text direction is restored per scene */
@@ -242,12 +243,12 @@ html[lang="ar"] .scene:first-child .title {
   z-index: 1;
 }
 
-.scene:has([data-ready="true"]) [data-wline] {
+.track:has([data-ready="true"]) [data-wline] {
   color: transparent;
   -webkit-text-stroke-color: transparent;
 }
 
 /* the rest of the scene's text is painted on the water too, so the real text hides */
-.scene:has([data-ready="true"]) [data-wtext] {
+.track:has([data-ready="true"]) [data-wtext] {
   color: transparent;
 }
