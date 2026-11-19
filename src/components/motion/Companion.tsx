@@ -108,9 +108,28 @@ export function Companion() {
       const prog = Math.min(1, Math.max(0, window.scrollY / max));
 
       // Position: wavy path along the right edge
-      const x = Math.sin(prog * Math.PI * 4) * vh * 0.04 - size * 0.15;
-      const y = vh * 0.5 - size / 2 + Math.sin(prog * Math.PI * 3) * vh * 0.16;
-      box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      const vw = window.innerWidth;
+      const waveX = Math.sin(prog * Math.PI * 4) * vh * 0.04;
+      const waveY = Math.sin(prog * Math.PI * 3) * vh * 0.16;
+      if (vw < 896) {
+        // Phones: on the first hero screen the mesh is big and sits in the empty space above the
+        // name. While the hero scenes slide by it shrinks and settles into its normal path.
+        const scenes = document.querySelectorAll("[data-scene]").length;
+        const hp = scenes > 1 ? Math.min(1, Math.max(0, window.scrollY / ((scenes - 1) * vw))) : 1;
+        const e = ease(hp);
+        const sc = 1 - e * 0.66;
+        const vis = size * sc;
+        // after the hero it rests at the very edge, half off screen, so it never covers text
+        const cxN = vw - vis * 0.18 + waveX * 0.3;
+        const cyN = vh * 0.5 + waveY;
+        const cx = vw / 2 + (cxN - vw / 2) * e;
+        const cy = vh * 0.28 + (cyN - vh * 0.28) * e;
+        box.style.transform = `translate3d(${cx - size / 2 - (vw - size)}px, ${cy - size / 2}px, 0) scale(${sc})`;
+      } else {
+        const x = waveX - size * 0.15;
+        const y = vh * 0.5 - size / 2 + waveY;
+        box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      }
 
       // Morph between shapes by scroll progress
       const f = prog * (shapes.length - 1);
