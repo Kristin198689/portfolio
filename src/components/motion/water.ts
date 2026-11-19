@@ -4,13 +4,24 @@
 
 const VERT = `attribute vec2 p;varying vec2 uv;void main(){uv=p*0.5+0.5;gl_Position=vec4(p,0.0,1.0);}`;
 const FRAG = `precision mediump float;
-uniform sampler2D t;uniform sampler2D n;uniform float k;varying vec2 uv;
+uniform sampler2D t;uniform sampler2D n;uniform float k;uniform float sh;uniform float lt;varying vec2 uv;
 void main(){
-  vec2 d=(texture2D(n,uv).rg-0.5)*k;
+  vec2 nn=texture2D(n,uv).rg-0.5;
+  vec2 d=nn*k;
   float r=texture2D(t,uv+d*0.9).r;
   float g=texture2D(t,uv+d*1.15).g;
   float b=texture2D(t,uv+d*1.4).b;
-  gl_FragColor=vec4(r,g,b,1.0);
+  vec3 col=vec3(r,g,b);
+  if(sh>0.0){
+    // light on the surface itself: slopes facing the light shine, the others fall into shadow, so waves
+    // are visible even over a flat background. On a dark page they glow, on a light page they shade.
+    float s=nn.x*0.75-nn.y*0.65;
+    float m=length(nn);
+    vec3 glow=col+vec3(0.5,0.72,1.0)*(max(s,0.0)*3.8+m*1.0)*sh;
+    vec3 ink=col*(1.0-clamp((abs(s)*3.0+m*1.0)*sh,0.0,0.4))+vec3(0.0,0.05,0.22)*m*sh*1.4;
+    col=mix(glow,ink,lt);
+  }
+  gl_FragColor=vec4(col,1.0);
 }`;
 
 const DAMPING = 0.985;
@@ -23,7 +34,7 @@ export function startWater(
   box: HTMLElement,
   cv: HTMLCanvasElement,
   paint: Paint,
-  opts: { strength?: number; ambient?: boolean; watchHeight?: boolean; eager?: boolean; power?: number; ambientMs?: number } = {},
+  opts: { strength?: number; ambient?: boolean; watchHeight?: boolean; eager?: boolean; power?: number; ambientMs?: number; shade?: number } = {},
 ): () => void {
   const noop = () => {};
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return noop;
@@ -50,6 +61,9 @@ export function startWater(
   gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
   gl.uniform1i(gl.getUniformLocation(prog, "t"), 0);
   gl.uniform1i(gl.getUniformLocation(prog, "n"), 1);
+  const shLoc = gl.getUniformLocation(prog, "sh");
+  const ltLoc = gl.getUniformLocation(prog, "lt");
+  gl.uniform1f(shLoc, opts.shade ?? 0);
   const kLoc = gl.getUniformLocation(prog, "k");
   gl.uniform1f(kLoc, opts.strength ?? 0.035);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
@@ -100,6 +114,18 @@ export function startWater(
     gl.activeTexture(gl.TEXTURE1);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, norm);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    if (opts.shade) {
+      // dark or light page: walk up to the first opaque background
+      let lum = 0;
+      for (let el: HTMLElement | null = box; el; el = el.parentElement) {
+        const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+        if (m && (m.length < 4 || Number(m[3]) > 0.5)) {
+          lum = (0.299 * Number(m[0]) + 0.587 * Number(m[1]) + 0.114 * Number(m[2])) / 255;
+          break;
+        }
+      }
+      gl.uniform1f(ltLoc, lum > 0.55 ? 1 : 0);
+    }
     box.dataset.ready = "true";
   };
 

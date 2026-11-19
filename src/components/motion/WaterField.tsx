@@ -139,7 +139,7 @@ export function WaterField({ reveal = false, tilt = false }: { reveal?: boolean;
         scene.querySelectorAll<HTMLElement>("[data-wtext]").forEach((el) => paintText(c, el, r, dpr, scene));
         return tc;
       },
-      { watchHeight: true, eager: true },
+      { watchHeight: true, eager: true, shade: 1 },
     );
   }, []);
 
