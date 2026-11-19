@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { ContactLink } from "./ui/ContactLink";
 import { LangSwitcher } from "./LangSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
+import { OrbSwitch } from "./OrbSwitch";
 import { PaletteButton } from "./CommandPalette";
 import styles from "./Header.module.css";
 
@@ -109,6 +110,7 @@ export function Header() {
         <div className={styles.end}>
           <LangSwitcher />
           <ThemeToggle />
+          <OrbSwitch />
           <PaletteButton />
           <ContactLink className={styles.book} label={t("contactLabel")}>
             {t("contactCta")}
@@ -162,6 +164,7 @@ export function Header() {
             {siteConfig.email}
           </a>
         </nav>
+        <OrbSwitch row />
       </div>
     </>
   );
