@@ -13,12 +13,4 @@
 
 .field[data-ready="true"] .canvas {
   display: block;
-  animation: fieldIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
-}
-
-@keyframes fieldIn {
-  from {
-    opacity: 0;
-    transform: translateY(2%);
-  }
 }

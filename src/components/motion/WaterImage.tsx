@@ -40,7 +40,8 @@ export function WaterImage({ src, alt, cursor }: { src: string; alt: string; cur
           c.drawImage(im, (W - dw) / 2, (H - dh) / 2, dw, dh);
           return tc;
         },
-        { strength: 0.03 },
+        // a dark photo hides ripples, so it gets a stronger refraction and bigger, more frequent drops
+        { strength: 0.075, power: 2.4, ambientMs: 800 },
       );
     };
     if (im.complete) go();

@@ -23,7 +23,7 @@ export function startWater(
   box: HTMLElement,
   cv: HTMLCanvasElement,
   paint: Paint,
-  opts: { strength?: number; ambient?: boolean; watchHeight?: boolean; preload?: boolean } = {},
+  opts: { strength?: number; ambient?: boolean; watchHeight?: boolean; eager?: boolean; power?: number; ambientMs?: number } = {},
 ): () => void {
   const noop = () => {};
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return noop;
@@ -96,10 +96,16 @@ export function startWater(
     prev = new Float32Array(w * h);
     // 128 = flat water. Border cells are never simulated and must stay neutral.
     norm = new Uint8Array(w * h * 4).fill(128);
+    // draw one flat frame right away, so the canvas is never blank when it replaces the real text
+    gl.activeTexture(gl.TEXTURE1);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, norm);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     box.dataset.ready = "true";
   };
 
+  const power = opts.power ?? 1;
   const drop = (x: number, y: number, amp: number, radius: number) => {
+    amp *= power;
     const gx = Math.floor(x / CELL);
     const gy = Math.floor(y / CELL);
     for (let j = -radius; j <= radius; j++) {
@@ -119,7 +125,7 @@ export function startWater(
     if (!alive || !visible || !w) return;
     if (opts.ambient !== false && now > nextAmbient) {
       drop(Math.random() * w * CELL, Math.random() * h * CELL, 60 + Math.random() * 60, 3);
-      nextAmbient = now + 1400 + Math.random() * 1600;
+      nextAmbient = now + (opts.ambientMs ?? 1400) + Math.random() * (opts.ambientMs ?? 1400) * 1.1;
     }
     for (let y = 1; y < h - 1; y++) {
       for (let x = 1; x < w - 1; x++) {
@@ -182,7 +188,10 @@ export function startWater(
     if (started) return;
     started = true;
     const family = getComputedStyle(box).fontFamily;
-    document.fonts.load(`800 100px ${family}`, (box.textContent || "A").slice(0, 12)).then(start, start);
+    // wait for every font, so the texture is painted with the final letters
+    document.fonts.ready
+      .then(() => document.fonts.load(`800 100px ${family}`, (box.textContent || "A").slice(0, 12)))
+      .then(start, start);
   };
   const io = new IntersectionObserver(
     ([en]) => {
@@ -193,11 +202,10 @@ export function startWater(
     { rootMargin: "600px 0px" },
   );
   io.observe(box);
-  // scenes that wait beside the screen (a horizontal track) get their texture ready before they arrive
-  const pre = opts.preload
-    ? new IntersectionObserver(([en]) => en.isIntersecting && begin(), { rootMargin: "0px 250%" })
-    : null;
-  pre?.observe(box);
+  // Scenes beside the screen (a horizontal track) are clipped by their parent, so the observer
+  // never sees them. `eager` prepares them as soon as the page is idle instead.
+  let eagerTimer = 0;
+  if (opts.eager) eagerTimer = window.setTimeout(begin, 60);
   const ro = new ResizeObserver(() => build());
   const start = () => {
     if (!alive) return;
@@ -218,7 +226,7 @@ export function startWater(
     alive = false;
     if (frame) cancelAnimationFrame(frame);
     io.disconnect();
-    pre?.disconnect();
+    clearTimeout(eagerTimer);
     ro.disconnect();
     window.removeEventListener("pointermove", onMove);
     window.removeEventListener("pointerdown", onDown);

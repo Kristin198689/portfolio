@@ -66,7 +66,7 @@ export function WaterField({ reveal = false, tilt = false }: { reveal?: boolean;
         });
         return tc;
       },
-      { watchHeight: true, preload: true },
+      { watchHeight: true, eager: true },
     );
   }, []);
 
