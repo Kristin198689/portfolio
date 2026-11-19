@@ -5,7 +5,7 @@ import styles from "./Companion.module.css";
 
 type V3 = [number, number, number];
 
-const N = 150;
+const N = 260;
 const LINKS = 3;
 
 // Point sets that share one topology: point i is the same vertex in every shape,
@@ -198,7 +198,7 @@ export function Companion() {
       const toHue = (t: number) => 190 + t * 140;
 
       ctx.clearRect(0, 0, size, size);
-      ctx.lineWidth = 0.7 + near * 0.6;
+      ctx.lineWidth = 0.8 + near * 0.6;
       const groups: Array<Array<[number, number]>> = Array.from({ length: BUCKETS }, () => []);
       for (const e of edges) {
         const t = (tone(e[0]) + tone(e[1])) / 2;
@@ -206,7 +206,7 @@ export function Companion() {
       }
       groups.forEach((g, gi) => {
         if (!g.length) return;
-        ctx.strokeStyle = `hsla(${toHue((gi + 0.5) / BUCKETS)}, 100%, 62%, ${0.45 + near * 0.35})`;
+        ctx.strokeStyle = `hsla(${toHue((gi + 0.5) / BUCKETS)}, 100%, 66%, ${0.7 + near * 0.3})`;
         ctx.beginPath();
         for (const [i, j] of g) {
           ctx.moveTo(proj[i][0], proj[i][1]);
@@ -216,9 +216,9 @@ export function Companion() {
       });
       for (let i = 0; i < N; i++) {
         const [px, py, pz] = proj[i];
-        const spark = i % 11 === 0;
-        const r = 1.2 + (pz + 1) * 0.75 + (spark ? 0.8 : 0) + Math.min(1.5, Math.hypot(vel[i][0], vel[i][1]) * 0.4);
-        ctx.fillStyle = spark ? "hsl(54, 100%, 58%)" : `hsl(${toHue(tone(i))}, 100%, 60%)`;
+        const spark = i % 19 === 0;
+        const r = 0.9 + (pz + 1) * 0.55 + (spark ? 0.7 : 0) + Math.min(1.5, Math.hypot(vel[i][0], vel[i][1]) * 0.4);
+        ctx.fillStyle = spark ? "hsl(54, 100%, 58%)" : `hsl(${toHue(tone(i))}, 100%, 64%)`;
         ctx.beginPath();
         ctx.arc(px, py, r, 0, Math.PI * 2);
         ctx.fill();
