@@ -123,11 +123,11 @@ function setup(cv: HTMLCanvasElement, placeMode: "fill" | "side"): () => void {
       gl.uniform1f(uT, time + 3);
       gl.uniform2f(uM, mx, my);
       gl.uniform1f(uS, prog01);
-      // where the sphere sits inside the canvas: right side on wide screens, low and centred on phones
+      // where the sphere sits inside the canvas: right side on wide screens, centred in its own band on phones
       const aspect = cv.width / cv.height;
       if (placeMode === "fill") gl.uniform3f(uPlace, 0, 0, 1);
       else if (aspect > 1.1) gl.uniform3f(uPlace, aspect * 0.2, 0, 1);
-      else gl.uniform3f(uPlace, 0, -0.26, 1.8);
+      else gl.uniform3f(uPlace, 0, 0, 1.8);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if (!reduce) frame = requestAnimationFrame(draw);
     };

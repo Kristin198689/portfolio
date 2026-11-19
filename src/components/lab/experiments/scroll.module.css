@@ -46,3 +46,36 @@
 .cap span {
   opacity: 0.55;
 }
+
+/* Phones: tiles in a horizontal strip, swipe sideways, each snaps to the centre */
+@media (max-width: 47.99rem) {
+  .box {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+  }
+
+  .track {
+    display: flex;
+    gap: var(--space-4);
+    height: 100%;
+    width: max-content;
+    padding: var(--space-6) var(--space-6);
+    transform-origin: 0 50%;
+  }
+
+  .fig {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    width: min(68vw, 20rem);
+    scroll-snap-align: center;
+  }
+
+  .mask {
+    flex: 1;
+    min-height: 0;
+    aspect-ratio: auto;
+    clip-path: inset(0 100% 0 0);
+  }
+}

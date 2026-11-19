@@ -55,7 +55,8 @@ export function Header() {
       const y = window.scrollY;
       setScrolled(y > 24);
       if (Math.abs(y - lastY) > 6) {
-        setHidden(y > lastY && y > 160);
+        // on phones the burger always stays reachable; the header only hides on larger screens
+        setHidden(y > lastY && y > 160 && !window.matchMedia("(max-width: 55.99rem)").matches);
         lastY = y;
       }
     };

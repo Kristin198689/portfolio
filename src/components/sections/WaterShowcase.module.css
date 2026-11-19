@@ -1,34 +1,19 @@
 .section {
   position: relative;
-  height: 100svh;
   background: var(--color-field);
   color: var(--color-on-field);
 }
 
-.media {
-  position: absolute;
-  inset: 0;
-}
-
-.section::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 55%;
-  background: linear-gradient(transparent, rgb(0 0 0 / 0.78));
-  pointer-events: none;
-}
-
-.overlay {
-  position: absolute;
-  z-index: 1;
-  inset: auto var(--gutter) var(--space-8);
+/* the divider between the sphere and the photo: black space with the caption */
+.head {
   display: grid;
   gap: var(--space-3);
-  pointer-events: none;
-  /* always sits on the dark gradient over the photo, so it stays light in both themes */
-  color: #f6f6f1;
-  text-shadow: 0 1px 24px rgb(0 0 0 / 0.5);
+  padding: var(--space-16) var(--gutter) var(--space-12);
+}
+
+.media {
+  position: relative;
+  height: 100svh;
 }
 
 .kicker {
@@ -36,6 +21,7 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  opacity: 0.6;
 }
 
 .caption {
@@ -44,4 +30,16 @@
   line-height: 0.95;
   letter-spacing: var(--tracking-head);
   text-transform: uppercase;
+}
+
+/* Phones: the whole photo (no crop) with black space below it */
+@media (max-width: 47.99rem) {
+  .media {
+    height: auto;
+    aspect-ratio: 1440 / 900;
+  }
+
+  .section {
+    padding-bottom: var(--space-16);
+  }
 }

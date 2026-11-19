@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { lighthouse } from "@/config/lighthouse";
 import { BrandIcon } from "../ui/BrandIcon";
@@ -28,6 +28,7 @@ export function Seo() {
   const t = useTranslations("seo");
   const locale = useLocale();
   const [tab, setTab] = useState<Tab>("meta");
+  const view = useRef<HTMLDivElement>(null);
   const [head, setHead] = useState<Head | null>(null);
   const [vitals, setVitals] = useState<Vitals>({ lcp: null, cls: 0, fcp: null, ttfb: null });
 
@@ -97,6 +98,17 @@ export function Seo() {
 
   const tabs: Tab[] = ["meta", "hreflang", "schema", "files"];
   const measuring = t("measuring");
+
+  // Lenis smooths page scroll; inside this panel the browser scrolls natively, but only while the
+  // panel really has more to show in the wheel's direction. Otherwise the page keeps scrolling.
+  const onViewWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const el = view.current;
+    if (!el) return;
+    const max = el.scrollHeight - el.clientHeight;
+    const can = max > 1 && (e.deltaY < 0 ? el.scrollTop > 0 : el.scrollTop < max - 1);
+    if (can) el.setAttribute("data-lenis-prevent", "");
+    else el.removeAttribute("data-lenis-prevent");
+  };
 
   return (
     <section id="seo" className={styles.section} data-chapter="paper">
@@ -168,7 +180,7 @@ export function Seo() {
             ))}
           </div>
 
-          <div className={styles.view} data-lenis-prevent>
+          <div ref={view} className={styles.view} onWheel={onViewWheel}>
             {tab === "meta" && head ? (
               <dl className={styles.meta}>
                 <dt>{t("metaTitle")}</dt>
