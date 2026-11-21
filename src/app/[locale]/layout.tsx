@@ -10,7 +10,7 @@ import { Konami } from "@/components/Konami";
 import { DevView } from "@/components/DevView";
 import { CommandPalette } from "@/components/CommandPalette";
 import { Header } from "@/components/Header";
-import { Companion } from "@/components/motion/Companion";
+import { CompanionLazy } from "@/components/motion/CompanionLazy";
 import { Motion } from "@/components/Motion";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SideNav } from "@/components/SideNav";
@@ -78,7 +78,7 @@ export default async function LocaleLayout({
         <JsonLd locale={locale} description={meta("description")} jobTitle={meta("jobTitle")} />
         <NextIntlClientProvider>
           <Motion name={siteConfig.shortName} />
-          <Companion />
+          <CompanionLazy />
           <Header />
           <CommandPalette />
           <DevView />
