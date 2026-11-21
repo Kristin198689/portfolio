@@ -36,5 +36,13 @@
   z-index: 21;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   pointer-events: none;
+}
+
+/* the roaming pet on a phone: compact, so there is room for it to run around */
+@media (max-width: 55.99rem) {
+  .wrap[data-roam="1"] {
+    width: min(36vw, 9.5rem);
+  }
 }

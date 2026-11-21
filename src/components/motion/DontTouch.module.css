@@ -21,10 +21,3 @@
 .btn:focus-visible {
   opacity: 1;
 }
-
-/* the creature roams only where there is a mouse */
-@media (hover: none), (pointer: coarse) {
-  .btn {
-    display: none;
-  }
-}

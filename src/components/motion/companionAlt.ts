@@ -262,7 +262,8 @@ export function createMini(): Alt {
   return liquid(72);
 }
 
-export function createAlt(mode: number): Alt | null {
-  if (mode === 1) return liquid();
+export function createAlt(mode: number, light = false): Alt | null {
+  // `light`: a phone gets a coarser (cheaper) field
+  if (mode === 1) return liquid(light ? 104 : 160);
   return null;
 }

@@ -183,7 +183,7 @@ export function Companion() {
     let size = 0;
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      size = box.getBoundingClientRect().width;
+      size = box.offsetWidth; // layout width: the body is scaled by moods (pulse, growth) at times
       cv.width = Math.round(size * dpr);
       cv.height = Math.round(size * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -210,6 +210,7 @@ export function Companion() {
     const fxCtx = fxCv.getContext("2d");
     const life = createLife();
     let mouseSpd = 0; // cursor speed in px per second, smoothed
+    let touchMode = false; // the last pointer was a finger: no scare or calling, and a finger only counts while it is down
     let lastMoveT = 0;
     let lifeOut: ReturnType<typeof life.step> | null = null;
     let lastMove = 0;
@@ -280,8 +281,8 @@ export function Companion() {
       const vw = window.innerWidth;
       const waveX = Math.sin(prog * Math.PI * 4) * vh * 0.04;
       const waveY = Math.sin(prog * Math.PI * 3) * vh * 0.16;
-      if (vw < 896) {
-        // Phones: on the first hero screen the mesh is big and sits in the empty space above the
+      if (vw < 896 && !(alt && !reduce)) {
+        // Phones, classic look: on the first hero screen the mesh is big and sits in the empty space above the
         // name. While the hero scenes slide by it shrinks and settles into its normal path.
         const scenes = document.querySelectorAll("[data-scene]").length;
         const hp = scenes > 1 ? Math.min(1, Math.max(0, window.scrollY / ((scenes - 1) * vw))) : 1;
@@ -299,7 +300,7 @@ export function Companion() {
         const y = vh * 0.5 - size / 2 + waveY;
         const homeX = vw - size / 2 + x;
         const homeY = y + size / 2;
-        if (alt && fine && !reduce) {
+        if (alt && !reduce) {
           const ra = size * 0.33;
           if (!roamInit) {
             roamInit = true;
@@ -313,7 +314,7 @@ export function Companion() {
           // the creature's inner life: feeding, sniffing, fear, sleep, portals... it may take over the controls
           mouseSpd *= 0.93;
           life.setEnabled(true);
-          const L = life.step({ time, ax, ay, avx, avy, size, body, vw, vh, cx: cx0, cy: cy0, cursorOn, cursorSpeed: mouseSpd, led: mood === "hunt", light, tint, boxes: textBoxes });
+          const L = life.step({ time, ax, ay, avx, avy, size, body, vw, vh, cx: cx0, cy: cy0, cursorOn, cursorSpeed: touchMode ? 0 : mouseSpd, led: mood === "hunt", light, tint, boxes: textBoxes });
           if (L.teleport) {
             ax = L.teleport.x;
             ay = L.teleport.y;
@@ -411,7 +412,8 @@ export function Companion() {
                 const toT = ay - (r.t - pad);
                 const toB = r.b + pad - ay;
                 const m = Math.min(toL, toR, toT, toB);
-                const push = ctrl ? 0.22 * ctrl.avoidText : mood === "escape" ? 0.05 : mood === "hunt" ? 0.02 : 0.22; // a dash for the wall only bends around text
+                const small = vw < 700 ? 0.4 : 1; // on a phone text covers most of the page
+                const push = (ctrl ? 0.22 * ctrl.avoidText : mood === "escape" ? 0.05 : mood === "hunt" ? 0.02 : 0.22) * small; // a dash for the wall only bends around text
                 if (m === toL) avx -= push;
                 else if (m === toR) avx += push;
                 else if (m === toT) avy -= push;
@@ -609,6 +611,7 @@ export function Companion() {
       if (!frame) frame = requestAnimationFrame(draw);
     };
     const onMove = (e: PointerEvent) => {
+      touchMode = e.pointerType === "touch";
       const dtMs = e.timeStamp - lastMoveT;
       if (dtMs > 0 && dtMs < 200 && cx0 > -9000) mouseSpd = mouseSpd * 0.5 + (Math.hypot(e.clientX - cx0, e.clientY - cy0) / dtMs) * 1000 * 0.5;
       lastMoveT = e.timeStamp;
@@ -643,7 +646,10 @@ export function Companion() {
     };
 
     const setMode = (n: number) => {
-      alt = createAlt(n);
+      alt = createAlt(n, window.innerWidth < 896 || !fine);
+      // on a phone the pet is a compact one (see the stylesheet), the classic mesh keeps its big hero size
+      box.dataset.roam = n > 0 ? "1" : "";
+      resize();
       roamInit = false;
       bolts.length = 0;
       fxCtx?.clearRect(0, 0, fxCv.width, fxCv.height);
@@ -651,6 +657,15 @@ export function Companion() {
     };
     setMode(readOrb());
     const offOrb = onOrb(setMode);
+    const onUp = (e: PointerEvent) => {
+      // a finger is only a cursor while it touches the screen
+      if (e.pointerType === "touch") {
+        cx0 = -9999;
+        cy0 = -9999;
+      }
+    };
+    window.addEventListener("pointerup", onUp, { passive: true });
+    window.addEventListener("pointercancel", onUp, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerdown", onDown, { passive: true });
     document.documentElement.addEventListener("mouseleave", onLeave);
@@ -662,6 +677,8 @@ export function Companion() {
       offOrb();
       life.dispose();
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       window.removeEventListener("pointerdown", onDown);
       document.documentElement.removeEventListener("mouseleave", onLeave);
       window.removeEventListener("resize", onResize);

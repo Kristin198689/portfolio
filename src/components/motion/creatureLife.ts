@@ -180,12 +180,14 @@ export function createLife() {
     window.dispatchEvent(new CustomEvent("waterdrop", { detail: { x, y, amp, r } }));
 
   // ---- clicks: feeding and splitting ----
-  const onDown = (e: PointerEvent) => {
+  const onDown = (e: MouseEvent) => {
     if (!enabled || hiddenNow) return;
     const t = e.target as Element | null;
     if (t?.closest("a, button, input, textarea, select, summary, label, [role='button'], header, nav, [data-lenis-prevent]")) return;
     const d = Math.hypot(e.clientX - px, e.clientY - py);
-    if (d < pbody * 0.9) {
+    // a finger is less exact than a mouse: the creature is easier to tap
+    const touch = (e as PointerEvent).pointerType === "touch";
+    if (d < pbody * (touch ? 1.5 : 0.9)) {
       // a click on the creature itself: it splits into little ones, or takes them back
       if (kids.length >= 3) {
         kids.forEach((k) => (k.age = 9999));
@@ -220,7 +222,8 @@ export function createLife() {
       portalA = 0;
     }
   };
-  window.addEventListener("pointerdown", onDown, { passive: true });
+  // "click", not "pointerdown": a tap counts, the start of a scroll with a finger does not
+  window.addEventListener("click", onDown, { passive: true });
   window.addEventListener("creature-rampage", onRampage);
   const onTour = () => {
     // start the Skills Universe tour by hand (the creature must be over that section)
@@ -791,7 +794,7 @@ export function createLife() {
   };
 
   const dispose = () => {
-    window.removeEventListener("pointerdown", onDown);
+    window.removeEventListener("click", onDown);
     window.removeEventListener("creature-rampage", onRampage);
     window.removeEventListener("creature-portal", onPortal);
     window.removeEventListener("creature-tour", onTour);
