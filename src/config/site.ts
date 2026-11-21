@@ -1,7 +1,8 @@
 export const siteConfig = {
-  // Set NEXT_PUBLIC_SITE_URL in the hosting environment. The localhost fallback keeps canonical
-  // URLs honest while the real domain is unknown.
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
+  // The one public address of the site. Canonical URLs, hreflang, sitemap, robots, Open Graph and JSON-LD
+  // all read it. A production build uses the real domain; the dev server uses localhost. Set
+  // NEXT_PUBLIC_SITE_URL to override both (for example for a staging copy).
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.NODE_ENV === "production" ? "https://volodina.de" : "http://localhost:3000")).replace(/\/$/, ""),
   name: "Christina Volodina",
   shortName: "C. Volodina",
   github: "https://github.com/Kristin198689",

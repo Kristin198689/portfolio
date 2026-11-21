@@ -1,5 +1,7 @@
 # Christina Volodina
 
+Website: https://volodina.de
+
 > Web developer (Germany) who designs, builds, deploys and tracks websites end to end.
 > Focus: Next.js, React, TypeScript, responsive (fluid) layout, motion (GSAP, WebGL), SEO and GEO, multilingual sites (DE, EN, UK, AR with RTL), accessibility.
 > Works with AI tools (Claude Code, GPT) under project rules, with every step verified.
@@ -10,24 +12,24 @@
 - Open to any format: on-site, hybrid or remote; employment, freelance or B2B.
 
 ## Pages
-- [Portfolio, German](/de): the full portfolio in German
-- [Portfolio, English](/en): the full portfolio in English
-- [Portfolio, Ukrainian](/uk): the full portfolio in Ukrainian
-- [Portfolio, Arabic](/ar): the full portfolio in Arabic (right to left)
-- [For recruiters](/en/hire): the 60-second summary for hiring teams
-- [Services and prices](/en/services): website development from €999, redesign, SEO, web apps, SaaS and CRM
-- [Web design in Pforzheim](/de/webdesign-pforzheim): local page for Pforzheim and the surrounding area
-- [All projects](/en/work): every project with live links
-- [About my work](/en/about): hub for the pages below
-- [First 30, 60 and 90 days](/en/plan): how I would start in a new team
-- [Decisions](/en/decisions): why Next.js, CSS Modules, GSAP, Playwright, with trade-offs
-- [Recruiter FAQ](/en/faq): formats, AI use, teamwork, languages, code access
-- [Accessibility statement](/en/accessibility): what is checked and known limits
-- [Roadmap](/en/roadmap) and [Uses](/en/uses): next steps and tools
-- [Changelog](/en/changelog): generated from the git history
-- [Notes](/en/notes): short articles on SEO, working with AI, and Lighthouse
-- [Design system](/en/design): tokens, type, motion, accessibility rules
-- [CV, plain text](/en/cv): structured version for applicant tracking systems
+- [Portfolio, German](https://volodina.de/de): the full portfolio in German
+- [Portfolio, English](https://volodina.de/en): the full portfolio in English
+- [Portfolio, Ukrainian](https://volodina.de/uk): the full portfolio in Ukrainian
+- [Portfolio, Arabic](https://volodina.de/ar): the full portfolio in Arabic (right to left)
+- [For recruiters](https://volodina.de/en/hire): the 60-second summary for hiring teams
+- [Services and prices](https://volodina.de/en/services): website development from €999, redesign, SEO, web apps, SaaS and CRM
+- [Web design in Pforzheim](https://volodina.de/de/webdesign-pforzheim): local page for Pforzheim and the surrounding area
+- [All projects](https://volodina.de/en/work): every project with live links
+- [About my work](https://volodina.de/en/about): hub for the pages below
+- [First 30, 60 and 90 days](https://volodina.de/en/plan): how I would start in a new team
+- [Decisions](https://volodina.de/en/decisions): why Next.js, CSS Modules, GSAP, Playwright, with trade-offs
+- [Recruiter FAQ](https://volodina.de/en/faq): formats, AI use, teamwork, languages, code access
+- [Accessibility statement](https://volodina.de/en/accessibility): what is checked and known limits
+- [Roadmap](https://volodina.de/en/roadmap) and [Uses](https://volodina.de/en/uses): next steps and tools
+- [Changelog](https://volodina.de/en/changelog): generated from the git history
+- [Notes](https://volodina.de/en/notes): short articles on SEO, working with AI, and Lighthouse
+- [Design system](https://volodina.de/en/design): tokens, type, motion, accessibility rules
+- [CV, plain text](https://volodina.de/en/cv): structured version for applicant tracking systems
 
 ## Contact
 - Email: volodina.webstudio@gmail.com

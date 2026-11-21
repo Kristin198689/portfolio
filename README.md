@@ -44,7 +44,7 @@ Node 20 or newer.
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Public address of the site. Used for canonical URLs, sitemap and Open Graph. Defaults to `http://localhost:3000`. |
+| `NEXT_PUBLIC_SITE_URL` | Public address of the site. Used for canonical URLs, sitemap and Open Graph. Defaults to `https://volodina.de` in a production build and `http://localhost:3000` in development. |
 | `NEXT_PUBLIC_WHATSAPP` | WhatsApp number (digits only) for the contact form. Defaults to the number from my studio site. |
 
 ## Project map

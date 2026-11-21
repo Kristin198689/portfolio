@@ -41,8 +41,31 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // the dev server also answers on 127.0.0.1 (without this Next blocks it and the motion layer never starts)
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // Every copy of the site on a *.vercel.app address (production and previews) is kept out of search
+      // results: only volodina.de is meant to be indexed. The pages stay reachable, and "noindex" is
+      // read from the header, so this does not touch the main domain at all.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "(.*)\\.vercel\\.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
+  async redirects() {
+    // www is only a door: it sends everyone (and search engines, permanently) to the bare domain.
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.volodina.de" }],
+        destination: "https://volodina.de/:path*",
+        permanent: true,
+      },
+    ];
   },
 };
 
