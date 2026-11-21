@@ -27,8 +27,9 @@ export function JsonLd({
         "@id": `${base}/#person`,
         name: siteConfig.name,
         jobTitle,
+        description,
         url: `${base}/${locale}`,
-        sameAs: [siteConfig.github, "https://volodina-web-studio-amber.vercel.app"],
+        sameAs: [siteConfig.github, "https://volodina-webstudio.de"],
         address: { "@type": "PostalAddress", addressLocality: "Pforzheim", addressCountry: "DE" },
         knowsLanguage: ["de", "uk", "ru"],
         knowsAbout: [

@@ -3,6 +3,8 @@ export const siteConfig = {
   // all read it. A production build uses the real domain; the dev server uses localhost. Set
   // NEXT_PUBLIC_SITE_URL to override both (for example for a staging copy).
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.NODE_ENV === "production" ? "https://volodina.de" : "http://localhost:3000")).replace(/\/$/, ""),
+  // hreflang x-default: the page for visitors whose language is not offered. English reaches the most recruiters.
+  xDefaultLocale: "en",
   name: "Christina Volodina",
   shortName: "C. Volodina",
   github: "https://github.com/Kristin198689",

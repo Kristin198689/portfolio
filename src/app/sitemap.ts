@@ -4,7 +4,10 @@ import { projects } from "@/config/projects";
 import { notes } from "@/content/notes";
 import { siteConfig } from "@/config/site";
 
-// Home, case studies and legal pages, each with its language alternates.
+// The date of this build: one honest value for every page, instead of a new date on each request.
+const BUILT = new Date();
+
+// Home, case studies and legal pages, each with its language alternates (and x-default).
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     { path: "", priority: 1 },
@@ -24,10 +27,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/datenschutz", priority: 0.3 },
   ];
   return paths.flatMap(({ path, priority }) => {
-    const languages = Object.fromEntries(routing.locales.map((l) => [l, `${siteConfig.url}/${l}${path}`]));
+    const languages: Record<string, string> = Object.fromEntries(routing.locales.map((l) => [l, `${siteConfig.url}/${l}${path}`]));
+    languages["x-default"] = `${siteConfig.url}/${siteConfig.xDefaultLocale}${path}`;
     return routing.locales.map((l) => ({
       url: `${siteConfig.url}/${l}${path}`,
-      lastModified: new Date(),
+      lastModified: BUILT,
       changeFrequency: "monthly" as const,
       priority: l === routing.defaultLocale ? priority : priority * 0.9,
       alternates: { languages },

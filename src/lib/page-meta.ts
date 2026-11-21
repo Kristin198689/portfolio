@@ -15,7 +15,7 @@ export function pageMeta(
   const full = `${title} · ${siteConfig.name}`;
   const finalTitle = opts.rawTitle ? title : full.length > 62 ? `${title} · ${siteConfig.shortName}` : full;
   const languages: Record<string, string> = Object.fromEntries(routing.locales.map((l) => [l, `/${l}${path}`]));
-  languages["x-default"] = `/${routing.defaultLocale}${path}`;
+  languages["x-default"] = `/${siteConfig.xDefaultLocale}${path}`;
   const image = `/${locale}/opengraph-image`;
   return {
     title: finalTitle,

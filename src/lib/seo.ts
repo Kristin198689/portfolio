@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site";
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
@@ -16,7 +17,7 @@ export function buildMetadata({
   const languages: Record<string, string> = Object.fromEntries(
     routing.locales.map((l) => [l, `/${l}`]),
   );
-  languages["x-default"] = `/${routing.defaultLocale}`;
+  languages["x-default"] = `/${siteConfig.xDefaultLocale}`;
   return {
     title,
     description,
