@@ -103,7 +103,55 @@
 
   .layer {
     position: static;
+    opacity: 1;
     text-align: start;
     justify-items: start;
   }
+}
+
+/* The flying words stay invisible until the motion layer has taken them over, so on a slow first load
+   they never pile up on top of each other. If the motion layer does not start (or motion is reduced),
+   the section turns into a plain list instead. */
+:global(html.js) .layer,
+:global(html.js) .ring {
+  opacity: 0;
+}
+
+:global(html.reduce-motion) .layer,
+:global(html.motion-failsafe) .layer {
+  opacity: 1;
+}
+
+:global(html.motion-failsafe) .outer {
+  height: auto;
+  padding: calc(var(--header-h) + var(--space-12)) var(--gutter) var(--space-16);
+}
+
+:global(html.motion-failsafe) .sticky {
+  position: static;
+  height: auto;
+  overflow: visible;
+  perspective: none;
+}
+
+:global(html.motion-failsafe) .kicker,
+:global(html.motion-failsafe) .hint {
+  position: static;
+  margin-bottom: var(--space-6);
+}
+
+:global(html.motion-failsafe) .stage {
+  position: static;
+  display: grid;
+  gap: var(--space-8);
+}
+
+:global(html.motion-failsafe) .ring {
+  display: none;
+}
+
+:global(html.motion-failsafe) .layer {
+  position: static;
+  text-align: start;
+  justify-items: start;
 }
