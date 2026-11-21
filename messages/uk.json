@@ -6,6 +6,8 @@
   },
   "nav": {
     "orb": "Компаньйон",
+    "orbSphere": "Куля",
+    "orbDrop": "Крапля",
     "skills": "Навички",
     "projects": "Проєкти",
     "process": "Процес",

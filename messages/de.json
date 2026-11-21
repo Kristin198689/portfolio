@@ -6,6 +6,8 @@
   },
   "nav": {
     "orb": "Begleiter",
+    "orbSphere": "Kugel",
+    "orbDrop": "Tropfen",
     "skills": "Skills",
     "projects": "Projekte",
     "process": "Prozess",

@@ -10,13 +10,24 @@ const Companion = dynamic(() => import("./Companion").then((m) => m.Companion), 
 export function CompanionLazy() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
+    // Wait until the page has finished loading and the hero has painted, then several seconds more:
+    // the pet must never compete with the first screen for the processor.
+    let timer = 0;
+    let idle = 0;
     const start = () => setReady(true);
-    if (typeof window.requestIdleCallback === "function") {
-      const id = window.requestIdleCallback(start, { timeout: 2500 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const t = window.setTimeout(start, 1500);
-    return () => window.clearTimeout(t);
+    const arm = () => {
+      timer = window.setTimeout(() => {
+        if (typeof window.requestIdleCallback === "function") idle = window.requestIdleCallback(start, { timeout: 2000 });
+        else start();
+      }, 5000);
+    };
+    if (document.readyState === "complete") arm();
+    else window.addEventListener("load", arm, { once: true });
+    return () => {
+      window.removeEventListener("load", arm);
+      window.clearTimeout(timer);
+      if (idle) window.cancelIdleCallback(idle);
+    };
   }, []);
   return ready ? <Companion /> : null;
 }

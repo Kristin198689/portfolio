@@ -6,6 +6,8 @@
   },
   "nav": {
     "orb": "Companion",
+    "orbSphere": "Sphere",
+    "orbDrop": "Drop",
     "skills": "Skills",
     "projects": "Projects",
     "process": "Process",

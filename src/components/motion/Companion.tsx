@@ -524,7 +524,9 @@ export function Companion() {
           });
         }
         tint += (tintTarget - tint) * 0.08;
-        alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr: mood === "hunt" ? null : ptr, light, shock, vx: avx, vy: avy, tint, dim: lifeOut?.dim ?? 0, flash: lifeOut?.flash ?? 0, rage: lifeOut?.rage ?? 0 });
+        // on a phone the liquid is redrawn every second frame (30 per second): half the work, the eye cannot tell
+        const everyOther = window.innerWidth < 896 || !fine;
+        if (!(everyOther && time % 2 === 0)) alt({ ctx, size, time, ry, tilt, prog, speed: Math.min(1, Math.abs(dy) / 80), burst, ptr: mood === "hunt" ? null : ptr, light, shock, vx: avx, vy: avy, tint, dim: lifeOut?.dim ?? 0, flash: lifeOut?.flash ?? 0, rage: lifeOut?.rage ?? 0 });
         if (fxCtx) {
           drawBolts(fxCtx, bolts, ax, ay, light);
           if (lifeOut) life.draw(fxCtx, light, tint);

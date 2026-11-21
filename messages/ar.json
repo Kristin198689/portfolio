@@ -6,6 +6,8 @@
   },
   "nav": {
     "orb": "الرفيق",
+    "orbSphere": "كرة",
+    "orbDrop": "قطرة",
     "skills": "المهارات",
     "projects": "المشاريع",
     "process": "المنهج",

@@ -9,7 +9,7 @@ import styles from "./OrbSwitch.module.css";
 // the default is a single round button that cycles through them (header).
 export function OrbSwitch({ row = false }: { row?: boolean }) {
   const t = useTranslations("nav");
-  const [orb, setCurrent] = useState(0);
+  const [orb, setCurrent] = useState(1);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setCurrent(readOrb()));
@@ -24,9 +24,9 @@ export function OrbSwitch({ row = false }: { row?: boolean }) {
     return (
       <div className={styles.row} role="group" aria-label={t("orb")}>
         <span className={styles.label}>{t("orb")}</span>
-        {Array.from({ length: ORB_COUNT }, (_, i) => (
+        {[1, 0].map((i) => (
           <button key={i} type="button" className={styles.pill} aria-pressed={orb === i} onClick={() => setOrb(i)}>
-            {i + 1}
+            {i === 1 ? t("orbDrop") : t("orbSphere")}
           </button>
         ))}
       </div>

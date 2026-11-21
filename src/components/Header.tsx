@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
@@ -38,6 +38,11 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const skipBack = useRef(false); // closing by following a link: the history entry is left alone
+  const closeViaLink = () => {
+    skipBack.current = true;
+    setOpen(false);
+  };
 
   useEffect(() => {
     let frame = 0;
@@ -89,6 +94,24 @@ export function Header() {
     };
   }, [open]);
 
+  // On a phone the Back button should close the open menu, not leave the site. Opening adds one history
+  // entry; Back (or the Close button) removes it again.
+  useEffect(() => {
+    if (!open) return;
+    let own = true;
+    window.history.pushState({ menu: true }, "");
+    skipBack.current = false;
+    const onPop = () => {
+      own = false;
+      setOpen(false);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => {
+      window.removeEventListener("popstate", onPop);
+      if (own && !skipBack.current) window.history.back();
+    };
+  }, [open]);
+
   return (
     <>
       <header
@@ -97,7 +120,7 @@ export function Header() {
         data-hidden={hidden && !open}
         data-scrolled={scrolled && !open}
       >
-        <Link href="/" className={styles.mark} onClick={() => setOpen(false)}>
+        <Link href="/" className={styles.mark} onClick={closeViaLink}>
           {siteConfig.shortName}
         </Link>
         <nav className={styles.nav} aria-label={t("main")}>
@@ -143,7 +166,7 @@ export function Header() {
                   className={styles.menuLink}
                   data-scramble
                   tabIndex={open ? 0 : -1}
-                  onClick={() => setOpen(false)}
+                  onClick={closeViaLink}
                 >
                   {t(l.key)}
                 </Link>
@@ -153,7 +176,7 @@ export function Header() {
         </nav>
         <nav aria-label={t("more")} className={styles.menuFoot}>
           {pages.map((p) => (
-            <Link key={p.key} href={p.href} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
+            <Link key={p.key} href={p.href} tabIndex={open ? 0 : -1} onClick={closeViaLink}>
               {f(p.key)}
             </Link>
           ))}
@@ -164,7 +187,14 @@ export function Header() {
             {siteConfig.email}
           </a>
         </nav>
-        <OrbSwitch row />
+        <div className={styles.menuTools}>
+          <LangSwitcher />
+          <div className={styles.toolRow}>
+            <span>{t("theme")}</span>
+            <ThemeToggle />
+          </div>
+          <OrbSwitch row />
+        </div>
       </div>
     </>
   );

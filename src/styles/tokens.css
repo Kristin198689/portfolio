@@ -80,7 +80,7 @@
   --color-plum: var(--p-plum-900);
   --color-plum-bright: var(--p-plum-500);
   /* Text on the accent. Pale accents need ink, saturated accents need paper. */
-  --color-on-plum: var(--p-paper);
+  --color-on-plum: var(--p-plum-500); /* fixed light: the plum is always dark, whatever the theme */
   --color-on-plum-bright: var(--p-ink);
   --color-danger: #c0182f;
 }
