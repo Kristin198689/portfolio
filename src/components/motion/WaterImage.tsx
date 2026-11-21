@@ -25,10 +25,9 @@ export function WaterImage({ src, alt, cursor }: { src: string; alt: string; cur
         cv,
         (el) => {
           if (!im.naturalWidth) return null;
-          const r = el.getBoundingClientRect();
           const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-          const W = Math.round(r.width * dpr);
-          const H = Math.round(r.height * dpr);
+          const W = Math.round(el.offsetWidth * dpr);
+          const H = Math.round(el.offsetHeight * dpr);
           const tc = document.createElement("canvas");
           tc.width = W;
           tc.height = H;

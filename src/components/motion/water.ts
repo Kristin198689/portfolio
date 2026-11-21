@@ -92,9 +92,12 @@ export function startWater(
   let builtKey = "";
 
   const build = () => {
-    const rect = box.getBoundingClientRect();
-    const key = opts.watchHeight ? `${Math.round(rect.width)}x${Math.round(rect.height)}` : `${Math.round(rect.width)}`;
-    if (rect.width < 10 || key === builtKey) return;
+    // layout size, never the on-screen size: an animation can be scaling this box right now (a title that
+    // shrinks while you scroll), and measuring that would bake a squashed texture
+    const bw = box.offsetWidth;
+    const bh = box.offsetHeight;
+    const key = opts.watchHeight ? `${bw}x${bh}` : `${bw}`;
+    if (bw < 10 || key === builtKey) return;
     const tex = paint(box);
     if (!tex) return;
     builtKey = key;
@@ -103,9 +106,8 @@ export function startWater(
     gl.viewport(0, 0, cv.width, cv.height);
     gl.activeTexture(gl.TEXTURE0);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tex);
-    const css = box.getBoundingClientRect();
-    w = Math.max(8, Math.ceil(css.width / CELL));
-    h = Math.max(8, Math.ceil(css.height / CELL));
+    w = Math.max(8, Math.ceil(box.offsetWidth / CELL));
+    h = Math.max(8, Math.ceil(box.offsetHeight / CELL));
     cur = new Float32Array(w * h);
     prev = new Float32Array(w * h);
     // 128 = flat water. Border cells are never simulated and must stay neutral.
@@ -181,11 +183,14 @@ export function startWater(
   };
 
   const local = (e: PointerEvent) => {
+    // pointer position in the box's own (unscaled) pixels, even while an animation scales the box
     const r = box.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
+    const sx = r.width / (box.offsetWidth || 1) || 1;
+    const sy = r.height / (box.offsetHeight || 1) || 1;
+    const x = (e.clientX - r.left) / sx;
+    const y = (e.clientY - r.top) / sy;
     const pad = 40;
-    return x > -pad && y > -pad && x < r.width + pad && y < r.height + pad ? { x, y } : null;
+    return x > -pad && y > -pad && x < box.offsetWidth + pad && y < box.offsetHeight + pad ? { x, y } : null;
   };
   let lx = -1;
   let ly = -1;
@@ -244,9 +249,9 @@ export function startWater(
   const onDrop = (e: Event) => {
     const d = (e as CustomEvent<{ x: number; y: number; amp: number; r?: number }>).detail;
     const r = box.getBoundingClientRect();
-    const x = d.x - r.left;
-    const y = d.y - r.top;
-    if (x < 0 || y < 0 || x > r.width || y > r.height) return;
+    const x = (d.x - r.left) / (r.width / (box.offsetWidth || 1) || 1);
+    const y = (d.y - r.top) / (r.height / (box.offsetHeight || 1) || 1);
+    if (x < 0 || y < 0 || x > box.offsetWidth || y > box.offsetHeight) return;
     drop(x, y, d.amp, d.r ?? 3);
   };
   window.addEventListener("waterdrop", onDrop);
